@@ -9,6 +9,11 @@ spec:
     chart: wakapi
     repoURL: https://andreymaznyak.github.io/wakapi-helm-chart/
     targetRevision: 1.0.2
+    helm:
+      valuesObject:
+        image:
+          repository: ghcr.io/muety/wakapi
+          tag: '2.10'
   destination:
     server: "https://kubernetes.default.svc"
     namespace: default
