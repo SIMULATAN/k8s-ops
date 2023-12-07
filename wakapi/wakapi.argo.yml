@@ -15,6 +15,14 @@ spec:
           tag: '2.10'
         wakapi_config:
           env: production
+        ingress:
+          enabled: true
+          annotations:
+            traefik.ingress.kubernetes.io/router.entrypoints: websecure
+            traefik.ingress.kubernetes.io/router.tls: true
+          hosts:
+            - host: wakapi.k8s.io
+              paths: []
   destination:
     server: "https://kubernetes.default.svc"
     namespace: default
