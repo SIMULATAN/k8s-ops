@@ -7,12 +7,11 @@ spec:
   project: default
   source:
     chart: wakapi
-    repoURL: https://andreymaznyak.github.io/wakapi-helm-chart/
-    targetRevision: ab692819f86a7d13f26fd280605691a4327e4fc5
+    repoURL: https://simulatan.github.io/wakapi-helm-chart/
+    targetRevision: 1.0.3
     helm:
       valuesObject:
         image:
-          repository: ghcr.io/muety/wakapi
           tag: '2.10'
         wakapi_config:
           env: production
