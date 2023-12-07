@@ -22,7 +22,8 @@ spec:
             traefik.ingress.kubernetes.io/router.tls: 'true'
           hosts:
             - host: wakapi.k8s.io
-              paths: []
+              paths:
+                - '/'
   destination:
     server: "https://kubernetes.default.svc"
     namespace: default
