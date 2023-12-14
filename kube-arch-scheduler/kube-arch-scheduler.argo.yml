@@ -8,7 +8,7 @@ spec:
   source:
     chart: kube-arch-scheduler
     repoURL: https://elementtech.github.io/kube-arch-scheduler/
-    targetRevision: 0.0.8
+    targetRevision: 0.1.1
   destination:
     server: "https://kubernetes.default.svc"
     namespace: default
