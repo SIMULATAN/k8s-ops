@@ -8,8 +8,7 @@ spec:
   source:
     repoURL: 'https://github.com/SIMULATAN/k8s-ops'
     path: cert-manager
-    kustomize:
-      namespace: cert-manager
+    kustomize: {}
     targetRevision: HEAD
   destination:
     server: 'https://kubernetes.default.svc'
