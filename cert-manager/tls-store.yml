@@ -1,0 +1,11 @@
+apiVersion: traefik.io/v1alpha1
+kind: TLSStore
+metadata:
+  name: traefik-cert
+  namespace: kube-system
+spec:
+  certificates:
+    - secretName: ssl-k8s-io
+    - secretName: ssl-simulatan-me
+  defaultCertificate:
+    secretName: ssl-simulatan-me
