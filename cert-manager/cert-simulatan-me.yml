@@ -2,13 +2,12 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: cert-simulatan-me
-  namespace: kube-system
+  namespace: default
 spec:
   secretName: ssl-simulatan-me
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt-staging
-  commonName: "*.simulatan.me"
   dnsNames:
     - "simulatan.me"
     - "*.simulatan.me"
