@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
 - https://github.com/cert-manager/cert-manager/releases/download/v1.13.3/cert-manager.yaml
 - provider-letsencrypt-staging.yml
+- provider-letsencrypt-prod.yml
 - cert-simulatan-me.yml
 - tls-store.yml
