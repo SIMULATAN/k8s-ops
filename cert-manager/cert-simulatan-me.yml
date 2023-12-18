@@ -7,7 +7,7 @@ spec:
   secretName: ssl-simulatan-me
   issuerRef:
     kind: ClusterIssuer
-    name: letsencrypt-staging
+    name: letsencrypt-prod
   dnsNames:
     - "simulatan.me"
     - "*.simulatan.me"
