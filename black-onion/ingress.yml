@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: website
+  namespace: blackonion
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: website
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: website
+  namespace: blackonion
+spec:
+  entryPoints:
+    - websecure
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`black-onion.com`) || Host(`www.black-onion.com`)
+      services:
+        - name: website
+          port: 80
+  tls:
+    secretName: ssl-black-onion-com

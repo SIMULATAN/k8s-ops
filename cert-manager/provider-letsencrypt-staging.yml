@@ -14,3 +14,18 @@ spec:
             apiTokenSecretRef:
               name: cloudflare-token-secret
               key: cloudflare-token
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging-http
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: simulatan@proton.me
+    privateKeySecretRef:
+      name: letsencrypt-staging
+    solvers:
+    - http01:
+        ingress:
+          ingressClassName: traefik
