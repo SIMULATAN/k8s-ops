@@ -5,82 +5,11 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  sources:
-    #- repoURL: https://github.com/SIMULATAN/k8s-ops
-    #  path: auth/authelia
-    #  directory:
-    #    exclude: '{*.argo.yml,values.yaml}'
-    #  targetRevision: HEAD
-    #    ref: mainRepo
-    - chart: redis
-      repoURL: https://charts.bitnami.com/bitnami
-      # targetRevision: 18.6.3
-      targetRevision: 18.8.2
-      helm:
-        valuesObject:
-          useHostnames: false
-          auth:
-            enabled: false
-            sentinel: false
-          persistence:
-            enabled: true
-          sentinel:
-            enabled: true
-            masterSet: sentinel
-            livenessProbe:
-              timeoutSeconds: 20
-          master:
-            persistence:
-              size: 1Gi
-          replica:
-            replicaCount: 3
-            persistence:
-              size: 1Gi
-    - chart: authelia
-      repoURL: https://charts.authelia.com
-      targetRevision: 0.8.58
-      helm:
-        #valueFiles:
-        #  - $mainRepo/auth/authelia/values.yaml
-        valuesObject:
-          domain: auth.simulatan.me
-          pod:
-            probes:
-              startup:
-                initialDelaySeconds: 20
-          ingress:
-            enabled: true
-            traefikCrd:
-              enabled: true
-              entryPoints: websecure
-          configMap:
-            log:
-              level: debug
-            storage:
-              postgres:
-                host: postgres-cluster.auth.svc.cluster.local
-                tls:
-                  enabled: true
-                  skip_verify: true
-            session:
-              redis:
-                enabled: true
-                enabledSecret: false
-                host: authelia-redis.auth.svc.cluster.local
-                port: 26379
-              high_availability:
-                enabled: true
-                enabledSecret: false
-
-                sentinel_name: mymaster # the default bitnami name
-                nodes:
-                  - host: redis-node-0.authelia-redis.auth.svc.cluster.local # default node names with my namespace
-                    port: 26379
-                  - host: redis-node-1.authelia-redis.auth.svc.cluster.local
-                    port: 26379
-                  - host: redis-node-2.authelia-redis.auth.svc.cluster.local
-                    port: 26379
-
+  source:
+    repoURL: https://github.com/SIMULATAN/k8s-ops
+    path: auth/authelia
+    kustomize: {}
+    targetRevision: HEAD
   destination:
     server: "https://kubernetes.default.svc"
     namespace: auth

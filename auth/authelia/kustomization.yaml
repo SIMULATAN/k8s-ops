@@ -1,0 +1,29 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: auth
+
+resources:
+- ./postgres-cluster.yml
+
+helmCharts:
+- name: redis
+  repo: https://charts.bitnami.com/bitnami
+  version: 18.8.2
+  releaseName: authelia-redis
+  valuesFile: redis.yml
+- name: authelia
+  repo: https://charts.authelia.com
+  version: 0.8.58
+  valuesFile: authelia.yml
+  releaseName: authelia
+
+patches:
+  - path: authelia-storage-password-patch.yml
+    target:
+      kind: DaemonSet
+      labelSelector: app.kubernetes.io/name=authelia
+  - path: authelia-storage-password-volume-patch.yml
+    target:
+      kind: DaemonSet
+      labelSelector: app.kubernetes.io/name=authelia

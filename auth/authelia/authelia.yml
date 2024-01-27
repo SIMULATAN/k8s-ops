@@ -1,0 +1,42 @@
+ingress:
+  subdomain: auth
+domain: simulatan.me
+pod:
+  probes:
+    startup:
+      initialDelaySeconds: 20
+ingress:
+  enabled: true
+  traefikCRD:
+    enabled: true
+    entryPoints:
+      - websecure
+secret:
+  existingSecret: authelia
+configMap:
+  log:
+    level: debug
+  storage:
+    postgres:
+      host: postgres-cluster.auth.svc.cluster.local
+      tls:
+        enabled: true
+        skip_verify: true
+  session:
+    redis:
+      enabled: true
+      enabledSecret: false
+      host: authelia-redis.auth.svc.cluster.local
+      port: 26379
+    high_availability:
+      enabled: true
+      enabledSecret: false
+
+      sentinel_name: mymaster # the default bitnami name
+      nodes:
+        - host: redis-node-0.authelia-redis.auth.svc.cluster.local # default node names with my namespace
+          port: 26379
+        - host: redis-node-1.authelia-redis.auth.svc.cluster.local
+          port: 26379
+        - host: redis-node-2.authelia-redis.auth.svc.cluster.local
+          port: 26379

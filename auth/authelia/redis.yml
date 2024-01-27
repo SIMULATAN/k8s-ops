@@ -1,0 +1,19 @@
+namespaceOverride: auth
+useHostnames: false
+auth:
+  enabled: false
+  sentinel: false
+persistence:
+  enabled: true
+sentinel:
+  enabled: true
+  masterSet: sentinel
+  livenessProbe:
+    timeoutSeconds: 20
+master:
+  persistence:
+    size: 1Gi
+replica:
+  replicaCount: 3
+  persistence:
+    size: 1Gi
