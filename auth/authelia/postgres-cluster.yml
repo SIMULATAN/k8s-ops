@@ -1,0 +1,18 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: postgres-cluster
+  namespace: auth
+spec:
+  teamId: auth
+  volume:
+    size: 200Mi
+  numberOfInstances: 2
+  users:
+    authelia:
+    - superuser
+    - createdb
+  databases:
+    authelia: authelia
+  postgresql:
+    version: "15"
