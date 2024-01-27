@@ -6,3 +6,41 @@ namespace: argocd
 resources:
 - github.com/argoproj/argo-cd/manifests/ha/cluster-install?ref=v2.9.5
 - ingress.yml
+
+patches:
+  - patch: |-
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: argocd-cm
+      data:
+        application.instanceLabelKey: argocd.argoproj.io/instance
+        kustomize.buildOptions: --enable-helm
+  - patch: |-
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: argocd-cmd-params-cm
+      data:
+        server.insecure: "true"
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: argocd-server
+      spec:
+        replicas: 2
+  - patch: |-
+      apiVersion: apps/v1
+      kind: StatefulSet
+      metadata:
+        name: argocd-redis-ha-server
+      spec:
+        replicas: 2
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: argocd-redis-ha-haproxy
+      spec:
+        replicas: 2
