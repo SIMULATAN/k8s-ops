@@ -14,6 +14,32 @@ ingress:
 secret:
   existingSecret: authelia
 configMap:
+  authentication_backend:
+    password_reset:
+      # TODO: remove once LDAP is in place
+      disable: true
+    file:
+      enabled: false
+    ldap:
+      url: ldaps://openldap.auth.svc.cluster.local:636
+      username_attribute: uid
+      display_name_attribute: displayName
+      mail_attribute: mail
+      additional_users_dn: OU=users
+      users_filter:
+        - (&({username_attribute}={input})(objectClass=person))
+        - (&({username_attribute}={input})(objectClass=inetOrgPerson))
+        - (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
+      groups_filter: (&(member={dn})(objectClass=groupOfNames))
+      user: UID=authelia,OU=service,DC=simulatan,DC=me
+      tls:
+        skip_verify: true
+  notifier:
+    smtp:
+      enabled: false
+  identity_providers:
+    oidc:
+      enabled: true
   log:
     level: debug
   storage:
