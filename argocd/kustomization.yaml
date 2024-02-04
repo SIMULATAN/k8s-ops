@@ -5,6 +5,7 @@ namespace: argocd
 
 resources:
 - github.com/argoproj/argo-cd/manifests/ha/cluster-install?ref=v2.9.5
+- argocd-oidc.yml
 - ingress.yml
 
 patches:
@@ -16,6 +17,27 @@ patches:
       data:
         application.instanceLabelKey: argocd.argoproj.io/instance
         kustomize.buildOptions: --enable-helm
+        url: https://argocd.simulatan.me
+        admin.enabled: "false"
+        oidc.config: |
+          name: Authelia
+          issuer: https://auth.simulatan.me
+          clientID: argocd
+          clientSecret: $argocd-oidc:oidc.authelia.clientSecret
+          cliClientID: argocd-cli
+          requestedScopes:
+            - openid
+            - profile
+            - email
+            - groups
+  - patch: |-
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: argocd-rbac-cm
+      data:
+        policy.csv: |
+          g, argocd-admin, role:admin
   - patch: |-
       apiVersion: v1
       kind: ConfigMap
