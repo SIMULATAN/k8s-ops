@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/SIMULATAN/k8s-ops
     path: argocd
-    kustomize: {}
+      #kustomize: {}
     targetRevision: HEAD
   destination:
     server: "https://kubernetes.default.svc"
