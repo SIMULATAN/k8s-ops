@@ -5,6 +5,8 @@ namespace: auth
 
 resources:
 - ./postgres-cluster.yml
+- ./authelia-secret.yml
+- ./authelia-oidc-secrets.yml
 
 helmCharts:
 - name: redis
@@ -16,7 +18,10 @@ helmCharts:
   repo: https://charts.authelia.com
   version: 0.8.58
   valuesFile: authelia.yml
+  additionalValuesFiles:
+    - clients/argocd.yml
   releaseName: authelia
+  namespace: auth
 
 patches:
   - path: authelia-storage-password-patch.yml
@@ -24,6 +29,14 @@ patches:
       kind: DaemonSet
       labelSelector: app.kubernetes.io/name=authelia
   - path: authelia-storage-password-volume-patch.yml
+    target:
+      kind: DaemonSet
+      labelSelector: app.kubernetes.io/name=authelia
+  - path: authelia-file-filter-patch.yml
+    target:
+      kind: DaemonSet
+      labelSelector: app.kubernetes.io/name=authelia
+  - path: authelia-oidc-secrets-mount-patch.yml
     target:
       kind: DaemonSet
       labelSelector: app.kubernetes.io/name=authelia

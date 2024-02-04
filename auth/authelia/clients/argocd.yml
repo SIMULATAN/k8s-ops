@@ -1,0 +1,31 @@
+configMap:
+  identity_providers:
+    oidc:
+      clients:
+      - id: argocd
+        description: Argo CD
+        secret: ${CLIENT_SECRET_ARGOCD}
+        public: false
+        pre_configured_consent_duration: 69y
+        authorization_policy: two_factor
+        redirect_uris:
+          - https://argocd.simulatan.me/auth/callback
+        scopes:
+          - openid
+          - groups
+          - email
+          - profile
+        userinfo_signing_algorithm: none
+      - id: argocd-cli
+        description: Argo CD (CLI)
+        public: true
+        authorization_policy: two_factor
+        redirect_uris:
+          - http://localhost:8085/auth/callback
+        scopes:
+          - openid
+          - groups
+          - email
+          - profile
+          - offline_access
+        userinfo_signing_algorithm: none

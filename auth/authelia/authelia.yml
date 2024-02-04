@@ -1,5 +1,5 @@
-ingress:
-  subdomain: auth
+image:
+  tag: v4.38.0-beta3
 domain: simulatan.me
 pod:
   probes:
@@ -7,13 +7,20 @@ pod:
       initialDelaySeconds: 20
 ingress:
   enabled: true
+  tls:
+    enabled: false
   traefikCRD:
     enabled: true
+    sticky: true
     entryPoints:
       - websecure
+    middleware:
+      name:
+        chainIngress: headers-authelia
 secret:
   existingSecret: authelia
 configMap:
+  theme: dark
   authentication_backend:
     password_reset:
       # TODO: remove once LDAP is in place
@@ -26,20 +33,39 @@ configMap:
       display_name_attribute: displayName
       mail_attribute: mail
       additional_users_dn: OU=users
-      users_filter:
-        - (&({username_attribute}={input})(objectClass=person))
-        - (&({username_attribute}={input})(objectClass=inetOrgPerson))
-        - (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
+      base_dn: DC=simulatan,DC=me
+      users_filter: (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
       groups_filter: (&(member={dn})(objectClass=groupOfNames))
       user: UID=authelia,OU=service,DC=simulatan,DC=me
       tls:
         skip_verify: true
-  notifier:
-    smtp:
-      enabled: false
   identity_providers:
     oidc:
       enabled: true
+  notifier:
+    smtp:
+      enabledSecret: true
+      host: live.smtp.mailtrap.io
+      port: 587
+      timeout: 10s
+      sender: SIMs Authelia <authelia@smtp.simulatan.me>
+      username: api
+      ## HELO/EHLO Identifier. Some SMTP Servers may reject the default of localhost.
+      identifier: localhost
+      ## Subject configuration of the emails sent.
+      ## {title} is replaced by the text from the notifier
+      subject: "[Auth] {title}"
+      ## This address is used during the startup check to verify the email configuration is correct.
+      ## It's not important what it is except if your email server only allows local delivery.
+      startup_check_address: test@authelia.com
+      disable_html_emails: false
+      disable_require_tls: false
+      disable_starttls: false
+
+      tls:
+        skip_verify: false
+        minimum_version: TLS1.2
+        maximum_version: TLS1.3
   log:
     level: debug
   storage:
@@ -54,15 +80,14 @@ configMap:
       enabledSecret: false
       host: authelia-redis.auth.svc.cluster.local
       port: 26379
-    high_availability:
-      enabled: true
-      enabledSecret: false
-
-      sentinel_name: mymaster # the default bitnami name
-      nodes:
-        - host: redis-node-0.authelia-redis.auth.svc.cluster.local # default node names with my namespace
-          port: 26379
-        - host: redis-node-1.authelia-redis.auth.svc.cluster.local
-          port: 26379
-        - host: redis-node-2.authelia-redis.auth.svc.cluster.local
-          port: 26379
+      high_availability:
+        enabled: true
+        enabledSecret: false
+        sentinel_name: mymaster # the default bitnami name
+        nodes:
+          - host: redis-node-0.authelia-redis-headless.auth.svc.cluster.local # default node names with my namespace
+            port: 26379
+          - host: redis-node-1.authelia-redis-headless.auth.svc.cluster.local
+            port: 26379
+          - host: redis-node-2.authelia-redis-headless.auth.svc.cluster.local
+            port: 26379

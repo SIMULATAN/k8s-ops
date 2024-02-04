@@ -7,7 +7,6 @@ persistence:
   enabled: true
 sentinel:
   enabled: true
-  masterSet: sentinel
   livenessProbe:
     timeoutSeconds: 20
 master:
