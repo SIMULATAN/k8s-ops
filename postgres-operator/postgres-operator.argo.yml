@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: postgres-operator
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - chart: postgres-operator
+      repoURL: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
+      targetRevision: 1.10.0
+      helm:
+        valuesObject:
+          configKubernetes:
+            cluster_name_label: pg-operator-cluster
+            infrastructure_roles_secret_name: postgres-infrastructure-roles
+          configLoadBalaner:
+            db_hosted_zone: db.simulatan.me
+
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: kube-system
+
