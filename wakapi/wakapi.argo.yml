@@ -6,24 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    chart: wakapi
-    repoURL: https://simulatan.github.io/wakapi-helm-chart/
-    targetRevision: 1.0.8
-    helm:
-      valuesObject:
-        image:
-          tag: '2.10'
-        wakapi_config:
-          env: production
-        ingress:
-          enabled: true
-          annotations:
-            traefik.ingress.kubernetes.io/router.entrypoints: websecure
-            traefik.ingress.kubernetes.io/router.tls: 'true'
-          hosts:
-            - host: wakapi.simulatan.me
-              paths:
-                - '/'
+    repoURL: https://github.com/SIMULATAN/k8s-ops
+    path: wakapi
+    targetRevision: HEAD
   destination:
     server: "https://kubernetes.default.svc"
     namespace: default
