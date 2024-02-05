@@ -1,7 +1,3 @@
-image:
-  repository: ghcr.io/simulatan/wakapi
-  tag: '2161c88'
-
 persistence:
   enabled: false
 
@@ -17,6 +13,18 @@ wakapi_config:
     password_secret:
       enabled: true
       name: wakapi.wakapi-postgres-cluster.credentials.postgresql.acid.zalan.do
+  mail:
+    enabled: true
+    sender: Wakapi <wakapi@smtp.simulatan.me>
+    smtp:
+      host: live.smtp.mailtrap.io
+      port: 587
+      # STARTTLS is used instead which requires you to set this to false..
+      tls: false
+      username: api
+      password_secret:
+        enabled: true
+        name: wakapi-smtp
 
 ingress:
   enabled: true

@@ -1,0 +1,12 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: wakapi-smtp
+  namespace: wakapi
+spec:
+  encryptedData:
+    password: AgCO8fFAAu+bT4hxQepJ3Die6IiYMW7xomKYt82dQuCLNcFs7BKSxD+eC9cDSfsWZvYbAtQmSax4pejMueWRPIecFmby6OFIHHyKN6mEUzmtu/Gfvxpo/thJMtBN5gJN+bOQQ5EpL/9wjSlLTVmKukl6pSDDJyAB3kLyuObPOJKke4iAhdtu6Wnx23w1++Yz57bbxGEiITcJ+GgWU6qratkuFGDf33jdfhbSrqdFtS03YN4lGxq6ozKNghazGCbNhgFpRMcVyrj62xiNtCzgcz1fKnOA7wNxmxI/gGI8hQIvDQaag8hpS2TC8ZbgXJiVAeYprwV1DIjWaqFNE5Omnsc7s1+Ssuh2J4VupMWi4kq5kyg9kIT4DDLCRP4kaQTCGb4aXkb91chV5/CYgf67rR3zboBsIalKa665zPo0ntQ22G1lTFtKRDiuZw5OpQI3DbBcRHX5h8/EkNz8dKgyHoLuWjW0ZS+58sF9b7nWD0micIMzWYrUQcmnnurIbh6FqNB1VZxkHkLUL2ip5UnQIIYgAhf5zLYK3/1ki2ECeIRwnwYw2PgiVy+iKQOA1NJfoWY9C21VpTE7CuDfeDS/rrxFx4FfEj5nbPT183PKTfSS6/92sUkEUTNiRFY8MGyeKkl4PP8aL+Ev7C1wVECjjkYmEzF+dHzT8S95l0kUvZqeBkTpqmw9g1JLzHJHH+1KYix3SQd1vCyT9cnZD4Dez/rdAU3lLhqkrCdq35+IMpP18g==
+  template:
+    metadata:
+      name: wakapi-smtp
+      namespace: wakapi
