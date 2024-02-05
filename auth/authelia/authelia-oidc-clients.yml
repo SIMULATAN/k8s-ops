@@ -29,3 +29,17 @@ configMap:
           - profile
           - offline_access
         userinfo_signing_algorithm: none
+      - id: contestsubmission
+        description: ContestSubmission
+        secret: ${CLIENT_SECRET_CONTESTSUBMISSION}
+        public: false
+        pre_configured_consent_duration: 69y
+        authorization_policy: one_factor
+        redirect_uris:
+          - https://auth.contestsubmission.simulatan.me/callback
+        scopes:
+          - openid
+          - groups
+          - email
+          - profile
+        userinfo_signing_algorithm: none

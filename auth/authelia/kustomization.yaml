@@ -19,8 +19,7 @@ helmCharts:
   version: 0.8.58
   valuesFile: authelia.yml
   additionalValuesFiles:
-    - clients/argocd.yml
-    - clients/contestsubmission.yml
+    - authelia-oidc-clients.yml
   releaseName: authelia
   namespace: auth
 
