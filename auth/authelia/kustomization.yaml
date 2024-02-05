@@ -20,6 +20,7 @@ helmCharts:
   valuesFile: authelia.yml
   additionalValuesFiles:
     - clients/argocd.yml
+    - clients/contestsubmission.yml
   releaseName: authelia
   namespace: auth
 
