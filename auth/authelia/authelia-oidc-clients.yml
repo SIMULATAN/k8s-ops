@@ -49,7 +49,7 @@ configMap:
         public: false
         authorization_policy: two_factor
         redirect_uris:
-          - https://s3.simulatan.me/apps/oidc_login/oidc
+          - https://s3.simulatan.me/oauth_callback
         scopes:
           - openid
           - profile
