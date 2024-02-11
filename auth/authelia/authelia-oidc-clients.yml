@@ -51,7 +51,7 @@ configMap:
         pre_configured_consent_duration: 69y
         authorization_policy: two_factor
         redirect_uris:
-          - https://s3.simulatan.me/oauth_callback
+          - https://s3.simulatan.me/minio/ui/oauth_callback
         scopes:
           - openid
           - profile
