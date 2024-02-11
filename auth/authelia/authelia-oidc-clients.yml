@@ -43,3 +43,16 @@ configMap:
           - email
           - profile
         userinfo_signing_algorithm: none
+      - id: minio
+        description: MinIO
+        secret: ${CLIENT_SECRET_MINIO}
+        public: false
+        authorization_policy: two_factor
+        redirect_uris:
+          - https://s3.simulatan.me/apps/oidc_login/oidc
+        scopes:
+          - openid
+          - profile
+          - email
+          - groups
+        userinfo_signing_algorithm: none
