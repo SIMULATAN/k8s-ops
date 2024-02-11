@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: minio
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: minio
+    repoURL: https://charts.bitnami.com/bitnami
+    targetRevision: 13.4.5
+    helm:
+      valuesObject:
+        extraEnvVars:
+          - name: MINIO_BROWSER_REDIRECT_URL
+            value: https://s3.simulatan.me/minio/ui/
+        extraDeploy:
+          - apiVersion: traefik.io/v1alpha1
+            kind: Middleware
+            metadata:
+              name: strip-minio-prefix
+            spec:
+              stripPrefix:
+                prefixes:
+                  - /minio/ui/
+        auth:
+          forcePassword: true
+          existingSecret: minio-root-user
+        mode: distributed
+        statefulset:
+          replicaCount: 4
+        ingress:
+          enabled: true
+          ingressClassName: traefik
+          hostname: s3.simulatan.me
+          path: /minio/ui
+          annotations:
+            # NOTE: once the namespace is changed, the `default` prefix has to be replaced with the actual name
+            # see https://community.traefik.io/t/how-to-configure-middleware-with-kubernetes-ingress-middleware-xyz-does-not-exist/5016/3
+            traefik.ingress.kubernetes.io/router.middlewares: default-strip-minio-prefix@kubernetescrd
+        apiIngress:
+          enabled: true
+          ingressClassName: traefik
+          hostname: s3.simulatan.me
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: default
+
