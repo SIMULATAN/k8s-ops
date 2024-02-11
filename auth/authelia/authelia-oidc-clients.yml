@@ -19,6 +19,7 @@ configMap:
       - id: argocd-cli
         description: Argo CD (CLI)
         public: true
+        pre_configured_consent_duration: 69y
         authorization_policy: two_factor
         redirect_uris:
           - http://localhost:8085/auth/callback
@@ -47,6 +48,7 @@ configMap:
         description: MinIO
         secret: ${CLIENT_SECRET_MINIO}
         public: false
+        pre_configured_consent_duration: 69y
         authorization_policy: two_factor
         redirect_uris:
           - https://s3.simulatan.me/oauth_callback
