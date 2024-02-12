@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: forgejo
+
+resources:
+- ./postgres-cluster.yml
+- ./forgejo-s3-secret.yml
+
+helmCharts:
+- name: forgejo
+  repo: oci://code.forgejo.org/forgejo-contrib
+  version: 3.0.0
+  valuesFile: forgejo.values.yml
+  releaseName: forgejo
+  namespace: forgejo

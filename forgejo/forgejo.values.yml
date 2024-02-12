@@ -1,0 +1,51 @@
+adminUsername: admin
+
+appName: SIMULATAN's git
+
+gitea:
+  additionalConfigSources:
+    - secret:
+        secretName: forgejo-s3-secret
+  additionalConfigFromEnvs:
+    - name: FORGEJO__DATABASE__PASSWD
+      valueFrom:
+        secretKeyRef:
+          name: forgejo.forgejo-postgres-cluster.credentials.postgresql.acid.zalan.do
+          key: password
+  config:
+    storage:
+      STORAGE_TYPE: minio
+      MINIO_ENDPOINT: s3.simulatan.me
+      MINIO_LOCATION: eu-frankfurt-1
+      MINIO_BUCKET: forgejo
+      MINIO_USE_SSL: true
+    database:
+      DB_TYPE: postgres
+      HOST: forgejo-postgres-cluster
+      NAME: forgejo
+      USER: forgejo
+      SCHEMA: public
+      SSL_MODE: require
+
+redis-cluster:
+  cluster:
+    nodes: 6
+    replicas: 1
+
+postgresql:
+  enabled: false
+postgresql-ha:
+  enabled: false
+
+ingress:
+  apiVersion: networking.k8s.io/v1
+  enabled: true
+  className: traefik
+  hosts:
+    - host: git.simulatan.me
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - hosts:
+        - git.simulatan.me
