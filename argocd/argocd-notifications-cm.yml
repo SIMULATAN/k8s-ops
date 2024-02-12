@@ -7,6 +7,15 @@ data:
   context: |
     argocdUrl: https://argocd.simulatan.me
 
+  # default subscriptions
+  subscriptions: |
+    - recipients:
+      - discord-webhook
+      # only apply to k8s-ops projects, others have different services
+      selector: argocd.argoproj.io/instance=k8s-ops
+      triggers:
+      - sync-operation-change
+
   service.github: |
     appID: "652832"
     installationID: "44413271"
@@ -38,6 +47,7 @@ data:
         method: POST
         body: |
           {
+            "avatar_url": "https://argocd.simulatan.me/assets/images/logo.png",
             "embeds": [{
               "title": "{{.app.metadata.name}}",
               "url": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
@@ -50,6 +60,26 @@ data:
                 "name": "Repository",
                 "value": "{{.app.spec.source.repoURL}}",
                 "inline": false
+              },
+              {
+                "name": "Commit SHA",
+                "value": "{{.app.status.sync.revision}}",
+                "inline": true
+              },
+              {
+                "name": "Commit Author",
+                "value": "{{(call .repo.GetCommitMetadata .app.status.sync.revision).Author}}",
+                "inline": true
+              },
+              {
+                "name": "Commit Date",
+                "value": "{{(call .repo.GetCommitMetadata .app.status.sync.revision).Date}}",
+                "inline": true
+              },
+              {
+                "name": "Commit Message",
+                "value": "{{(call .repo.GetCommitMetadata .app.status.sync.revision).Message}}",
+                "inline": true
               }]
             }]
           }
