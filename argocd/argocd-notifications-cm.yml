@@ -4,6 +4,9 @@ metadata:
   name: argocd-notifications-cm
   namespace: argocd
 data:
+  context: |
+    argocdUrl: https://argocd.simulatan.me
+
   service.github: |
     appID: "652832"
     installationID: "44413271"
@@ -35,18 +38,18 @@ data:
         method: POST
         body: |
           {
-            "attachments": [{
+            "embeds": [{
               "title": "{{.app.metadata.name}}",
-              "title_link": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
-              "color": "#18be52",
+              "url": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+              "color": 1621586,
               "fields": [{
-                "title": "Sync Status",
+                "name": "Sync Status",
                 "value": "{{.app.status.sync.status}}",
-                "short": true
+                "inline": false
               }, {
-                "title": "Repository",
+                "name": "Repository",
                 "value": "{{.app.spec.source.repoURL}}",
-                "short": true
+                "inline": false
               }]
             }]
           }
