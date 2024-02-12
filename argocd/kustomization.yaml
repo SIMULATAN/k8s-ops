@@ -6,11 +6,20 @@ namespace: argocd
 resources:
 - github.com/argoproj/argo-cd/manifests/ha/cluster-install?ref=v2.9.5
 - argocd-oidc.yml
-- argocd-notifications-cm.yml
 - argocd-notifications-secret.yml
 - ingress.yml
 
 patches:
+  - path: argocd-notifications-cm.yml
+    target:
+      kind: ConfigMap
+      name: argocd-notifications-cm
+  - patch: |-
+      $patch: delete
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: argocd-notifications-secret
   - patch: |-
       apiVersion: v1
       kind: ConfigMap
