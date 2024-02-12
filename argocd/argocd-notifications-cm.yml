@@ -63,7 +63,7 @@ data:
               },
               {
                 "name": "Commit SHA",
-                "value": "{{.app.status.sync.revision}}",
+                "value": "[{{.app.status.sync.revision | trunc 5}}]({{.app.spec.source.repoURL}}/commit/{{.app.status.sync.revision}})",
                 "inline": true
               },
               {
