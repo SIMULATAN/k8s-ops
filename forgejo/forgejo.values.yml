@@ -12,8 +12,36 @@ gitea:
         secretKeyRef:
           name: forgejo.forgejo-postgres-cluster.credentials.postgresql.acid.zalan.do
           key: password
+  admin:
+    existingSecret:
+    username:
+    password:
   config:
     storage:
+      STORAGE_TYPE: minio
+      MINIO_ENDPOINT: s3.simulatan.me
+      MINIO_LOCATION: eu-frankfurt-1
+      MINIO_BUCKET: forgejo
+      MINIO_USE_SSL: true
+    attachment:
+      STORAGE_TYPE: minio
+      MINIO_ENDPOINT: s3.simulatan.me
+      MINIO_LOCATION: eu-frankfurt-1
+      MINIO_BUCKET: forgejo
+      MINIO_USE_SSL: true
+    lfs:
+      STORAGE_TYPE: minio
+      MINIO_ENDPOINT: s3.simulatan.me
+      MINIO_LOCATION: eu-frankfurt-1
+      MINIO_BUCKET: forgejo
+      MINIO_USE_SSL: true
+    picture:
+      AVATAR_STORAGE_TYPE: minio
+      MINIO_ENDPOINT: s3.simulatan.me
+      MINIO_LOCATION: eu-frankfurt-1
+      MINIO_BUCKET: forgejo
+      MINIO_USE_SSL: true
+    'storage.packages':
       STORAGE_TYPE: minio
       MINIO_ENDPOINT: s3.simulatan.me
       MINIO_LOCATION: eu-frankfurt-1
@@ -26,6 +54,26 @@ gitea:
       USER: forgejo
       SCHEMA: public
       SSL_MODE: require
+    openid:
+      ENABLE_OPENID_SIGNUP: true
+      ENABLE_OPENID_SIGNIN: false
+      WHITELISTED_URIS: auth.simulatan.me
+    oauth2_client:
+      USERNAME: nickname
+      UPDATE_AVATAR: true
+    service:
+      ALLOW_ONLY_EXTERNAL_REGISTRATION: false
+      SHOW_REGISTRATION_BUTTON: false
+  oauth:
+    - name: Authelia
+      iconUrl: https://auth.simulatan.me/favicon.ico
+      provider: openidConnect
+      autoDiscoverUrl: https://auth.simulatan.me/.well-known/openid-configuration
+      scopes: groups email profile
+      groupClaimName: groups
+      # TODO: replace with `forgejo-admin` once the group is created in LDAP
+      adminGroup: minio-admin
+      existingSecret: forgejo-sso-secret
 
 redis-cluster:
   cluster:

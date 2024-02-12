@@ -6,6 +6,7 @@ namespace: forgejo
 resources:
 - ./postgres-cluster.yml
 - ./forgejo-s3-secret.yml
+- ./forgejo-sso-secret.yml
 
 helmCharts:
 - name: forgejo
