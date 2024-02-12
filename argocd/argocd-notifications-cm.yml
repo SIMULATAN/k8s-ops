@@ -49,7 +49,7 @@ data:
           {
             "avatar_url": "https://argocd.simulatan.me/assets/images/logo.png",
             "embeds": [{
-              "title": "{{.app.metadata.name}}",
+              "title": "{{.app.status.sync.status}}: {{.app.metadata.name}}",
               "url": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
               "color": 1621586,
               "fields": [{
