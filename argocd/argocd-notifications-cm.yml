@@ -14,6 +14,9 @@ data:
     privateKey: $github-privateKey
   service.webhook.discord-webhook: |
     url: https://discord.com/api/webhooks/$discord-webhook-id/$discord-webhook-token
+    headers:
+    - name: Content-Type
+      value: application/json
 
   trigger.sync-operation-change: |
     - when: app.status.operationState.phase in ['Succeeded']
