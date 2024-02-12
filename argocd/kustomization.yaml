@@ -6,6 +6,8 @@ namespace: argocd
 resources:
 - github.com/argoproj/argo-cd/manifests/ha/cluster-install?ref=v2.9.5
 - argocd-oidc.yml
+- argocd-notifications-cm.yml
+- argocd-notifications-secret.yml
 - ingress.yml
 
 patches:

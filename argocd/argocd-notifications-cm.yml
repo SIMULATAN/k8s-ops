@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-notifications-cm
+  namespace: argocd
+data:
+  service.github: |
+    appID: "652832"
+    installationID: "44413271"
+    privateKey: $github-privateKey
+  service.github.contestsubmission: |
+    appID: "652832"
+    installationID: "47219356"
+    privateKey: $github-privateKey
+  service.webhook.discord-webhook: |
+    url: https://discord.com/api/webhooks/$discord-webhook-id/$discord-webhook-token
+
+  trigger.sync-operation-change: |
+    - when: app.status.operationState.phase in ['Succeeded']
+      oncePer: app.status.operationState.syncResult.revision
+      send: [discord-webhook, github-app-deployed]
+    - when: app.status.operationState.phase in ['Running']
+      oncePer: app.status.operationState.syncResult.revision
+      send: [discord-webhook]
+    - when: app.status.operationState.phase in ['Error', 'Failed']
+      oncePer: app.status.operationState.syncResult.revision
+      send: [discord-webhook]
+
+  template.discord-webhook: |
+    webhook:
+      discord-webhook:
+        method: POST
+        body: |
+          {
+            "attachments": [{
+              "title": "{{.app.metadata.name}}",
+              "title_link": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+              "color": "#18be52",
+              "fields": [{
+                "title": "Sync Status",
+                "value": "{{.app.status.sync.status}}",
+                "short": true
+              }, {
+                "title": "Repository",
+                "value": "{{.app.spec.source.repoURL}}",
+                "short": true
+              }]
+            }]
+          }
+  template.github-app-deployed: |
+    message: |
+      Application {{.app.metadata.name}} was updated.
+    github:
+      repoURLPath: "{{.app.spec.source.repoURL}}"
+      revisionPath: "{{.app.status.operationState.syncResult.revision}}"
+      status:
+        state: success
+        label: "continuous-delivery/{{.app.metadata.name}}"
+        targetURL: "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true"
+      deployment:
+        state: success
+        environment: production
+        environmentURL: "https://{{.app.metadata.name}}.simulatan.me"
+        logURL: "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true"
+        requiredContexts: []
+        autoMerge: true
+      pullRequestComment:
+        content: |
+          Application {{.app.metadata.name}} is now running new version of deployments manifests.
+          See more here: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true
+
+
