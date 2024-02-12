@@ -5,6 +5,7 @@ metadata:
   namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.sync-operation-change.github: ""
+    notifications.argoproj.io/subscribe.sync-operation-change.discord-webhook: ""
 spec:
   project: default
   source:
