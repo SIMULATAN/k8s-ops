@@ -51,12 +51,18 @@ data:
             "embeds": [{
               "title": "{{.app.status.sync.status}}: {{.app.metadata.name}}",
               "url": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
-              "color": 1621586,
+              "color": {{ if eq .app.status.operationState.phase "Succeeded" }} 1621586 {{ else if eq .app.status.operationState.phase "Running" }} 896490 {{ else if has .app.status.operationState.phase (list "Error" "Failed") }} 16039984 {{ end }},
               "fields": [{
-                "name": "Sync Status",
+                "name": "Operation State",
+                "value": "{{.app.status.operationState.phase}}",
+                "inline": false
+              },
+              {
+                "name": "Sync State",
                 "value": "{{.app.status.sync.status}}",
                 "inline": false
-              }, {
+              },
+              {
                 "name": "Repository",
                 "value": "{{.app.spec.source.repoURL}}",
                 "inline": false
