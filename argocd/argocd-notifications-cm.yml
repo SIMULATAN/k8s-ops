@@ -68,13 +68,8 @@ data:
                 "inline": true
               },
               {
-                "name": "Repository",
-                "value": "{{.app.spec.source.repoURL}}",
-                "inline": true
-              },
-              {
-                "name": "Path",
-                "value": "/{{.app.spec.source.path}}",
+                "name": "Source",
+                "value": "[{{call .strings.ReplaceAll .app.spec.source.repoURL "https://" ""}}/{{.app.spec.source.path}}]({{.app.spec.source.repoURL}}/tree/{{.app.status.sync.revision}}/{{.app.spec.source.path}})",
                 "inline": true
               },
               {
