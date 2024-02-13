@@ -63,8 +63,23 @@ data:
                 "inline": true
               },
               {
+                "name": "",
+                "value": "",
+                "inline": true
+              },
+              {
                 "name": "Repository",
                 "value": "{{.app.spec.source.repoURL}}",
+                "inline": true
+              },
+              {
+                "name": "Path",
+                "value": "/{{.app.spec.source.path}}",
+                "inline": true
+              },
+              {
+                "name": "",
+                "value": "",
                 "inline": false
               },
               {
@@ -85,7 +100,7 @@ data:
               {
                 "name": "Commit Message",
                 "value": "{{(call .repo.GetCommitMetadata .app.status.sync.revision).Message}}",
-                "inline": true
+                "inline": false
               }]
             }]
           }
