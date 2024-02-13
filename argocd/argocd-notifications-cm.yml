@@ -55,7 +55,7 @@ data:
               "fields": [{
                 "name": "Operation State",
                 "value": "{{.app.status.operationState.phase}}",
-                "inline": false
+                "inline": true
               },
               {
                 "name": "Sync State",
