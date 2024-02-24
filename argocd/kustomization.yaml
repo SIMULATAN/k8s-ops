@@ -62,21 +62,21 @@ patches:
       metadata:
         name: argocd-server
       spec:
-        replicas: 3
+        replicas: 2
   - patch: |-
       apiVersion: apps/v1
       kind: StatefulSet
       metadata:
         name: argocd-redis-ha-server
       spec:
-        replicas: 3
+        replicas: 2
   - patch: |-
       apiVersion: apps/v1
       kind: Deployment
       metadata:
         name: argocd-redis-ha-haproxy
       spec:
-        replicas: 3
+        replicas: 2
   - patch: |-
       apiVersion: apps/v1
       kind: Deployment
