@@ -54,7 +54,7 @@ data:
             "embeds": [{
               "title": "{{.app.status.sync.status}}: {{.app.metadata.name}}",
               "url": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
-              "color": {{ if or (eq .app.status.operationState.phase "Running") (eq .app.status.sync.status "OutOfSync") }} 896490 {{ else if eq .app.status.operationState.phase "Succeeded") }} 1621586 {{ else if has .app.status.operationState.phase (list "Error" "Failed") }} 16039984 {{ end }},
+              "color": {{ if or (eq .app.status.operationState.phase "Running") (eq .app.status.sync.status "OutOfSync") }} 896490 {{ else if eq .app.status.operationState.phase "Succeeded" }} 1621586 {{ else if has .app.status.operationState.phase (list "Error" "Failed") }} 16039984 {{ end }},
               "fields": [{
                 "name": "Operation State",
                 "value": "{{.app.status.operationState.phase}}",
