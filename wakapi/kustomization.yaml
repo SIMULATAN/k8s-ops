@@ -12,5 +12,5 @@ helmCharts:
   releaseName: wakapi
   repo: https://simulatan.github.io/wakapi-helm-chart/
   valuesFile: wakapi.values.yml
-  version: 2.0.0
+  version: 2.0.1
 
