@@ -1,0 +1,27 @@
+[
+  {
+    "op": "remove",
+    "path": "/spec/template/spec/affinity/podAntiAffinity/requiredDuringSchedulingIgnoredDuringExecution"
+  },
+  {
+    "op": "replace",
+    "path": "/spec/template/spec/affinity/podAntiAffinity/preferredDuringSchedulingIgnoredDuringExecution/0/weight",
+    "value": 50
+  },
+  {
+    "op": "add",
+    "path": "/spec/template/spec/affinity/podAntiAffinity/preferredDuringSchedulingIgnoredDuringExecution/-",
+    "value": {
+      "podAffinityTerm": {
+        "labelSelector": {
+          "matchLabels": {
+            "app.kubernetes.io/name": "argocd-repo-server"
+          }
+        },
+        "topologyKey": "kubernetes.io/hostname"
+      },
+      "weight": 75
+    }
+  }
+]
+

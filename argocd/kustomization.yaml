@@ -4,12 +4,24 @@ kind: Kustomization
 namespace: argocd
 
 resources:
-- github.com/argoproj/argo-cd/manifests/ha/cluster-install?ref=v2.10.1
+- github.com/argoproj/argo-cd/manifests/ha/cluster-install?ref=v2.10.2
 - argocd-oidc.yml
 - argocd-notifications-secret.yml
 - ingress.yml
 
 patches:
+  - path: argocd-server-update-patch.yml
+    target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: argocd-server
+  - path: argocd-repo-server-update-patch.yml
+    target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: argocd-repo-server
   - path: argocd-notifications-cm.yml
     target:
       kind: ConfigMap
