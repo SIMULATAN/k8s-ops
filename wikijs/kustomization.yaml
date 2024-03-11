@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: wikijs
+
+patches:
+  - path: allow-selfsigned-cert-patch.yml
+    target:
+      kind: Deployment
+      labelSelector: app.kubernetes.io/name=wiki
+
+resources:
+- wikijs-postgres-secret.yml
+- postgres-cluster.yml
+
+helmCharts:
+- name: wiki
+  releaseName: wikijs
+  repo: https://charts.js.wiki
+  valuesFile: wikijs.values.yml
+  version: 2.2.20
+

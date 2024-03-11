@@ -1,0 +1,12 @@
+# the previous DATABASE_URL has to be removed
+- op: remove
+  path: /spec/template/spec/containers/0/env/1
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: DATABASE_URL
+    valueFrom:
+      secretKeyRef:
+        name: wikijs-postgres-secret
+        key: DATABASE_URL
+
