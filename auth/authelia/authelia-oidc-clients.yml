@@ -73,3 +73,17 @@ configMap:
           - profile
           - groups
         userinfo_signing_algorithm: none
+      - id: wikijs
+        description: WikiJS
+        secret: ${CLIENT_SECRET_WIKIJS}
+        public: false
+        pre_configured_consent_duration: 69y
+        authorization_policy: two_factor
+        redirect_uris:
+          - https://wiki.simulatan.me/login/5d30e418-edef-405f-aa28-7ecac5d65149/callback
+        scopes:
+          - openid
+          - email
+          - profile
+          - groups
+        userinfo_signing_algorithm: none
