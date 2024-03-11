@@ -26,7 +26,7 @@ spec:
             enabled: true
             size: 2Gi
           phpldapadmin:
-            enabled: false
+            enabled: true
             ingress:
               enabled: true
               ingressClassName: traefik
