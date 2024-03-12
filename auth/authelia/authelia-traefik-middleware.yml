@@ -1,0 +1,13 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: authelia-forwardauth
+  namespace: default
+spec:
+  forwardAuth:
+    address: http://authelia.auth.svc.cluster.local/api/verify?rd=https%3A%2F%2Fauth.simulatan.me%2F
+    authResponseHeaders:
+      - Remote-User
+      - Remote-Name
+      - Remote-Email
+      - Remote-Groups

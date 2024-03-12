@@ -7,6 +7,7 @@ resources:
 - ./postgres-cluster.yml
 - ./authelia-secret.yml
 - ./authelia-oidc-secrets.yml
+- ./authelia-traefik-middleware.yml
 
 helmCharts:
 - name: redis
