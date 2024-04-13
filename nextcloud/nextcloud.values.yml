@@ -4,7 +4,6 @@ ingress:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: 'true'
-
 nextcloud:
   host: nc.simulatan.me
   configs:
@@ -31,7 +30,6 @@ persistence:
   nextcloudData:
     enabled: true
     size: 20Gi
-
 internalDatabase:
   enabled: false
 externalDatabase:
@@ -54,6 +52,5 @@ postgresql:
   primary:
     persistence:
       enabled: true
-
 nodeSelector:
   kubernetes.io/hostname: sim-nucserv-debian
