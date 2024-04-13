@@ -5,13 +5,16 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    chart: nextcloud
-    repoURL: https://nextcloud.github.io/helm/
-    targetRevision: 4.6.6
-    helm:
-      valueFiles:
-        - nextcloud.values.yml
+  sources:
+    - chart: nextcloud
+      repoURL: https://nextcloud.github.io/helm/
+      targetRevision: 4.6.6
+      helm:
+        valueFiles:
+          - $k8s-ops/nextcloud/nextcloud.values.yml
+    - repoURL: https://github.com/SIMULATAN/k8s-ops
+      targetRevision: HEAD
+      ref: k8s-ops
   destination:
     server: "https://kubernetes.default.svc"
     namespace: nextcloud
