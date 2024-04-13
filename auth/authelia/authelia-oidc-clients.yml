@@ -95,7 +95,7 @@ configMap:
         require_pkce: true
         pkce_challenge_method: S256
         redirect_uris:
-          - https://nc.simulatan.me/apps/oidc_login/oidc
+          - https://nc.simulatan.me/apps/user_oidc/oidc
         scopes:
           - openid
           - profile
