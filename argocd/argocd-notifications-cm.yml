@@ -70,11 +70,13 @@ data:
                 "value": "",
                 "inline": true
               },
-              {
-                "name": "Source",
-                "value": "[{{call .strings.ReplaceAll .app.spec.source.repoURL "https://" ""}}/{{.app.spec.source.path}}]({{.app.spec.source.repoURL}}/tree/{{.app.status.sync.revision}}/{{.app.spec.source.path}})",
-                "inline": true
-              },
+              {{if .app.spec.source.repoURL}}
+                {
+                  "name": "Source",
+                  "value": "[{{call .strings.ReplaceAll .app.spec.source.repoURL "https://" ""}}/{{.app.spec.source.path}}]({{.app.spec.source.repoURL}}/tree/{{.app.status.sync.revision}}/{{.app.spec.source.path}})",
+                  "inline": true
+                },
+              {{end}}
               {
                 "name": "",
                 "value": "",
