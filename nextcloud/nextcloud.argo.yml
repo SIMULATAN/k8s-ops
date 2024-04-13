@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nextcloud
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: nextcloud
+    repoURL: https://nextcloud.github.io/helm/
+    targetRevision: 4.6.6
+    valueFiles:
+      - nextcloud.values.yml
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: nextcloud

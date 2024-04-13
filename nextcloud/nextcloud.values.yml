@@ -1,0 +1,59 @@
+ingress:
+  enabled: true
+  className: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: 'true'
+
+nextcloud:
+  host: nc.simulatan.me
+  configs:
+    proxy.config.php: |-
+      <?php
+      $CONFIG = array (
+        'trusted_proxies' => array(
+          0 => '127.0.0.1',
+          1 => '10.0.0.0/8',
+        ),
+        'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
+        'overwriteprotocol' => 'https'
+      );
+  existingSecret:
+    enabled: true
+    secretName: nextcloud-secret
+    usernameKey: USER
+    passwordKey: PASSWORD
+cronjob:
+  enabled: true
+persistence:
+  enabled: true
+  # second pvc for the data folder in nextcloud
+  nextcloudData:
+    enabled: true
+    size: 20Gi
+
+internalDatabase:
+  enabled: false
+externalDatabase:
+  enabled: true
+  type: postgresql
+  existingSecret:
+    enabled: true
+    secretName: nextcloud-postgres
+    usernameKey: USER_NAME
+    passwordKey: USER_PW
+postgresql:
+  enabled: true
+  global:
+    postgresql:
+      auth:
+        existingSecret: nextcloud-postgres
+        secretKeys:
+          adminPasswordKey: ADMIN_PW
+          userPasswordKey: USER_PW
+  primary:
+    persistence:
+      enabled: true
+
+nodeSelector:
+  kubernetes.io/hostname: sim-nucserv-debian
