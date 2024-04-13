@@ -9,8 +9,9 @@ spec:
     chart: nextcloud
     repoURL: https://nextcloud.github.io/helm/
     targetRevision: 4.6.6
-    valueFiles:
-      - nextcloud.values.yml
+    helm:
+      valueFiles:
+        - nextcloud.values.yml
   destination:
     server: "https://kubernetes.default.svc"
     namespace: nextcloud
