@@ -16,3 +16,7 @@ spec:
     wakapi: wakapi
   postgresql:
     version: "15"
+    parameters:
+      listen: "*"
+      max_wal_senders: 5
+      unix_socket_directories: "/controller/run"
