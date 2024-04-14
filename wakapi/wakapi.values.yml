@@ -1,18 +1,21 @@
 persistence:
   enabled: false
 
+image:
+  tag: 2.11.1
+
 wakapi_config:
   env: production
   db:
     dialect: postgres
-    host: wakapi-postgres-cluster.wakapi.svc.cluster.local
+    host: wakapi-postgres-rw.wakapi.svc.cluster.local
     port: 5432
     name: wakapi
     user: wakapi
     ssl: true
     password_secret:
       enabled: true
-      name: wakapi.wakapi-postgres-cluster.credentials.postgresql.acid.zalan.do
+      name: wakapi-postgres-app
   mail:
     enabled: true
     sender: Wakapi <wakapi@smtp.simulatan.me>
