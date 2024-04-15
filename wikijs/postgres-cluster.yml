@@ -7,7 +7,7 @@ spec:
   teamId: wikijs
   volume:
     size: 500Mi
-  numberOfInstances: 2
+  numberOfInstances: 0
   users:
     wikijs:
     - superuser
@@ -20,3 +20,27 @@ spec:
         pg_trgm: data
   postgresql:
     version: "15"
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: wikijs-postgres
+  namespace: wikijs
+spec:
+  instances: 2
+
+  imageName: ghcr.io/cloudnative-pg/postgresql:15
+
+  bootstrap:
+    initdb:
+      database: wikijs
+      owner: wikijs
+
+  postgresql:
+    pg_hba:
+      - local all all trust
+      - host all all 127.0.0.1/32 trust
+      - host all all ::1/128 trust
+
+  storage:
+    size: 1Gi
