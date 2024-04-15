@@ -7,7 +7,7 @@ spec:
   teamId: auth
   volume:
     size: 200Mi
-  numberOfInstances: 2
+  numberOfInstances: 0
   users:
     authelia:
     - superuser
