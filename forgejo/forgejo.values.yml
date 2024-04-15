@@ -10,7 +10,7 @@ gitea:
     - name: FORGEJO__DATABASE__PASSWD
       valueFrom:
         secretKeyRef:
-          name: forgejo.forgejo-postgres-cluster.credentials.postgresql.acid.zalan.do
+          name: forgejo-postgres-app
           key: password
   admin:
     existingSecret:
@@ -49,7 +49,7 @@ gitea:
       MINIO_USE_SSL: true
     database:
       DB_TYPE: postgres
-      HOST: forgejo-postgres-cluster
+      HOST: forgejo-postgres-rw
       NAME: forgejo
       USER: forgejo
       SCHEMA: public

@@ -7,7 +7,7 @@ spec:
   teamId: forgejo
   volume:
     size: 400Mi
-  numberOfInstances: 2
+  numberOfInstances: 0
   users:
     forgejo:
     - superuser
@@ -16,3 +16,27 @@ spec:
     forgejo: forgejo
   postgresql:
     version: "15"
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: forgejo-postgres
+  namespace: forgejo
+spec:
+  instances: 2
+
+  imageName: ghcr.io/cloudnative-pg/postgresql:15
+
+  bootstrap:
+    initdb:
+      database: forgejo
+      owner: forgejo
+
+  postgresql:
+    pg_hba:
+      - local all all trust
+      - host all all 127.0.0.1/32 trust
+      - host all all ::1/128 trust
+
+  storage:
+    size: 1Gi
