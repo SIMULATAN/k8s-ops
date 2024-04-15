@@ -70,7 +70,7 @@ configMap:
     level: debug
   storage:
     postgres:
-      host: postgres-cluster.auth.svc.cluster.local
+      host: authelia-postgres-rw.auth.svc.cluster.local
       tls:
         enabled: true
         skip_verify: true
