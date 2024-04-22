@@ -17,6 +17,7 @@ gitea:
     username:
     password:
   config:
+    APP_NAME: "we codin' babyyy"
     storage:
       STORAGE_TYPE: minio
       MINIO_ENDPOINT: s3.simulatan.me
