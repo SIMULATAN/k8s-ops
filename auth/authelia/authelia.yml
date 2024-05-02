@@ -24,7 +24,7 @@ secret:
     authelia:
       items:
         - key: oidc.jwk.RS256.pem
-          path: oidc.jwk.RS256.crt
+          path: oidc.jwk.RS256.pem
         - key: oidc.jwk.RS256.crt
           path: oidc.jwk.RS256.crt
   existingSecret: authelia
