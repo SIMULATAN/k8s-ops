@@ -2,9 +2,10 @@ configMap:
   identity_providers:
     oidc:
       clients:
-      - id: argocd
+      - client_id: argocd
         description: Argo CD
-        secret: ${CLIENT_SECRET_ARGOCD}
+        client_secret:
+          path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_ARGOCD
         public: false
         pre_configured_consent_duration: 69y
         authorization_policy: two_factor
@@ -15,8 +16,7 @@ configMap:
           - groups
           - email
           - profile
-        userinfo_signing_algorithm: none
-      - id: argocd-cli
+      - client_id: argocd-cli
         description: Argo CD (CLI)
         public: true
         pre_configured_consent_duration: 69y
@@ -29,10 +29,10 @@ configMap:
           - email
           - profile
           - offline_access
-        userinfo_signing_algorithm: none
-      - id: contestsubmission
+      - client_id: contestsubmission
         description: ContestSubmission
-        secret: ${CLIENT_SECRET_CONTESTSUBMISSION}
+        client_secret:
+          path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_CONTESTSUBMISSION
         public: false
         pre_configured_consent_duration: 69y
         authorization_policy: one_factor
@@ -43,10 +43,10 @@ configMap:
           - groups
           - email
           - profile
-        userinfo_signing_algorithm: none
-      - id: minio
+      - client_id: minio
         description: MinIO
-        secret: ${CLIENT_SECRET_MINIO}
+        client_secret:
+          path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_MINIO
         public: false
         pre_configured_consent_duration: 69y
         authorization_policy: two_factor
@@ -57,10 +57,10 @@ configMap:
           - profile
           - email
           - groups
-        userinfo_signing_algorithm: none
-      - id: forgejo
+      - client_id: forgejo
         description: Forgejo
-        secret: ${CLIENT_SECRET_FORGEJO}
+        client_secret:
+          path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_FORGEJO
         public: false
         pre_configured_consent_duration: 69y
         authorization_policy: two_factor
@@ -72,10 +72,10 @@ configMap:
           - email
           - profile
           - groups
-        userinfo_signing_algorithm: none
-      - id: wikijs
+      - client_id: wikijs
         description: WikiJS
-        secret: ${CLIENT_SECRET_WIKIJS}
+        client_secret:
+          path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_WIKIJS
         public: false
         pre_configured_consent_duration: 69y
         authorization_policy: two_factor
@@ -86,10 +86,10 @@ configMap:
           - email
           - profile
           - groups
-        userinfo_signing_algorithm: none
-      - id: nextcloud
+      - client_id: nextcloud
         description: NextCloud
-        secret: ${CLIENT_SECRET_NEXTCLOUD}
+        client_secret:
+          path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_NEXTCLOUD
         public: false
         authorization_policy: two_factor
         require_pkce: true
@@ -101,5 +101,4 @@ configMap:
           - profile
           - email
           - groups
-        userinfo_signed_response_alg: none
         token_endpoint_auth_method: client_secret_basic

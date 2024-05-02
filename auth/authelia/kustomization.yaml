@@ -17,7 +17,7 @@ helmCharts:
   valuesFile: redis.yml
 - name: authelia
   repo: https://charts.authelia.com
-  version: 0.8.58
+  version: 0.9.0-beta3
   valuesFile: authelia.yml
   additionalValuesFiles:
     - authelia-oidc-clients.yml
@@ -25,18 +25,6 @@ helmCharts:
   namespace: auth
 
 patches:
-  - path: authelia-storage-password-patch.yml
-    target:
-      kind: DaemonSet
-      labelSelector: app.kubernetes.io/name=authelia
-  - path: authelia-storage-password-volume-patch.yml
-    target:
-      kind: DaemonSet
-      labelSelector: app.kubernetes.io/name=authelia
-  - path: authelia-file-filter-patch.yml
-    target:
-      kind: DaemonSet
-      labelSelector: app.kubernetes.io/name=authelia
   - path: authelia-oidc-secrets-mount-patch.yml
     target:
       kind: DaemonSet
