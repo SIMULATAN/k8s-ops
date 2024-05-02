@@ -51,6 +51,12 @@ configMap:
         access_token: '7 days'
         id_token: '10 hours'
         refresh_token: '14 days'
+      hmac_secret:
+        path: 'oidc.hmac.key'
+  identity_validation:
+    reset_password:
+      secret:
+        path: 'oidc.hmac.key'
   notifier:
     smtp:
       enabled: true
