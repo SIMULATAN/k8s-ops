@@ -103,12 +103,16 @@ configMap:
     redis:
       enabled: true
       enabledSecret: false
+      password:
+        disabled: true
       host: authelia-redis.auth.svc.cluster.local
       port: 26379
       high_availability:
         enabled: true
         enabledSecret: false
         sentinel_name: mymaster # the default bitnami name
+        password:
+          disabled: true
         nodes:
           - host: authelia-redis-node-0.authelia-redis-headless.auth.svc.cluster.local # default node names with my namespace
             port: 26379
