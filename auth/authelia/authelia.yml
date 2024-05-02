@@ -1,7 +1,7 @@
 pod:
   probes:
     startup:
-      initialDelaySeconds: 20
+      initialDelaySeconds: 5
 ingress:
   enabled: true
   tls:
