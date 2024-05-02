@@ -32,10 +32,7 @@ configMap:
       enabled: false
     ldap:
       enabled: true
-      url: ldaps://openldap.auth.svc.cluster.local:636
-      username_attribute: uid
-      display_name_attribute: displayName
-      mail_attribute: mail
+      address: ldaps://openldap.auth.svc.cluster.local:636
       additional_users_dn: OU=users
       base_dn: DC=simulatan,DC=me
       users_filter: (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
@@ -43,14 +40,22 @@ configMap:
       user: UID=authelia,OU=service,DC=simulatan,DC=me
       tls:
         skip_verify: true
+      attributes:
+        username: uid
+        display_name: displayName
+        mail: mail
   identity_providers:
     oidc:
       enabled: true
+      lifespans:
+        access_token: '7 days'
+        id_token: '10 hours'
+        refresh_token: '14 days'
   notifier:
     smtp:
       enabled: true
       enabledSecret: true
-      host: live.smtp.mailtrap.io
+      address: live.smtp.mailtrap.io:587
       port: 587
       timeout: 10s
       sender: SIMs Authelia <authelia@smtp.simulatan.me>
@@ -76,7 +81,7 @@ configMap:
   storage:
     postgres:
       enabled: true
-      host: authelia-postgres-rw.auth.svc.cluster.local
+      address: authelia-postgres-rw.auth.svc.cluster.local
       username: authelia
       database: authelia
       password:
