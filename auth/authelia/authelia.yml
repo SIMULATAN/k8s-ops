@@ -24,9 +24,9 @@ secret:
     authelia:
       items:
         - key: oidc.jwk.RS256.pem
-          path: '/secrets/oidc.jwk.RS256.crt'
+          path: oidc.jwk.RS256.crt
         - key: oidc.jwk.RS256.crt
-          path: '/secrets/oidc.jwk.RS256.crt'
+          path: oidc.jwk.RS256.crt
   existingSecret: authelia
 configMap:
   theme: dark
@@ -64,9 +64,9 @@ configMap:
           algorithm: 'RS256'
           use: 'sig'
           key:
-            path: '/secrets/oidc.jwk.RS256.pem'
+            path: '/secrets/authelia/oidc.jwk.RS256.pem'
           certificate_chain:
-            path: '/secrets.oidc.jwk.RS256.crt'
+            path: '/secrets/authelia/oidc.jwk.RS256.crt'
   identity_validation:
     reset_password:
       secret:
