@@ -93,8 +93,6 @@ configMap:
           path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_NEXTCLOUD
         public: false
         authorization_policy: two_factor
-        require_pkce: true
-        pkce_challenge_method: S256
         redirect_uris:
           - https://nc.simulatan.me/apps/user_oidc/code
         scopes:
@@ -103,3 +101,4 @@ configMap:
           - email
           - groups
         token_endpoint_auth_method: client_secret_basic
+        userinfo_signed_response_alg: none
