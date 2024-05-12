@@ -13,7 +13,7 @@ metadata:
   name: traefik-api-ingress
   namespace: kube-system
   annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: auth-authelia-forwardauth@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: auth-forwardauth-authelia@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
@@ -34,7 +34,7 @@ metadata:
   name: traefik-ingress
   namespace: kube-system
   annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: kube-system-strip-traefik-dashboard-prefix@kubernetescrd,auth-authelia-forwardauth@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: kube-system-strip-traefik-dashboard-prefix@kubernetescrd,auth-forwardauth-authelia@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
