@@ -14,11 +14,11 @@ helmCharts:
   repo: https://charts.bitnami.com/bitnami
   version: 18.8.2
   releaseName: authelia-redis
-  valuesFile: redis.yml
+  valuesFile: redis.values.yml
 - name: authelia
   repo: https://charts.authelia.com
   version: 0.9.0-beta3
-  valuesFile: authelia.yml
+  valuesFile: authelia.values.yml
   additionalValuesFiles:
     - authelia-oidc-clients.yml
   releaseName: authelia
