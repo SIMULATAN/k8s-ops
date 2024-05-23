@@ -3,7 +3,6 @@ ingress:
   className: traefik
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure,web
-    traefik.ingress.kubernetes.io/router.tls: 'true'
     traefik.ingress.kubernetes.io/router.middlewares: default-redirect-to-https@kubernetescrd
 nextcloud:
   host: nc.simulatan.me
