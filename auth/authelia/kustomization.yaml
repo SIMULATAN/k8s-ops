@@ -17,7 +17,7 @@ helmCharts:
   valuesFile: redis.values.yml
 - name: authelia
   repo: https://charts.authelia.com
-  version: 0.9.0-beta3
+  version: 0.9.0-beta4
   valuesFile: authelia.values.yml
   additionalValuesFiles:
     - authelia-oidc-clients.yml
