@@ -1,3 +1,4 @@
+appVersion: 28.0.8
 ingress:
   enabled: true
   className: traefik
