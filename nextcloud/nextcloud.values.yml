@@ -1,4 +1,5 @@
-appVersion: 28.0.8
+image:
+  tag: 28.0.8-apache
 ingress:
   enabled: true
   className: traefik
