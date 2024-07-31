@@ -26,10 +26,12 @@ cronjob:
   enabled: true
 persistence:
   enabled: true
+  existingClaim: nextcloud
   # second pvc for the data folder in nextcloud
   nextcloudData:
     enabled: true
     size: 20Gi
+    existingClaim: nextcloud-data
 internalDatabase:
   enabled: false
 externalDatabase:
@@ -52,5 +54,6 @@ postgresql:
   primary:
     persistence:
       enabled: true
+      existingClaim: nextcloud-postgresql-data
 nodeSelector:
   kubernetes.io/hostname: sim-nucserv-debian
