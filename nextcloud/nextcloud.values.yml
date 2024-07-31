@@ -56,4 +56,4 @@ postgresql:
       enabled: true
       existingClaim: nextcloud-postgresql-data
 nodeSelector:
-  kubernetes.io/hostname: sim-nucserv-debian
+  kubernetes.io/hostname: sim-microserv-debian
