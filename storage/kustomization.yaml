@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+helmCharts:
+- releaseName: storage-pool-big
+  namespace: storage-pool-big
+  name: local-path-provisioner
+  repo: https://charts.simulatan.me/
+  valuesFile: storage-pool-big.values.yml
+  version: 0.0.28
+- releaseName: storage-pool-fast
+  namespace: storage-pool-fast
+  name: local-path-provisioner
+  repo: https://charts.simulatan.me/
+  valuesFile: storage-pool-fast.values.yml
+  version: 0.0.28

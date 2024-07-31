@@ -1,0 +1,11 @@
+storageClass:
+  name: storage-pool-big
+  reclaimPolicy: Retain
+
+nodePathMap:
+  - node: sim-microserv-debian
+    paths:
+      - /storage/volumes
+
+nodeSelector:
+  kubernetes.io/hostname: sim-microserv-debian

@@ -1,0 +1,11 @@
+storageClass:
+  name: storage-pool-fast
+  reclaimPolicy: Retain
+
+nodePathMap:
+  - node: sim-microserv-debian
+    paths:
+      - /data/volumes
+
+nodeSelector:
+  kubernetes.io/hostname: sim-microserv-debian
