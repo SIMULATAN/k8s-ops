@@ -8,7 +8,7 @@ spec:
   sources:
     - chart: nextcloud
       repoURL: https://nextcloud.github.io/helm/
-      targetRevision: 4.6.7
+      targetRevision: 4.6.11
       helm:
         valueFiles:
           - $k8s-ops/nextcloud/nextcloud.values.yml
