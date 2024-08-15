@@ -44,6 +44,7 @@ gitea:
 persistence:
   enabled: true
   claimName: forgejo
+  size: 20Gi
 
 redis-cluster:
   cluster:
