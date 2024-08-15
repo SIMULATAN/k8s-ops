@@ -48,7 +48,7 @@ persistence:
 
 redis-cluster:
   cluster:
-    nodes: 1
+    nodes: 6
     replicas: 1
 
 postgresql:
