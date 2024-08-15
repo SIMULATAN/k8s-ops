@@ -1,11 +1,6 @@
 adminUsername: admin
 
-appName: SIMULATAN's git
-
 gitea:
-  additionalConfigSources:
-    - secret:
-        secretName: forgejo-s3-secret
   additionalConfigFromEnvs:
     - name: FORGEJO__DATABASE__PASSWD
       valueFrom:
@@ -17,37 +12,7 @@ gitea:
     username:
     password:
   config:
-    APP_NAME: "we codin' babyyy"
-    storage:
-      STORAGE_TYPE: minio
-      MINIO_ENDPOINT: s3.simulatan.me
-      MINIO_LOCATION: eu-frankfurt-1
-      MINIO_BUCKET: forgejo
-      MINIO_USE_SSL: true
-    attachment:
-      STORAGE_TYPE: minio
-      MINIO_ENDPOINT: s3.simulatan.me
-      MINIO_LOCATION: eu-frankfurt-1
-      MINIO_BUCKET: forgejo
-      MINIO_USE_SSL: true
-    lfs:
-      STORAGE_TYPE: minio
-      MINIO_ENDPOINT: s3.simulatan.me
-      MINIO_LOCATION: eu-frankfurt-1
-      MINIO_BUCKET: forgejo
-      MINIO_USE_SSL: true
-    picture:
-      AVATAR_STORAGE_TYPE: minio
-      MINIO_ENDPOINT: s3.simulatan.me
-      MINIO_LOCATION: eu-frankfurt-1
-      MINIO_BUCKET: forgejo
-      MINIO_USE_SSL: true
-    'storage.packages':
-      STORAGE_TYPE: minio
-      MINIO_ENDPOINT: s3.simulatan.me
-      MINIO_LOCATION: eu-frankfurt-1
-      MINIO_BUCKET: forgejo
-      MINIO_USE_SSL: true
+    APP_NAME: "SIMULATAN's Git"
     database:
       DB_TYPE: postgres
       HOST: forgejo-postgres-rw
@@ -73,13 +38,17 @@ gitea:
       scopes: groups email profile
       groupClaimName: groups
       # TODO: replace with `forgejo-admin` once the group is created in LDAP
-      adminGroup: minio-admin
+      adminGroup: forgejo-admin
       existingSecret: forgejo-sso-secret
+
+persistence:
+  enabled: true
+  claimName: forgejo
 
 redis-cluster:
   cluster:
-    nodes: 3
-    replicas: 0
+    nodes: 1
+    replicas: 1
 
 postgresql:
   enabled: false
