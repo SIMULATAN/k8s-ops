@@ -48,8 +48,8 @@ persistence:
 
 redis-cluster:
   cluster:
-    nodes: 6
-    replicas: 1
+    nodes: 1
+    replicas: 0
 
 postgresql:
   enabled: false
