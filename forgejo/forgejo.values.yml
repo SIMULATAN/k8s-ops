@@ -20,6 +20,15 @@ gitea:
       USER: forgejo
       SCHEMA: public
       SSL_MODE: require
+    queue:
+      TYPE: redis
+      CONN_STR: redis://valkey-headless:6379/0?pool_size=100&idle_timeout=180s
+    session:
+      PROVIDER: redis
+      PROVIDER_CONFIG: redis://valkey-headless:6379/0?pool_size=100&idle_timeout=180s
+    cache:
+      ADAPTER: redis
+      HOST: redis://valkey-headless:6379/0?pool_size=100&idle_timeout=180s
     openid:
       ENABLE_OPENID_SIGNUP: true
       ENABLE_OPENID_SIGNIN: false
@@ -47,9 +56,12 @@ persistence:
   size: 20Gi
 
 redis-cluster:
+  enabled: false
   cluster:
     nodes: 6
     replicas: 1
+redis:
+  enabled: false
 
 postgresql:
   enabled: false

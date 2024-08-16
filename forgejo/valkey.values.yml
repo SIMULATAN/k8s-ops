@@ -1,0 +1,5 @@
+architecture: standalone
+
+# TODO: re-enable and template secret
+auth:
+  enabled: false

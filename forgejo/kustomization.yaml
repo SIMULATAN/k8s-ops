@@ -15,3 +15,9 @@ helmCharts:
   valuesFile: forgejo.values.yml
   releaseName: forgejo
   namespace: forgejo
+- name: valkey
+  repo: https://charts.bitnami.com/bitnami
+  version: 0.3.14
+  valuesFile: valkey.values.yml
+  releaseName: valkey
+  namespace: forgejo
