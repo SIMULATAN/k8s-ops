@@ -2,7 +2,6 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: cert-black-onion-com
-  namespace: blackonion
 spec:
   secretName: ssl-black-onion-com
   issuerRef:

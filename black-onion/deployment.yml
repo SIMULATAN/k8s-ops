@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: website
-  namespace: blackonion
 spec:
   replicas: 1
   revisionHistoryLimit: 1
