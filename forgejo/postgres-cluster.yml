@@ -1,22 +1,3 @@
-apiVersion: "acid.zalan.do/v1"
-kind: postgresql
-metadata:
-  name: forgejo-postgres-cluster
-  namespace: forgejo
-spec:
-  teamId: forgejo
-  volume:
-    size: 400Mi
-  numberOfInstances: 0
-  users:
-    forgejo:
-    - superuser
-    - createdb
-  databases:
-    forgejo: forgejo
-  postgresql:
-    version: "15"
----
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:

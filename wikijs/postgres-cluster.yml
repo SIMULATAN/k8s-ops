@@ -1,26 +1,3 @@
-apiVersion: "acid.zalan.do/v1"
-kind: postgresql
-metadata:
-  name: wikijs-postgres-cluster
-  namespace: wikijs
-spec:
-  teamId: wikijs
-  volume:
-    size: 500Mi
-  numberOfInstances: 0
-  users:
-    wikijs:
-    - superuser
-    - createdb
-  databases:
-    wikijs: wikijs
-  preparedDatabases:
-    wikijs:
-      extensions:
-        pg_trgm: data
-  postgresql:
-    version: "15"
----
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:

@@ -1,26 +1,3 @@
-apiVersion: "acid.zalan.do/v1"
-kind: postgresql
-metadata:
-  name: wakapi-postgres-cluster
-  namespace: wakapi
-spec:
-  teamId: wakapi
-  volume:
-    size: 200Mi
-  numberOfInstances: 0
-  users:
-    wakapi:
-    - superuser
-    - createdb
-  databases:
-    wakapi: wakapi
-  postgresql:
-    version: "15"
-    parameters:
-      listen: "*"
-      max_wal_senders: "5"
-      unix_socket_directories: "/var/run/postgresql/"
----
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
