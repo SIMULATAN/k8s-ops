@@ -5,6 +5,9 @@ metadata:
   namespace: kube-system
 spec:
   valuesContent: |-
+    image:
+      repository: traefik
+      tag: v2.11.9
     providers:
       kubernetesCRD:
         allowCrossNamespace: true
