@@ -92,6 +92,7 @@ configMap:
         client_secret:
           path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_NEXTCLOUD
         public: false
+        pre_configured_consent_duration: 69y
         authorization_policy: two_factor
         redirect_uris:
           - https://nc.simulatan.me/apps/user_oidc/code
@@ -107,6 +108,7 @@ configMap:
         client_secret:
           path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_SNOTY
         public: false
+        pre_configured_consent_duration: 69y
         authorization_policy: two_factor
         redirect_uris:
           - https://sso-admin.snoty.me/realms/master/broker/authelia/endpoint
