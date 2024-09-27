@@ -57,3 +57,17 @@ postgresql:
       existingClaim: nextcloud-postgresql-data
 nodeSelector:
   kubernetes.io/hostname: sim-microserv-debian
+redis:
+  enabled: true
+  image:
+    repository: bitnami/valkey
+    # make sure to update with https://github.com/bitnami/charts/tree/main/bitnami/redis
+    tag: 7.2.5-debian-12-r9
+  architecture: standalone
+  master:
+    nodeSelector:
+      kubernetes.io/hostname: sim-microserv-debian
+  auth:
+    enabled: true
+    existingSecret: redis
+    existingSecretPasswordKey: REDIS_PASSWORD
