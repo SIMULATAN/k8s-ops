@@ -17,6 +17,9 @@ nextcloud:
         'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
         'overwriteprotocol' => 'https'
       );
+  phpConfigs:
+    zz-memory_limit.init: |-
+      memory_limit=1024M
   existingSecret:
     enabled: true
     secretName: nextcloud-secret
