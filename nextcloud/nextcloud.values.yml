@@ -18,8 +18,10 @@ nextcloud:
         'overwriteprotocol' => 'https'
       );
   phpConfigs:
-    zz-memory_limit.init: |-
+    zz-memory_limit.ini: |-
       memory_limit=1024M
+    zz-apc.ini: |-
+      apc.shm_size=128M
     opcache.conf: |
       php_admin_value[memory_limit] = -1
       php_admin_value[opcache.jit_buffer_size] = 8M
