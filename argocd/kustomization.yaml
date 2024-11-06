@@ -39,7 +39,7 @@ patches:
         name: argocd-cm
       data:
         application.instanceLabelKey: argocd.argoproj.io/instance
-        kustomize.buildOptions: --enable-helm
+        kustomize.buildOptions: --enable-helm --load-restrictor=LoadRestrictionsNone
         url: https://argocd.simulatan.me
         admin.enabled: "false"
         oidc.config: |
