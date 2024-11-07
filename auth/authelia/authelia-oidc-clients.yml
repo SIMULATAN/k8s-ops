@@ -119,3 +119,21 @@ configMap:
           - groups
         token_endpoint_auth_method: client_secret_post
         userinfo_signed_response_alg: none
+      - client_id: jellyfin
+        description: Jellyfin
+        client_name: Jellyfin
+        client_secret:
+          path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_JELLYFIN
+        public: false
+        require_pkce: true
+        pkce_challenge_method: S256
+        pre_configured_consent_duration: 69y
+        authorization_policy: two_factor
+        redirect_uris:
+          - https://jellyfin.simulatan.me/sso/OID/redirect/authelia
+        scopes:
+          - openid
+          - profile
+          - groups
+        userinfo_signed_response_alg: none
+        token_endpoint_auth_method: client_secret_post
