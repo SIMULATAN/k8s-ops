@@ -1,9 +1,6 @@
 persistence:
   enabled: false
 
-image:
-  tag: 2.11.1
-
 wakapi_config:
   env: production
   db:
@@ -37,4 +34,5 @@ ingress:
   hosts:
     - host: wakapi.simulatan.me
       paths:
-        - '/'
+        - path: /
+          pathType: Prefix
