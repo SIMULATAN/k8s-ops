@@ -131,6 +131,7 @@ configMap:
         authorization_policy: two_factor
         redirect_uris:
           - https://jellyfin.simulatan.me/sso/OID/r/authelia
+          - https://jellyfin.simulatan.me/sso/OID/redirect/authelia
         scopes:
           - openid
           - profile
