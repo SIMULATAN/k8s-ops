@@ -11,5 +11,6 @@ spec:
     providers:
       kubernetesCRD:
         allowCrossNamespace: true
+    hostNetwork: true
     #additionalArguments:
       #- "--tracing=true"
