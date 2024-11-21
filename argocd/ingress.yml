@@ -14,7 +14,7 @@ spec:
         - name: argocd-server
           port: 80
     - kind: Rule
-      match: Host(`argocd.simulatan.me`) && Headers(`Content-Type`, `application/grpc`)
+      match: Host(`argocd.simulatan.me`) && Header(`Content-Type`, `application/grpc`)
       priority: 11
       services:
         - name: argocd-server
