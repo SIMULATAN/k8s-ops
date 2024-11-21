@@ -11,6 +11,7 @@ spec:
     providers:
       kubernetesCRD:
         allowCrossNamespace: true
-    hostNetwork: true
-    #additionalArguments:
-      #- "--tracing=true"
+    service:
+      externalTrafficPolicy: Local
+    # additionalArguments:
+    #  - "--tracing=true"
