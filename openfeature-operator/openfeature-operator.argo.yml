@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openfeature-operator
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: open-feature-operator
+    repoURL: https://open-feature.github.io/open-feature-operator
+    targetRevision: 0.8.1
+  destination:
+    name: in-cluster
+    namespace: openfeature
