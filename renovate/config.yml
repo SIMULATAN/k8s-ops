@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: renovate
+data:
+  RENOVATE_PLATFORM: github
+  RENOVATE_AUTODISCOVER: 'true'
