@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: renovate
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/SIMULATAN/k8s-ops
+    path: renovate
+    directory:
+      exclude: '{*.argo.yml}'
+  destination:
+    name: in-cluster
+    namespace: renovate
