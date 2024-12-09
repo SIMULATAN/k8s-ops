@@ -12,7 +12,7 @@ resources:
 helmCharts:
 - name: redis
   repo: https://charts.bitnami.com/bitnami
-  version: 18.8.2
+  version: 20.4.0
   releaseName: authelia-redis
   valuesFile: redis.values.yml
 - name: authelia
