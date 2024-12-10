@@ -16,7 +16,7 @@ helmCharts:
   releaseName: forgejo
   namespace: forgejo
 - name: valkey
-  repo: https://charts.bitnami.com/bitnami
+  repo: oci://registry-1.docker.io/bitnamicharts/
   version: 2.1.2
   valuesFile: valkey.values.yml
   releaseName: valkey
