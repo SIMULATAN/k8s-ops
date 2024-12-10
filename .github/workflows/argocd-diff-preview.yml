@@ -1,0 +1,70 @@
+name: Argo CD Diff Preview
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  render-diff:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: pull-request
+
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main
+
+      - name: Prepare secrets
+        run: |
+          mkdir secrets
+          cat > secrets/secret.yaml << "EOF"
+          apiVersion: v1
+          kind: Secret
+          metadata:
+            name: private-repo
+            namespace: argocd
+            labels:
+              argocd.argoproj.io/secret-type: repo-creds
+          stringData:
+            url: https://github.com/${{ github.repository }}
+            password: ${{ secrets.GITHUB_TOKEN }}
+            username: not-used
+          EOF
+
+      - name: Set ArgoCD Custom Values
+        run: |
+          cat > values.yaml << "EOF"
+          configs:
+            cm:
+              kustomize.buildOptions: --load-restrictor LoadRestrictionsNone --enable-helm
+          EOF
+
+      - name: Generate Diff
+        run: |
+          docker run \
+            --network=host \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v $PWD/main:/base-branch \
+            -v $PWD/pull-request:/target-branch \
+            -v $PWD/output:/output \
+            -v $PWD/secrets:/secrets \
+            -v $PWD/values.yaml:/argocd-config/values.yaml \
+            -e TARGET_BRANCH=${{ github.head_ref }} \
+            -e REPO=${{ github.repository }} \
+            dagandersen/argocd-diff-preview:v0.0.25 \
+            --debug
+
+      - name: Post diff as comment
+        run: |
+          gh pr comment ${{ github.event.number }} --repo ${{ github.repository }} --body-file output/diff.md --edit-last || \
+          gh pr comment ${{ github.event.number }} --repo ${{ github.repository }} --body-file output/diff.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
