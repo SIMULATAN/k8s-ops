@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: argocd
 
 resources:
-- github.com/argoproj/argo-cd/manifests/ha/cluster-install?ref=v2.13.1
+- github.com/argoproj/argo-cd/manifests/ha/cluster-install?ref=v2.13.2
 - argocd-oidc.yml
 - argocd-notifications-secret.yml
 - ingress.yml
