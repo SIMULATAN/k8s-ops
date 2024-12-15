@@ -8,5 +8,12 @@
   "commitMessageLowerCase": "never",
   "kubernetes": {
     "fileMatch": ["\\.yml$", "\\.yaml$"]
-  }
+  },
+  "packageRules": [
+    {
+      "matchPackageNames": ["renovate/renovate"],
+      "matchUpdateTypes": ["minor"],
+      "automerge": true
+    }
+  ]
 }
