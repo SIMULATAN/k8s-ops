@@ -9,11 +9,16 @@
   "kubernetes": {
     "fileMatch": ["\\.yml$", "\\.yaml$"]
   },
+  "separateMiniorPatch": true,
   "packageRules": [
     {
       "matchPackageNames": ["renovate/renovate"],
       "matchUpdateTypes": ["minor"],
       "automerge": true
+    },
+    {
+      "updateTypes": ["patch"],
+      "enabled": false
     }
   ]
 }
