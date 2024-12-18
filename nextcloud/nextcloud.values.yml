@@ -6,6 +6,8 @@ ingress:
     traefik.ingress.kubernetes.io/router.middlewares: default-redirect-to-https@kubernetescrd
 nextcloud:
   host: nc.simulatan.me
+  defaultConfigs:
+    imaginary.config.php: true
   configs:
     proxy.config.php: |-
       <?php
@@ -83,3 +85,5 @@ redis:
     enabled: true
     existingSecret: redis
     existingSecretPasswordKey: REDIS_PASSWORD
+imaginary:
+  enabled: true
