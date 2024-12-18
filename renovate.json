@@ -9,7 +9,7 @@
   "kubernetes": {
     "fileMatch": ["\\.yml$", "\\.yaml$"]
   },
-  "separateMiniorPatch": true,
+  "separateMinorPatch": true,
   "packageRules": [
     {
       "matchPackageNames": ["renovate/renovate"],
