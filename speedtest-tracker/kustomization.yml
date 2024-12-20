@@ -1,0 +1,10 @@
+kind: Kustomization
+
+namespace: speedtest-tracker
+
+resources:
+  - ./secret.yml
+  - ./postgres-cluster.yml
+  - ./deployment.yml
+  - ./service.yml
+  - ./ingress.yml

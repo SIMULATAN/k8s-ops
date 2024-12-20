@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: speedtest-tracker
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: default-redirect-to-https@kubernetescrd,auth-forwardauth-authelia@kubernetescrd
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: speeds.simulatan.me
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: speedtest-tracker
+            port:
+              name: http

@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: speedtest-tracker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: speedtest-tracker
+  template:
+    metadata:
+      labels:
+        app: speedtest-tracker
+    spec:
+      dnsConfig:
+        nameservers:
+          - 1.1.1.1
+          - 8.8.8.8
+        searches:
+          - speedtest-tracker.svc.cluster.local
+        options:
+          - name: ndots
+            value: "5"
+      containers:
+        - name: speedtest-tracker
+          image: lscr.io/linuxserver/speedtest-tracker:1.0.2
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: Europe/Vienna
+
+            - name: DISPLAY_TIMEZONE
+              value: Europe/Vienna
+            - name: APP_URL
+              value: https://speeds.simulatan.me
+            - name: APP_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: speedtest-tracker
+                  key: key
+            - name: SPEEDTEST_SCHEDULE
+              # every 2nd hour
+              value: '0 */2 * * *'
+            - name: SPEEDTEST_SERVERS
+              valueFrom:
+                secretKeyRef:
+                  name: speedtest-tracker
+                  key: servers
+
+            - name: DB_CONNECTION
+              value: pgsql
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: speedtest-tracker-postgres-app
+                  key: host
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: speedtest-tracker-postgres-app
+                  key: dbname
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: speedtest-tracker-postgres-app
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: speedtest-tracker-postgres-app
+                  key: password
+          ports:
+            - name: http
+              containerPort: 80
