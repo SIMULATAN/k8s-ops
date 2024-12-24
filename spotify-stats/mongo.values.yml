@@ -11,4 +11,4 @@ auth:
   enabled: false
 metrics:
   enabled: false
-resourcesPreset: nano
+resourcesPreset: micro
