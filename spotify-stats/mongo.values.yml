@@ -1,0 +1,14 @@
+architecture: replicaset
+replicaCount: 3
+backup:
+  enabled: true
+  cronjob:
+    storage:
+      storageClass: storage-pool-big
+arbiter:
+  enabled: false
+auth:
+  enabled: false
+metrics:
+  enabled: false
+resourcesPreset: nano

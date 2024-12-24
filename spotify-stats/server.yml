@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spotify-stats-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spotify-stats-server
+  template:
+    metadata:
+      labels:
+        app: spotify-stats-server
+    spec:
+      containers:
+        - name: server
+          image: yooooomi/your_spotify_server:1.11.0
+          env:
+            - name: API_ENDPOINT
+              value: https://spotify-api.simulatan.me
+            - name: CLIENT_ENDPOINT
+              value: https://spotify.simulatan.me
+            - name: SPOTIFY_PUBLIC
+              valueFrom:
+                secretKeyRef:
+                  key: PUBLIC
+                  name: spotify-stats-secret
+            - name: SPOTIFY_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: SECRET
+                  name: spotify-stats-secret
+            - name: CORS
+              value: https://spotify.simulatan.me
+            - name: TIMEZONE
+              value: Europe/Vienna
+            - name: MONGO_ENDPOINT
+              value: mongodb+srv://spotify-stats-mongodb-headless.spotify-stats.svc.cluster.local/?ssl=false&tls=false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spotify-stats-server
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: http
+  selector:
+    app: spotify-stats-server
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: spotify-stats-server
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: default-redirect-to-https@kubernetescrd
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: spotify-api.simulatan.me
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: spotify-stats-server
+                port:
+                  number: 8080
