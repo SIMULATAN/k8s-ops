@@ -22,7 +22,8 @@
     },
     {
       "matchPackageNames": ["/your_spotify/"],
-      "groupName": "spotify-stats"
+      "groupName": "spotify-stats",
+      "changelogUrl": "https://github.com/Yooooomi/your_spotify/releases"
     }
   ]
 }
