@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: yooooomi/your_spotify_server:1.11.0
+          image: yooooomi/your_spotify_server:1.12.0
           env:
             - name: API_ENDPOINT
               value: https://spotify-api.simulatan.me
