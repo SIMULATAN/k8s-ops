@@ -11,7 +11,7 @@ resources:
 helmCharts:
 - name: mongodb
   releaseName: spotify-stats-mongodb
-  repo: https://charts.bitnami.com/bitnami
+  repo: oci://registry-1.docker.io/bitnamicharts/mongodb
   version: 16.4.0
   valuesFile: mongo.values.yml
   namespace: spotify-stats
