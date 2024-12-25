@@ -73,9 +73,11 @@ postgresql:
       requests:
         cpu: 300m
         memory: 512Mi
+        ephemeral-storage: 100Mi
       limits:
         cpu: 500m
         memory: 1.5Gi
+        ephemeral-storage: 1Gi
 nodeSelector:
   kubernetes.io/hostname: sim-microserv-debian
 redis:
