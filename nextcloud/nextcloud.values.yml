@@ -69,6 +69,13 @@ postgresql:
     persistence:
       enabled: true
       existingClaim: nextcloud-postgresql-data
+    resources:
+      requests:
+        cpu: 300m
+        memory: 512Mi
+      limits:
+        cpu: 500m
+        memory: 1.5Gi
 nodeSelector:
   kubernetes.io/hostname: sim-microserv-debian
 redis:
