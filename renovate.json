@@ -19,6 +19,10 @@
     {
       "updateTypes": ["patch"],
       "enabled": false
+    },
+    {
+      "matchPackageNames": ["/your_spotify/"],
+      "groupName": "spotify-stats"
     }
   ]
 }
