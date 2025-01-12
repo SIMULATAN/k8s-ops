@@ -9,6 +9,9 @@
   "kubernetes": {
     "fileMatch": ["\\.yml$", "\\.yaml$"]
   },
+  "argocd": {
+    "fileMatch": ["\\.argo\\."]
+  },
   "separateMinorPatch": true,
   "packageRules": [
     {
