@@ -12,6 +12,7 @@
   "argocd": {
     "fileMatch": ["\\.argo\\."]
   },
+  "pruneBranchAfterAutomerge": false,
   "separateMinorPatch": true,
   "packageRules": [
     {
