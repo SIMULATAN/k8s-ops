@@ -39,6 +39,9 @@ nextcloud:
       php_admin_value[opcache.memory_consumption] = 512
       php_admin_value[opcache.max_accelerated_files] = 30000
       php_admin_value[opcache.revalidate_freq] = 60
+  extraEnv:
+    - name: OVERWRITECLIURL
+      value: https://nc.simulatan.me
   existingSecret:
     enabled: true
     secretName: nextcloud-secret
