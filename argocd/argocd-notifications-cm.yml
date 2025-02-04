@@ -11,6 +11,7 @@ data:
   subscriptions: |
     - recipients:
       - discord-webhook
+      - github
       # only apply to k8s-ops projects, others have different services
       selector: argocd.argoproj.io/instance=k8s-ops
       triggers:
@@ -33,18 +34,18 @@ data:
   trigger.sync-operation-change: |
     - when: app.status.sync.status in ['OutOfSync']
       oncePer: app.status.operationState.syncResult.revision
-      send: [discord-webhook]
+      send: [app-deployment-update]
     - when: app.status.operationState.phase in ['Succeeded']
       oncePer: app.status.operationState.syncResult.revision
-      send: [discord-webhook, github-app-deployed]
+      send: [app-deployment-update]
     - when: app.status.operationState.phase in ['Running']
       oncePer: app.status.operationState.syncResult.revision
-      send: [discord-webhook]
+      send: [app-deployment-update]
     - when: app.status.operationState.phase in ['Error', 'Failed']
       oncePer: app.status.operationState.syncResult.revision
-      send: [discord-webhook]
+      send: [app-deployment-update]
 
-  template.discord-webhook: |
+  template.app-deployment-update: |
     webhook:
       discord-webhook:
         method: POST
@@ -104,26 +105,33 @@ data:
               }]
             }]
           }
-  template.github-app-deployed: |
-    message: |
-      Application {{.app.metadata.name}} was updated.
+
     github:
       repoURLPath: "{{.app.spec.source.repoURL}}"
       revisionPath: "{{.app.status.operationState.syncResult.revision}}"
       status:
-        state: success
-        label: "continuous-delivery/{{.app.metadata.name}}"
+        state: '{{ if eq .app.status.operationState.phase "Succeeded" }}success{{ else if or (eq .app.status.operationState.phase "Error") (eq .app.status.operationState.phase "Failed") }}failure{{ end }}'
+        label: "cd/{{.app.metadata.name}}"
         targetURL: "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true"
       deployment:
-        state: success
-        environment: production
+        state: '{{ if eq .app.status.operationState.phase "Succeeded" }}success{{ else if or (eq .app.status.operationState.phase "Error") (eq .app.status.operationState.phase "Failed") }}failure{{ end }}'
+        environment: "{{.app.metadata.name}}"
         environmentURL: "https://{{.app.metadata.name}}.simulatan.me"
         logURL: "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true"
         requiredContexts: []
-        autoMerge: true
       pullRequestComment:
         content: |
-          Application {{.app.metadata.name}} is now running new version of deployments manifests.
+          {{.context}}
+          {{- if eq .app.status.operationState.phase "Succeeded" -}}
+          Application {{.app.metadata.name}} is now running the new manifests.
+          {{- else -}}
+          Application {{.app.metadata.name}} failed to deploy.
+          {{- end }}
           See more here: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true
 
-
+    message: |
+      {{- if eq .app.status.operationState.phase "Succeeded" -}}
+      Application {{.app.metadata.name}} was deployed {{.context}}.
+      {{- else -}}
+      Application {{.app.metadata.name}} failed to deploy.
+      {{- end -}}
