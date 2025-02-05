@@ -51,7 +51,7 @@ data:
         method: POST
         body: |
           {
-            "avatar_url": "https://argocd.simulatan.me/assets/images/logo.png",
+            "avatar_url": "{{.context.argocdUrl}}/assets/images/logo.png",
             "embeds": [{
               "title": "{{.app.status.sync.status}}: {{.app.metadata.name}}",
               "url": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
@@ -121,7 +121,6 @@ data:
         requiredContexts: []
       pullRequestComment:
         content: |
-          {{.context}}
           {{- if eq .app.status.operationState.phase "Succeeded" -}}
           Application {{.app.metadata.name}} is now running the new manifests.
           {{- else -}}
