@@ -130,7 +130,7 @@ data:
 
     message: |
       {{- if eq .app.status.operationState.phase "Succeeded" -}}
-      Application {{.app.metadata.name}} was deployed.
+      Application `{{.app.metadata.name}}` was deployed.
       {{- else -}}
-      Application {{.app.metadata.name}} failed to deploy.
+      Application `{{.app.metadata.name}}` failed to deploy.
       {{- end -}}
