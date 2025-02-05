@@ -110,11 +110,11 @@ data:
       repoURLPath: "{{.app.spec.source.repoURL}}"
       revisionPath: "{{.app.status.operationState.syncResult.revision}}"
       status:
-        state: '{{ if eq .app.status.operationState.phase "Succeeded" }}success{{ else if or (eq .app.status.operationState.phase "Error") (eq .app.status.operationState.phase "Failed") }}failure{{ end }}'
+        state: '{{ if eq .app.status.operationState.phase "Running" }}in_progress{{ else if or (eq .app.status.operationState.phase "Error") (eq .app.status.operationState.phase "Failed") }}failure{{ else if eq .app.status.sync.status "OutOfSync" }}pending{{ else if eq .app.status.operationState.phase "Succeeded" }}success{{ end }}'
         label: "cd/{{.app.metadata.name}}"
         targetURL: "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true"
       deployment:
-        state: '{{ if eq .app.status.operationState.phase "Succeeded" }}success{{ else if or (eq .app.status.operationState.phase "Error") (eq .app.status.operationState.phase "Failed") }}failure{{ end }}'
+        state: '{{ if eq .app.status.operationState.phase "Running" }}in_progress{{ else if or (eq .app.status.operationState.phase "Error") (eq .app.status.operationState.phase "Failed") }}failure{{ else if eq .app.status.sync.status "OutOfSync" }}pending{{ else if eq .app.status.operationState.phase "Succeeded" }}success{{ end }}'
         environment: "{{.app.metadata.name}}"
         environmentURL: "https://{{.app.metadata.name}}.simulatan.me"
         logURL: "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true"
