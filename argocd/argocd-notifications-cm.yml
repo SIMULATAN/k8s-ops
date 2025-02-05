@@ -122,9 +122,9 @@ data:
       pullRequestComment:
         content: |
           {{- if eq .app.status.operationState.phase "Succeeded" -}}
-          Application {{.app.metadata.name}} is now running the new manifests.
+          Application `{{.app.metadata.name}}` is now running the new manifests.
           {{- else -}}
-          Application {{.app.metadata.name}} failed to deploy.
+          Application `{{.app.metadata.name}}` failed to deploy.
           {{- end }}
           See more here: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true
 
