@@ -11,4 +11,7 @@ spec:
   destination:
     name: in-cluster
     namespace: cnpg-system
+  syncPolicy:
+    syncOptions:
+      - ServerSideApply=true
 
