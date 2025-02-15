@@ -5,15 +5,10 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  sources:
-    - chart: cloudnative-pg
-      repoURL: https://cloudnative-pg.github.io/charts
-      targetRevision: 0.23.0
-      helm:
-        valuesObject:
-          replicaCount: 2
-
+  source:
+    repoURL: https://github.com/SIMULATAN/k8s-ops
+    path: cnpg
   destination:
-    server: "https://kubernetes.default.svc"
+    name: in-cluster
     namespace: cnpg-system
 
