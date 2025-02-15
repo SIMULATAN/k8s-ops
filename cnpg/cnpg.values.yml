@@ -5,4 +5,4 @@ config:
     # The duration (in seconds) to wait between the roll-outs of different clusters during an operator upgrade. This setting controls the timing of upgrades across clusters, spreading them out to reduce system impact.
     CLUSTERS_ROLLOUT_DELAY: '10'
     # The duration (in seconds) to wait between roll-outs of individual PostgreSQL instances within the same cluster during an operator upgrade.
-    INSTANCES_ROLLOUT_DELAY: '30'
+    INSTANCES_ROLLOUT_DELAY: '300'
