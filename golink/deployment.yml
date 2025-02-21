@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: golink
+  namespace: golink
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: golink
+  template:
+    metadata:
+      labels:
+        app: golink
+    spec:
+      containers:
+        - image: ghcr.io/simulatan/golink:0.1.5
+          name: golink
+          ports:
+            - containerPort: 8080
+          env:
+            - name: GOLINK_BASE_URL
+              value: https://l.simulatan.me
+            - name: GOLINK_POSTGRES_URI
+              valueFrom:
+                secretKeyRef:
+                  name: golink-postgres-app
+                  key: uri

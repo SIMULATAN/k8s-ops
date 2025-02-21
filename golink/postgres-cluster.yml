@@ -1,0 +1,23 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: golink-postgres
+  namespace: golink
+spec:
+  instances: 2
+
+  imageName: ghcr.io/cloudnative-pg/postgresql:16
+
+  bootstrap:
+    initdb:
+      database: golink
+      owner: golink
+
+  postgresql:
+    pg_hba:
+      - local all all trust
+      - host all all 127.0.0.1/32 trust
+      - host all all ::1/128 trust
+
+  storage:
+    size: 1Gi
