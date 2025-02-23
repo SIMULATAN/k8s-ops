@@ -7,6 +7,6 @@ helmCharts:
 - name: nextcloud
   releaseName: nextcloud
   repo: https://nextcloud.github.io/helm/
-  version: 6.6.2
+  version: 6.6.4
   valuesFile: nextcloud.values.yml
   namespace: nextcloud
