@@ -7,7 +7,7 @@ spec:
   valuesContent: |-
     image:
       repository: traefik
-      tag: v3.2.1
+      tag: v3.3.4
     providers:
       kubernetesCRD:
         allowCrossNamespace: true
