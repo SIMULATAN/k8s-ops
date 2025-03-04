@@ -1,0 +1,9 @@
+namespace: system-upgrade
+
+resources:
+  - https://github.com/rancher/system-upgrade-controller?ref=v0.15.1
+  - ./upgrade.yml
+
+images:
+- name: rancher/system-upgrade-controller
+  newTag: v0.15.1
