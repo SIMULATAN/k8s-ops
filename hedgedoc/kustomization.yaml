@@ -1,0 +1,9 @@
+namespace: hedgedoc
+
+resources:
+  - ./postgres-cluster.yml
+  - ./hedgedoc-s3.yml
+  - ./hedgedoc-auth.yml
+  - ./deployment.yml
+  - ./service.yml
+  - ./ingress.yml

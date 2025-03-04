@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hedgedoc
+spec:
+  selector:
+    matchLabels:
+      app: hedgedoc
+  template:
+    metadata:
+      labels:
+        app: hedgedoc
+    spec:
+      containers:
+        - name: hedgedoc
+          image: lscr.io/linuxserver/hedgedoc:1.10.2
+          env:
+            - name: DOCKER_MODS
+              value: linuxserver/mods:universal-package-install
+            - name: INSTALL_PACKAGES
+              # https://github.com/linuxserver/docker-hedgedoc/pull/45
+              value: icu-data-full
+            - name: CMD_DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: hedgedoc-postgres-app
+                  key: uri
+            - name: CMD_DOMAIN
+              value: md.simulatan.me
+            - name: CMD_PROTOCOL_USESSL
+              value: 'true'
+            - name: CMD_IMAGE_UPLOAD_TYPE
+              value: minio
+            - name: CMD_S3_BUCKET
+              value: hedgedoc
+            - name: CMD_MINIO_ACCESS_KEY
+              value: hedgedoc
+            - name: CMD_MINIO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: hedgedoc-s3
+                  key: secret
+            - name: CMD_MINIO_ENDPOINT
+              value: s3.simulatan.me
+            - name: CMD_MINIO_PORT
+              value: '443'
+          envFrom:
+            - secretRef:
+                name: hedgedoc-auth
+          ports:
+            - containerPort: 3000
+          livenessProbe:
+            httpGet:
+              path: /_health
+              port: 3000
+            initialDelaySeconds: 3
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /_health
+              port: 3000
+            initialDelaySeconds: 3
+            periodSeconds: 10

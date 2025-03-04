@@ -1,0 +1,12 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: hedgedoc-s3
+  namespace: hedgedoc
+spec:
+  encryptedData:
+    secret: AgBZaP60zZEZ9Eq/j9ih+mj+RZgqS3/dPcb2UJC4O6vBdM68X5Iq4cMmnJ3fGj3pkeYlwTJQvdqaQMcGD5jC5TKnkGXpH5KhYwIvazaQOehoY05T3weTba/E7+xYXNF5ql1yTom4yWuFmo5kDAzK6YPC1vETfBlki9ELCwZt8CaygzDiuAw1V6S5rxkJd+awtPX8xRFJ/0K7gSO01Ljw89UrN14sQIDp43EBW164JvxoOZgrY4nYdY/Wr3eLNvJhNG32SjGufvArQuV3crmLqZZSC+vYsj9/q8DkD68jh/tiKOrG6gDZ5ZrFJMGpMcegL5zID5JBYCxXHec07mXSDIjajb/ze96VicEPWf3wFhoXsHPezgn43KI2D+o3rzUZYrhXKYK9LobDoi69p4KBmU+3zzmpWfvpKUggRe3AgQ7UFuXfuwNCWjpyMsQayQ9RtwX5j75rEU5WUo9FkpoGcP/2l8IUD0+/Wvlsb7/CEnBEmO36rq2Q34NNYu72kxKx/2TUnrAIs7olyA1n3IaKKyR9sK3ZPKxXEjDOw4z3Oj6zotLUZi8guzaIV5GX/+LXFVA8CseLO8Zw84l/13Pbou0ZupPAlLeRPBlouA1OnQicAdZabV0HYu71g0n8MRmCwbsm5F9YXvrDkrC4Y24XOM2JLK8nZBV6fZVkOZe8atUwNh2LWx4+Xe5Zd27jk+0vmcfIYpTAAlBgIjfKDph8UmHb8mX7c5M3SpASmT6IjoPdxYJMxEEH3sMC
+  template:
+    metadata:
+      name: hedgedoc-s3
+      namespace: hedgedoc
