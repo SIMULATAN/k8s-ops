@@ -13,5 +13,6 @@ spec:
         allowCrossNamespace: true
     service:
       externalTrafficPolicy: Local
-    # additionalArguments:
-    #  - "--tracing=true"
+    tracing:
+      otlp:
+        enabled: true
