@@ -3,7 +3,7 @@ configMap:
     oidc:
       clients:
       - client_id: argocd
-        description: Argo CD
+        client_name: Argo CD
         client_secret:
           path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_ARGOCD
         public: false
@@ -17,7 +17,7 @@ configMap:
           - email
           - profile
       - client_id: argocd-cli
-        description: Argo CD (CLI)
+        client_name: Argo CD (CLI)
         public: true
         pre_configured_consent_duration: 69y
         authorization_policy: two_factor
@@ -30,7 +30,7 @@ configMap:
           - profile
           - offline_access
       - client_id: contestsubmission
-        description: ContestSubmission
+        client_name: ContestSubmission
         client_secret:
           path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_CONTESTSUBMISSION
         public: false
@@ -44,7 +44,7 @@ configMap:
           - email
           - profile
       - client_id: minio
-        description: MinIO
+        client_name: MinIO
         client_secret:
           path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_MINIO
         public: false
@@ -58,7 +58,7 @@ configMap:
           - email
           - groups
       - client_id: forgejo
-        description: Forgejo
+        client_name: Forgejo
         client_secret:
           path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_FORGEJO
         public: false
@@ -73,7 +73,7 @@ configMap:
           - profile
           - groups
       - client_id: wikijs
-        description: WikiJS
+        client_name: WikiJS
         client_secret:
           path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_WIKIJS
         public: false
@@ -88,7 +88,7 @@ configMap:
           - groups
         token_endpoint_auth_method: client_secret_post
       - client_id: nextcloud
-        description: NextCloud
+        client_name: NextCloud
         client_secret:
           path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_NEXTCLOUD
         public: false
@@ -104,7 +104,7 @@ configMap:
         token_endpoint_auth_method: client_secret_post
         userinfo_signed_response_alg: none
       - client_id: snoty
-        description: Snoty
+        client_name: Snoty
         client_secret:
           path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_SNOTY
         public: false
@@ -120,7 +120,6 @@ configMap:
         token_endpoint_auth_method: client_secret_post
         userinfo_signed_response_alg: none
       - client_id: jellyfin
-        description: Jellyfin
         client_name: Jellyfin
         client_secret:
           path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_JELLYFIN
@@ -139,7 +138,7 @@ configMap:
         userinfo_signed_response_alg: none
         token_endpoint_auth_method: client_secret_post
       - client_id: k8s-main
-        description: Kubernetes Main
+        client_name: Kubernetes Main
         client_secret:
           path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_K8S-MAIN
         public: true
