@@ -138,3 +138,21 @@ configMap:
           - groups
         userinfo_signed_response_alg: none
         token_endpoint_auth_method: client_secret_post
+      - client_id: k8s-main
+        description: Kubernetes Main
+        client_secret:
+          path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_K8S-MAIN
+        public: true
+        pre_configured_consent_duration: 69y
+        authorization_policy: two_factor
+        redirect_uris:
+          - http://localhost:8000
+            # used if the port 8000 is already in use
+          - http://localhost:18000
+        scopes:
+          - openid
+          - profile
+          - groups
+          - email
+        userinfo_signed_response_alg: none
+        token_endpoint_auth_method: none
