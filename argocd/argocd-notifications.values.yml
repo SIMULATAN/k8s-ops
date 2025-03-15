@@ -74,32 +74,32 @@ notifications:
                   },
                 {{end}}
                 {
-                "name": "",
-                "value": "",
-                "inline": false
-              },
-              {
-                "name": "Commit SHA",
-                "value": "[{{.app.status.sync.revision | trunc 7}}]({{.app.spec.source.repoURL}}/commit/{{.app.status.sync.revision}})",
-                "inline": true
-              },
-              {
-                "name": "Commit Author",
-                "value": "{{(call .repo.GetCommitMetadata .app.status.sync.revision).Author}}",
-                "inline": true
-              },
-              {
-                "name": "Commit Date",
-                "value": "{{(call .repo.GetCommitMetadata .app.status.sync.revision).Date}}",
-                "inline": true
-              },
-              {
-                "name": "Commit Message",
-                "value": "{{(call .repo.GetCommitMetadata .app.status.sync.revision).Message}}",
-                "inline": false
+                  "name": "",
+                  "value": "",
+                  "inline": false
+                },
+                {
+                  "name": "Commit SHA",
+                  "value": "[{{.app.status.sync.revision | trunc 7}}]({{.app.spec.source.repoURL}}/commit/{{.app.status.sync.revision}})",
+                  "inline": true
+                },
+                {
+                  "name": "Commit Author",
+                  "value": "{{(call .repo.GetCommitMetadata .app.status.sync.revision).Author}}",
+                  "inline": true
+                },
+                {
+                  "name": "Commit Date",
+                  "value": "{{(call .repo.GetCommitMetadata .app.status.sync.revision).Date}}",
+                  "inline": true
+                },
+                {
+                  "name": "Commit Message",
+                  "value": "{{(call .repo.GetCommitMetadata .app.status.sync.revision).Message}}",
+                  "inline": false
+                }]
               }]
-            }]
-          }
+            }
 
       github:
         repoURLPath: "{{.app.spec.source.repoURL}}"
