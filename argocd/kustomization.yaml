@@ -1,104 +1,15 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-
 namespace: argocd
 
 resources:
-- github.com/argoproj/argo-cd/manifests/ha/cluster-install?ref=v2.14.1
-- argocd-oidc.yml
-- argocd-notifications-secret.yml
-- ingress.yml
+  - ./argocd-oidc.yml
+  - ./argocd-notifications-secret.yml
 
-patches:
-  - path: argocd-server-update-patch.yml
-    target:
-      group: apps
-      version: v1
-      kind: Deployment
-      name: argocd-server
-  - path: argocd-repo-server-update-patch.yml
-    target:
-      group: apps
-      version: v1
-      kind: Deployment
-      name: argocd-repo-server
-  - path: argocd-notifications-cm.yml
-    target:
-      kind: ConfigMap
-      name: argocd-notifications-cm
-  - patch: |-
-      $patch: delete
-      apiVersion: v1
-      kind: Secret
-      metadata:
-        name: argocd-notifications-secret
-  - patch: |-
-      apiVersion: v1
-      kind: ConfigMap
-      metadata:
-        name: argocd-cm
-      data:
-        application.instanceLabelKey: argocd.argoproj.io/instance
-        kustomize.buildOptions: --enable-helm --load-restrictor=LoadRestrictionsNone
-        url: https://argocd.simulatan.me
-        admin.enabled: "false"
-        oidc.config: |
-          name: Authelia
-          issuer: https://auth.simulatan.me
-          clientID: argocd
-          clientSecret: $argocd-oidc:oidc.authelia.clientSecret
-          cliClientID: argocd-cli
-          requestedScopes:
-            - openid
-            - profile
-            - email
-            - groups
-  - patch: |-
-      apiVersion: v1
-      kind: ConfigMap
-      metadata:
-        name: argocd-rbac-cm
-      data:
-        policy.csv: |
-          g, argocd-admin, role:admin
-  - patch: |-
-      apiVersion: v1
-      kind: ConfigMap
-      metadata:
-        name: argocd-cmd-params-cm
-      data:
-        server.insecure: "true"
-  - patch: |-
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: argocd-server
-      spec:
-        replicas: 2
-  - patch: |-
-      apiVersion: apps/v1
-      kind: StatefulSet
-      metadata:
-        name: argocd-redis-ha-server
-      spec:
-        replicas: 2
-  - patch: |-
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: argocd-redis-ha-haproxy
-      spec:
-        replicas: 2
-  - patch: |-
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: argocd-notifications-controller
-      spec:
-        template:
-          spec:
-            containers:
-            - name: argocd-notifications-controller
-              env:
-              - name: TZ
-                value: Europe/Vienna
+helmCharts:
+- name: argo-cd
+  releaseName: argocd
+  repo: https://argoproj.github.io/argo-helm
+  valuesFile: argocd.values.yml
+  version: 7.8.11
+  additionalValuesFiles:
+    - ./argocd-notifications.values.yml
+

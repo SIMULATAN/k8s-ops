@@ -1,0 +1,51 @@
+global:
+  domain: argocd.simulatan.me
+
+configs:
+  cm:
+    application.instanceLabelKey: argocd.argoproj.io/instance
+    kustomize.buildOptions: --enable-helm --load-restrictor=LoadRestrictionsNone
+    url: https://argocd.simulatan.me
+    admin.enabled: "false"
+    oidc.config: |
+      name: Authelia
+      issuer: https://auth.simulatan.me
+      clientID: argocd
+      clientSecret: $argocd-oidc:oidc.authelia.clientSecret
+      cliClientID: argocd-cli
+      requestedScopes:
+        - openid
+        - profile
+        - email
+        - groups
+  params:
+    server.insecure: true
+  rbac:
+    policy.csv: |
+      g, argocd-admin, role:admin
+
+notifications:
+  # the secret is managed using SealedSecrets
+  secret:
+    create: false
+
+redis-ha:
+  enabled: true
+  image:
+    repository: valkey/valkey
+    # argocd is currently using the major release 7
+    tag: 7-alpine
+  haproxy:
+    enabled: false
+
+controller:
+  replicas: 1
+
+server:
+  replicas: 3
+
+repoServer:
+  replicas: 2
+
+applicationSet:
+  replicas: 0
