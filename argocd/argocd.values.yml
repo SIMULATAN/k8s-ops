@@ -1,5 +1,7 @@
 global:
   domain: argocd.simulatan.me
+  networkPolicy:
+    create: true
 
 configs:
   cm:
