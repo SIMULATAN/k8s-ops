@@ -20,6 +20,8 @@ configs:
         - groups
   params:
     server.insecure: true
+    # not set correctly when not using haproxy
+    redis.server: argocd-redis-ha:6379
   rbac:
     policy.csv: |
       g, argocd-admin, role:admin
@@ -37,6 +39,9 @@ redis-ha:
     tag: 7-alpine
   haproxy:
     enabled: false
+
+externalRedis:
+  existingSecret: argocd-redis
 
 controller:
   replicas: 1
