@@ -33,6 +33,7 @@ nextcloud:
     previews.config.php: |-
       <?php
       $CONFIG = array (
+        'preview_ffmpeg_path' => '/usr/bin/ffmpeg',
         'enabledPreviewProviders' => array (
           'OC\Preview\Imaginary',
           'OC\Preview\ImaginaryPDF',
@@ -131,3 +132,5 @@ redis:
     existingSecretPasswordKey: REDIS_PASSWORD
 imaginary:
   enabled: true
+lifecycle:
+  postStartCommand: ["/bin/bash", "-c", "apt-get update -y && apt-get install ffmpeg -y && apt-get clean autoclean && rm -rf /var/lib/{apt,dpkg}"]
