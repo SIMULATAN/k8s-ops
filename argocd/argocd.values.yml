@@ -7,7 +7,6 @@ configs:
   cm:
     application.instanceLabelKey: argocd.argoproj.io/instance
     kustomize.buildOptions: --enable-helm --load-restrictor=LoadRestrictionsNone
-    url: https://argocd.simulatan.me
     admin.enabled: "false"
     oidc.config: |
       name: Authelia
