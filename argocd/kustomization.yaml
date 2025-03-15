@@ -3,6 +3,7 @@ namespace: argocd
 resources:
   - ./argocd-oidc.yml
   - ./argocd-notifications-secret.yml
+  - ./ingress.yml
 
 helmCharts:
 - name: argo-cd
