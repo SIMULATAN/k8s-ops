@@ -1,3 +1,5 @@
+image:
+  tag: 30.0.7-apache
 ingress:
   enabled: true
   className: traefik
