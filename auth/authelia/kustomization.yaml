@@ -29,7 +29,3 @@ patches:
     target:
       kind: DaemonSet
       labelSelector: app.kubernetes.io/name=authelia
-
-images:
-  - name: ghcr.io/authelia/authelia
-    newTag: 4.38.19
