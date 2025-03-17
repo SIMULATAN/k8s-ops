@@ -13,13 +13,8 @@ spec:
     spec:
       containers:
         - name: hedgedoc
-          image: lscr.io/linuxserver/hedgedoc:1.10.2
+          image: lscr.io/linuxserver/hedgedoc:1.10.2-ls159
           env:
-            - name: DOCKER_MODS
-              value: linuxserver/mods:universal-package-install
-            - name: INSTALL_PACKAGES
-              # https://github.com/linuxserver/docker-hedgedoc/pull/45
-              value: icu-data-full
             - name: CMD_DB_URL
               valueFrom:
                 secretKeyRef:
