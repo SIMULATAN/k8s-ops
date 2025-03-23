@@ -18,7 +18,9 @@ configs:
         - openid
         - profile
         - email
-        - groups
+      enableUserInfoGroups: true
+      userInfoPath: /api/oidc/userinfo
+      userInfoCacheExpiration: "5m"
   params:
     server.insecure: true
     # not set correctly when not using haproxy
