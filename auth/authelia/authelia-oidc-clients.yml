@@ -9,11 +9,11 @@ configMap:
         public: false
         pre_configured_consent_duration: 69y
         authorization_policy: two_factor
+        claims_policy: identify
         redirect_uris:
           - https://argocd.simulatan.me/auth/callback
         scopes:
           - openid
-          - groups
           - email
           - profile
       - client_id: argocd-cli
@@ -21,11 +21,11 @@ configMap:
         public: true
         pre_configured_consent_duration: 69y
         authorization_policy: two_factor
+        claims_policy: identify
         redirect_uris:
           - http://localhost:8085/auth/callback
         scopes:
           - openid
-          - groups
           - email
           - profile
           - offline_access
@@ -148,6 +148,7 @@ configMap:
         public: true
         pre_configured_consent_duration: 69y
         authorization_policy: two_factor
+        claims_policy: identify_groups
         redirect_uris:
           - http://localhost:8000
             # used if the port 8000 is already in use

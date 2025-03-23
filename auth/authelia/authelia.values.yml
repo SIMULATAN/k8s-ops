@@ -60,6 +60,11 @@ configMap:
         refresh_token: '14 days'
       hmac_secret:
         path: 'oidc.hmac.secret'
+      claims_policies:
+        identify:
+          id_token: ["email", "name", "preferred_username"]
+        identify_groups:
+          id_token: ["email", "name", "preferred_username", "groups"]
       jwks:
         - algorithm: 'RS256'
           use: 'sig'
