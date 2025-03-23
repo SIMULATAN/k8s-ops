@@ -18,6 +18,7 @@ configs:
         - openid
         - profile
         - email
+        - groups
       enableUserInfoGroups: true
       userInfoPath: /api/oidc/userinfo
       userInfoCacheExpiration: "5m"

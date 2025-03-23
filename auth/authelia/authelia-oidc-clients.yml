@@ -16,6 +16,7 @@ configMap:
           - openid
           - email
           - profile
+          - groups
       - client_id: argocd-cli
         client_name: Argo CD (CLI)
         public: true
@@ -28,6 +29,7 @@ configMap:
           - openid
           - email
           - profile
+          - groups
           - offline_access
         revocation_endpoint_auth_method: none
         introspection_endpoint_auth_method: none
