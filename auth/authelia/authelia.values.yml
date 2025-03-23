@@ -48,6 +48,9 @@ configMap:
         username: uid
         display_name: displayName
         mail: mail
+        picture: picture
+  webauthn:
+    enable_passkey_login: true
   identity_providers:
     oidc:
       enabled: true
