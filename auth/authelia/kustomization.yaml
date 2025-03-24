@@ -10,11 +10,12 @@ resources:
 - ./authelia-traefik-middleware.yml
 
 helmCharts:
-- name: redis
+- name: valkey
   repo: oci://registry-1.docker.io/bitnamicharts
-  version: 20.6.0
-  releaseName: authelia-redis
-  valuesFile: redis.values.yml
+  version: 2.4.7
+  releaseName: authelia-valkey
+  valuesFile: valkey.values.yml
+  namespace: auth
 - name: authelia
   repo: https://charts.authelia.com
   version: 0.10.4

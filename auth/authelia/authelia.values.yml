@@ -100,7 +100,7 @@ configMap:
         minimum_version: TLS1.2
         maximum_version: TLS1.3
   log:
-    level: debug
+    level: info
   storage:
     postgres:
       enabled: true
@@ -119,21 +119,19 @@ configMap:
         subdomain: auth
     redis:
       enabled: true
-      enabledSecret: false
       password:
-        disabled: true
-      host: authelia-redis.auth.svc.cluster.local
+        path: redis.password
+      host: authelia-valkey.auth.svc.cluster.local
       port: 26379
       high_availability:
         enabled: true
-        enabledSecret: false
-        sentinel_name: mymaster # the default bitnami name
         password:
-          disabled: true
+          path: redis.password
+        sentinel_name: myprimary # redis uses "mymaster"
         nodes:
-          - host: authelia-redis-node-0.authelia-redis-headless.auth.svc.cluster.local # default node names with my namespace
+          - host: authelia-valkey-node-0.authelia-valkey-headless.auth.svc.cluster.local # default node names with my namespace
             port: 26379
-          - host: authelia-redis-node-1.authelia-redis-headless.auth.svc.cluster.local
+          - host: authelia-valkey-node-1.authelia-valkey-headless.auth.svc.cluster.local
             port: 26379
-          - host: authelia-redis-node-2.authelia-redis-headless.auth.svc.cluster.local
+          - host: authelia-valkey-node-2.authelia-valkey-headless.auth.svc.cluster.local
             port: 26379

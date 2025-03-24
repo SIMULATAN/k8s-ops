@@ -1,0 +1,17 @@
+architecture: replication
+
+auth:
+  existingSecret: authelia
+  existingSecretPasswordKey: redis.password
+
+primary:
+  replicaCount: 1
+  persistence:
+    size: 512Mi
+replica:
+  replicaCount: 3
+  persistence:
+    size: 512Mi
+
+sentinel:
+  enabled: true
