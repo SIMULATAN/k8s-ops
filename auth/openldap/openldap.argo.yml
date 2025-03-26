@@ -30,6 +30,8 @@ spec:
             ingress:
               enabled: true
               ingressClassName: traefik
+              annotations:
+                traefik.ingress.kubernetes.io/router.middlewares: default-redirect-to-https@kubernetescrd,auth-forwardauth-authelia@kubernetescrd
               hosts:
                 - phpldapadmin.simulatan.me
           ltb-passwd:
