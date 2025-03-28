@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mazanoke
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mazanoke
+  template:
+    metadata:
+      labels:
+        app: mazanoke
+    spec:
+      containers:
+        # TODO: pin to tag once available
+        - image: ghcr.io/civilblur/mazanoke:latest
+          name: mazanoke
+          ports:
+          - containerPort: 80

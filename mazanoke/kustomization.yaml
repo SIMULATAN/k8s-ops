@@ -1,0 +1,6 @@
+namespace: convert
+
+resources:
+  - ./deployment.yml
+  - ./service.yml
+  - ./ingress.yml
