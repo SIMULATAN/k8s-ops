@@ -114,15 +114,6 @@ notifications:
           environmentURL: "https://{{.app.metadata.name}}.simulatan.me"
           logURL: "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true"
           requiredContexts: []
-        pullRequestComment:
-          content: |
-            {{- if eq .app.status.operationState.phase "Succeeded" -}}
-            Application `{{.app.metadata.name}}` is now running the new manifests.
-            {{- else -}}
-            Application `{{.app.metadata.name}}` failed to deploy.
-            {{- end }}
-            See more here: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true
-
       message: |
         {{- if eq .app.status.operationState.phase "Succeeded" -}}
         Application {{.app.metadata.name}} was deployed.
