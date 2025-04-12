@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: hedgedoc
-          image: lscr.io/linuxserver/hedgedoc:1.10.2-ls159
+          image: lscr.io/linuxserver/hedgedoc:1.10.3
           env:
             - name: CMD_DB_URL
               valueFrom:
