@@ -8,5 +8,11 @@ spec:
   source:
     repoURL: https://github.com/SIMULATAN/k8s-ops
     path: openfeature-operator
+  ignoreDifferences:
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
+    name: open-feature-operator-flagd-kubernetes-sync
+    jsonPointers:
+    - /subjects
   destination:
     name: in-cluster
