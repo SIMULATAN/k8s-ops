@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spotify-stats
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spotify-stats
+  template:
+    metadata:
+      labels:
+        app: spotify-stats
+    spec:
+      containers:
+        - name: web
+          image: linuxserver/your_spotify:1.12.0
+          env:
+            - name: APP_URL
+              value: https://spotify-stats.simulatan.me
+            - name: SPOTIFY_PUBLIC
+              valueFrom:
+                secretKeyRef:
+                  key: PUBLIC
+                  name: spotify-stats-secret
+            - name: SPOTIFY_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: SECRET
+                  name: spotify-stats-secret
+            - name: CORS
+              value: https://spotify-stats.simulatan.me
+            - name: TZ
+              value: Europe/Vienna
+            - name: MONGO_ENDPOINT
+              value: mongodb+srv://spotify-stats-mongodb-headless.spotify-stats.svc.cluster.local/?ssl=false&tls=false

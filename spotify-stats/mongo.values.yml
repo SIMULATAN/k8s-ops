@@ -11,4 +11,4 @@ auth:
   enabled: false
 metrics:
   enabled: false
-resourcesPreset: small
+resourcesPreset: medium

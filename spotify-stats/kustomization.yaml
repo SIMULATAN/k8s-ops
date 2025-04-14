@@ -5,8 +5,9 @@ namespace: spotify-stats
 
 resources:
 - ./secret.yml
-- ./server.yml
-- ./web.yml
+- ./deployment.yml
+- ./service.yml
+- ./ingress.yml
 
 helmCharts:
 - name: mongodb
