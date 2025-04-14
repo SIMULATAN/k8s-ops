@@ -1,0 +1,12 @@
+namespace: monitoring
+
+resources:
+  - ./oidc-secret.yml
+
+helmCharts:
+- name: grafana
+  releaseName: grafana
+  repo: https://grafana.github.io/helm-charts
+  version: 8.12.0
+  valuesFile: grafana.values.yml
+  namespace: monitoring

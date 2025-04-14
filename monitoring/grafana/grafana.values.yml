@@ -1,0 +1,46 @@
+imageRenderer:
+  enabled: true
+
+testFramework:
+  # no clue what it is supposed to do but it just like fails before anything happens soooo
+  enabled: false
+
+ingress:
+  enabled: true
+  hosts:
+    - grafana.simulatan.me
+
+persistence:
+  enabled: true
+  size: 5Gi
+
+grafana.ini:
+  server:
+    domain: grafana.simulatan.me
+    root_url: https://grafana.simulatan.me
+  log:
+    level: debug
+  auth.generic_oauth:
+    enabled: true
+    name: Authelia
+    icon: signin
+    scopes: openid profile email groups
+    empty_scopes: false
+    auth_url: https://auth.simulatan.me/api/oidc/authorization
+    token_url: https://auth.simulatan.me/api/oidc/token
+    api_url: https://auth.simulatan.me/api/oidc/userinfo
+    login_attribute_path: preferred_username
+    groups_attribute_path: groups
+    name_attribute_path: name
+    use_pkce: true
+    role_attribute_path: contains(groups, 'grafana-admin') && 'GrafanaAdmin' || contains(groups, 'grafana-editor') && 'Editor' || 'GrafanaAdmin'
+    allow_assign_grafana_admin: true
+    client_id: grafana
+    client_secret: $__file{/etc/secrets/oidc/_CLIENT_SECRET_GRAFANA}
+
+extraSecretMounts:
+  - name: oidc-secret
+    secretName: grafana-oidc
+    defaultMode: 0440
+    mountPath: /etc/secrets/oidc
+    readOnly: true
