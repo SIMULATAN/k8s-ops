@@ -1,0 +1,24 @@
+alloy:
+  stabilityLevel: experimental
+
+crds:
+  create: true
+
+mounts:
+  varlog: true
+
+serviceMonitor:
+  enabled: true
+
+extraPorts:
+  - name: "faro"
+    port: 12347
+    targetPort: 12347
+    protocol: "TCP"
+    appProtocol: "h2c"
+
+ingress:
+  # Faro (Frontend RUM)
+  enabled: true
+  hosts:
+    - faro.monitoring.simulatan.me

@@ -1,0 +1,82 @@
+alloy:
+  configMap:
+    content: |-
+      logging {
+        level = "info"
+        format = "json"
+        write_to = [loki.write.grafana_loki.receiver]
+      }
+
+      loki.write "grafana_loki" {
+        endpoint {
+          url = "http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push"
+        }
+      }
+
+      discovery.kubernetes "nodes" {
+        role = "node"
+      }
+
+      discovery.kubernetes "kubernetes_nodes_cadvisor" {
+        role = "node"
+      }
+
+      discovery.relabel "kubernetes_nodes_cadvisor" {
+        targets = discovery.kubernetes.kubernetes_nodes_cadvisor.targets
+
+        rule {
+          action = "labelmap"
+          regex  = "__meta_kubernetes_node_label_(.+)"
+        }
+
+        rule {
+          target_label = "__address__"
+          replacement  = "kubernetes.default.svc:443"
+        }
+
+        rule {
+          source_labels = ["__meta_kubernetes_node_name"]
+          target_label  = "__metrics_path__"
+          regex         = "(.+)"
+          replacement   = "/api/v1/nodes/$1/proxy/metrics/cadvisor"
+        }
+      }
+
+      prometheus.scrape "kubernetes_nodes_cadvisor" {
+        targets = discovery.relabel.kubernetes_nodes_cadvisor.output
+        forward_to = [prometheus.relabel.kubernetes_nodes_cadvisor.receiver]
+
+        scheme = "https"
+        bearer_token_file = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+
+        tls_config {
+          ca_file = "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+        }
+      }
+
+      prometheus.relabel "kubernetes_nodes_cadvisor" {
+        rule {
+          action = "labelkeep"
+          regex  = "__name__|instance|kubernetes_io_hostname|namespace|pod|container"
+        }
+
+        forward_to = [prometheus.remote_write.prometheus.receiver]
+      }
+
+      prometheus.operator.servicemonitors "servicemonitors" {
+        forward_to = [prometheus.remote_write.prometheus.receiver]
+      }
+
+      prometheus.operator.podmonitors "podmonitors" {
+        forward_to = [prometheus.remote_write.prometheus.receiver]
+      }
+
+      prometheus.operator.scrapeconfigs "scrapeconfigs" {
+        forward_to = [prometheus.remote_write.prometheus.receiver]
+      }
+
+      prometheus.remote_write "prometheus" {
+        endpoint {
+          url = "http://prometheus-server.monitoring.svc.cluster.local/api/v1/write"
+        }
+      }
