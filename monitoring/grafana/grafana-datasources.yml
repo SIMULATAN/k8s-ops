@@ -1,0 +1,12 @@
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Loki
+        type: loki
+        url: http://loki-gateway.{{- $.Release.Namespace -}}.svc.cluster.local
+        editable: false
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus-server.{{- $.Release.Namespace -}}.svc.cluster.local
+        editable: false

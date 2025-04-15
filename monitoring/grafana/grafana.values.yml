@@ -18,8 +18,6 @@ grafana.ini:
   server:
     domain: grafana.simulatan.me
     root_url: https://grafana.simulatan.me
-  log:
-    level: debug
   auth.generic_oauth:
     enabled: true
     name: Authelia
