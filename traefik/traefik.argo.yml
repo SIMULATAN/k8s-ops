@@ -6,11 +6,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/SIMULATAN/k8s-ops'
+    repoURL: https://github.com/SIMULATAN/k8s-ops
     path: traefik
-    directory:
-      exclude: '{*.argo.yml}'
-    targetRevision: HEAD
   destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: kube-system
+    name: in-cluster
+    namespace: traefik

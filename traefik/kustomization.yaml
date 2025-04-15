@@ -1,0 +1,13 @@
+namespace: traefik
+
+helmCharts:
+  - name: traefik-crds
+    releaseName: traefik-crds
+    repo: oci://ghcr.io/traefik/helm
+    version: 1.6.0
+  - name: traefik
+    releaseName: traefik
+    repo: oci://ghcr.io/traefik/helm
+    version: 35.0.0
+    valuesFile: traefik.values.yml
+    namespace: traefik
