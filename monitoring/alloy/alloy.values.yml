@@ -1,5 +1,7 @@
 alloy:
   stabilityLevel: experimental
+  clustering:
+    enabled: true
 
 crds:
   create: true
