@@ -23,5 +23,8 @@ spec:
       services:
         - name: website
           port: 80
+      middlewares:
+        - name: redirect-to-https
+          namespace: default
   tls:
     secretName: ssl-black-onion-com
