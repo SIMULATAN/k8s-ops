@@ -32,4 +32,8 @@ metrics:
 tracing:
   otlp:
     enabled: true
+    grpc:
+      enabled: true
+      endpoint: tempo.monitoring.svc.cluster.local:4317
+      insecure: true
 
