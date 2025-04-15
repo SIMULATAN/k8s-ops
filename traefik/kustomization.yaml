@@ -1,5 +1,9 @@
 namespace: traefik
 
+resources:
+  - ./middlewares.yml
+  - ./ingress.yml
+
 helmCharts:
   - name: traefik-crds
     releaseName: traefik-crds
