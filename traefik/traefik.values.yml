@@ -1,5 +1,8 @@
 instanceLabelOverride: traefik
 
+deployment:
+  kind: DaemonSet
+
 providers:
   kubernetesCRD:
     allowCrossNamespace: true
@@ -34,6 +37,6 @@ tracing:
     enabled: true
     grpc:
       enabled: true
-      endpoint: tempo.monitoring.svc.cluster.local:4317
+      endpoint: alloy.monitoring.svc.cluster.local:4317
       insecure: true
 
