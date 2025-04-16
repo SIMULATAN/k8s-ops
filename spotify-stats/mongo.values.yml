@@ -11,4 +11,12 @@ auth:
   enabled: false
 metrics:
   enabled: false
-resourcesPreset: medium
+resources:
+  requests:
+    cpu: 200m
+    ephemeral-storage: 50Mi
+    memory: 1Gi
+  limits:
+    cpu: 750m
+    ephemeral-storage: 2Gi
+    memory: 1536Mi
