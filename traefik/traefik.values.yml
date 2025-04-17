@@ -41,3 +41,34 @@ tracing:
       endpoint: alloy.monitoring.svc.cluster.local:4317
       insecure: true
 
+ingressRoute:
+  api:
+    enabled: true
+    matchRule: Host(`traefik.simulatan.me`) && PathPrefix(`/api`)
+    entryPoints:
+      - web
+      - websecure
+    services:
+      - name: api@internal
+        kind: TraefikService
+    middlewares:
+      - name: redirect-to-https
+        namespace: default
+      - name: forwardauth-authelia
+        namespace: auth
+  dashboard:
+    enabled: true
+    matchRule: Host(`traefik.simulatan.me`)
+    entryPoints:
+      - web
+      - websecure
+    services:
+      - name: api@internal
+        kind: TraefikService
+    middlewares:
+      - name: redirect-to-https
+        namespace: default
+      - name: strip-traefik-dashboard-prefix
+        namespace: traefik
+      - name: forwardauth-authelia
+        namespace: auth
