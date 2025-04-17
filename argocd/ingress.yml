@@ -5,6 +5,7 @@ metadata:
   namespace: argocd
 spec:
   entryPoints:
+    - web
     - websecure
   routes:
     - kind: Rule
@@ -13,6 +14,9 @@ spec:
       services:
         - name: argocd-server
           port: 80
+      middlewares:
+        - name: redirect-to-https
+          namespace: default
     - kind: Rule
       match: Host(`argocd.simulatan.me`) && Header(`Content-Type`, `application/grpc`)
       priority: 11
@@ -20,3 +24,6 @@ spec:
         - name: argocd-server
           port: 80
           scheme: h2c
+      middlewares:
+        - name: redirect-to-https
+          namespace: default
