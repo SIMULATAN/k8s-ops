@@ -1,6 +1,5 @@
 resources:
   - ./middlewares.yml
-  - ./ingress.yml
 
 helmCharts:
   - name: traefik-crds
