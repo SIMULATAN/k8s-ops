@@ -2,6 +2,16 @@ alloy:
   stabilityLevel: experimental
   clustering:
     enabled: true
+  extraPorts:
+    - name: faro
+      port: 12347
+      targetPort: 12347
+      protocol: TCP
+      appProtocol: h2c
+    - name: otlp-grpc
+      port: 4317
+      targetPort: 4317
+      protocol: TCP
 
 crds:
   create: true
@@ -11,17 +21,6 @@ mounts:
 
 serviceMonitor:
   enabled: true
-
-extraPorts:
-  - name: faro
-    port: 12347
-    targetPort: 12347
-    protocol: TCP
-    appProtocol: h2c
-  - name: otlp-grpc
-    port: 4317
-    targetPort: 4317
-    protocol: TCP
 
 ingress:
   # Faro (Frontend RUM)
