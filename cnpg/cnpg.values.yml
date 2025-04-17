@@ -6,3 +6,6 @@ config:
     CLUSTERS_ROLLOUT_DELAY: '10'
     # The duration (in seconds) to wait between roll-outs of individual PostgreSQL instances within the same cluster during an operator upgrade.
     INSTANCES_ROLLOUT_DELAY: '300'
+
+monitoring:
+  podMonitorEnabled: true
