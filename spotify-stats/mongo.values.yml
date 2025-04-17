@@ -20,3 +20,51 @@ resources:
     cpu: 750m
     ephemeral-storage: 2Gi
     memory: 1536Mi
+
+customLivenessProbe:
+  failureThreshold: 6
+  initialDelaySeconds: 30
+  periodSeconds: 20
+  successThreshold: 1
+  timeoutSeconds: 10
+  exec:
+    command:
+      - /custom-scripts/mongodb-rust-ping
+      - --ping
+
+customReadinessProbe:
+  initialDelaySeconds: 5
+  timeoutSeconds: 10
+  periodSeconds: 10
+  successThreshold: 1
+  failureThreshold: 6
+  exec:
+    command:
+      - /custom-scripts/mongodb-rust-ping
+      - --hello
+
+initContainers:
+  - name: download-ping-tool
+    image: busybox:1.36.0
+    imagePullPolicy: Always
+    command:
+      - sh
+      - -c
+      - |
+        #!/usr/bin/env bash -e
+        wget -O /custom-scripts/mongodb-rust-ping.tar.gz  \
+        "https://github.com/syndikat7/mongodb-rust-ping/releases/download/v0.4.0/mongodb-rust-ping-x86_64-unknown-linux-gnu.tar.gz"
+        cd /custom-scripts/ && tar -xzvf mongodb-rust-ping.tar.gz
+        chmod +x /custom-scripts/mongodb-rust-ping
+    volumeMounts:
+      - mountPath: "/custom-scripts"
+        name: mongodb-ping-volume
+
+extraVolumeMounts:
+  - name: mongodb-ping-volume
+    mountPath: /custom-scripts
+
+extraVolumes:
+  - name: mongodb-ping-volume
+    emptyDir:
+      sizeLimit: 100Mi
