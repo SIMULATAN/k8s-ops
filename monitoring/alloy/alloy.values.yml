@@ -13,11 +13,15 @@ serviceMonitor:
   enabled: true
 
 extraPorts:
-  - name: "faro"
+  - name: faro
     port: 12347
     targetPort: 12347
-    protocol: "TCP"
-    appProtocol: "h2c"
+    protocol: TCP
+    appProtocol: h2c
+  - name: otlp-grpc
+    port: 4317
+    targetPort: 4317
+    protocol: TCP
 
 ingress:
   # Faro (Frontend RUM)
