@@ -3,10 +3,30 @@ datasources:
     apiVersion: 1
     datasources:
       - name: Loki
+        uid: loki
         type: loki
         url: http://loki-gateway.{{- $.Release.Namespace -}}.svc.cluster.local
         editable: false
       - name: Prometheus
+        uid: prometheus
         type: prometheus
         url: http://prometheus-server.{{- $.Release.Namespace -}}.svc.cluster.local
         editable: false
+      - name: Tempo
+        uid: tempo
+        type: tempo
+        url: http://tempo.{{- $.Release.Namespace -}}.svc.cluster.local:3100
+        editable: true
+        jsonData:
+          tracesToLogsV2:
+            datasourceUid: loki
+            spanStartTimeShift: -1h
+            spanEndTimeShift: 1h
+            tags: ["job", "instance", "pod", "namespace"]
+            filterByTraceID: true
+            filterBySpanID: true
+          tracesToMetrics:
+            datasourceUid: prometheus
+            spanStartTimeShift: -1h
+            spanEndTimeShift: 1h
+            tags: [{ key: 'service.name', value: 'service' }]
