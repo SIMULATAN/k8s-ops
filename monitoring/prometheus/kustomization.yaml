@@ -4,6 +4,6 @@ helmCharts:
 - name: prometheus
   releaseName: prometheus
   repo: https://prometheus-community.github.io/helm-charts
-  version: 27.8.0
+  version: 27.10.0
   valuesFile: prometheus.values.yml
   namespace: monitoring
