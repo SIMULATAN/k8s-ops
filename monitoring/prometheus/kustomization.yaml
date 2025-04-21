@@ -7,3 +7,13 @@ helmCharts:
   version: 27.8.0
   valuesFile: prometheus.values.yml
   namespace: monitoring
+
+patches:
+  - target:
+      group: monitoring.coreos.com
+      version: v1
+      kind: ServiceMonitor
+    patch: |-
+      - op: replace
+        path: /spec/endpoints/0/honorLabels
+        value: true
