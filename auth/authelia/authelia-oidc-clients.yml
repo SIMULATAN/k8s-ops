@@ -191,6 +191,7 @@ configMap:
         public: false
         pre_configured_consent_duration: 69y
         authorization_policy: two_factor
+        claims_policy: identify
         redirect_uris:
           # not sure which one to use
           - https://penpot.simulatan.me/auth/oauth/oidc/callback
