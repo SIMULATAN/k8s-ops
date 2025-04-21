@@ -1,0 +1,18 @@
+# https://github.com/penpot/penpot-helm/issues/24
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: penpot-assets
+spec:
+  rules:
+    - host: penpot.simulatan.me
+      http:
+        paths:
+          - path: /assets
+            pathType: Prefix
+            backend:
+              service:
+                name: penpot-backend
+                port:
+                  number: 6060
+

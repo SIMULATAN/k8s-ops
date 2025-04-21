@@ -1,0 +1,18 @@
+architecture: replication
+
+auth:
+  # penpot doesn't seem to support auth lol
+  enabled: false
+
+primary:
+  replicaCount: 1
+  persistence:
+    size: 512Mi
+replica:
+  replicaCount: 3
+  persistence:
+    size: 512Mi
+
+sentinel:
+  enabled: true
+

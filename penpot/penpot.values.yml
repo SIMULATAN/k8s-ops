@@ -1,0 +1,50 @@
+global:
+  # we're using our own operator / chart
+  postgresEnabled: false
+  redisEnabled: false
+
+config:
+  flags: "enable-log-emails enable-login-with-oidc disable-onboarding"
+
+  publicUri: https://penpot.simulatan.me
+  existingSecret: penpot
+  secretKeys:
+    apiSecretKey: apiSecretKey
+
+  assets:
+    storageBackend: assets-s3
+    s3:
+      endpointURI: https://s3.simulatan.me
+      region: us-east-1 # https://github.com/minio/minio/discussions/15063
+      bucket: penpot
+      accessKeyID: penpot
+      existingSecret: penpot
+      secretKeys:
+        secretAccessKey: s3ClientSecret
+
+  postgresql:
+    host: penpot-postgres-rw
+    existingSecret: penpot-postgres-app
+    secretKeys:
+      usernameKey: username
+      passwordKey: password
+
+  redis:
+    host: penpot-valkey-headless
+
+  providers:
+    oidc:
+      enabled: true
+      baseURI: https://auth.simulatan.me
+      clientID: penpot
+      roles: "" # don't check
+      scopes: "openid profile email"
+
+    existingSecret: penpot
+    secretKeys:
+      oidcClientSecretKey: oidcClientSecret
+
+ingress:
+  enabled: true
+  hosts:
+    - penpot.simulatan.me
