@@ -55,6 +55,7 @@ configMap:
         public: false
         pre_configured_consent_duration: 69y
         authorization_policy: two_factor
+        claims_policy: identify_groups
         redirect_uris:
           - https://s3.simulatan.me/minio/ui/oauth_callback
           - https://s3.simulatan.me/minio/oauth_callback
