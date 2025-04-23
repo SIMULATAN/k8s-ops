@@ -4,5 +4,4 @@ description: Used for important system pods that must not be moved from their cu
 metadata:
   name: node-important
 preemptionPolicy: PreemptLowerPriority
-# between system-node-critical (2000001000) and system-cluster-critical (2000000000)
-value: 2000000500
+value: 500000000
