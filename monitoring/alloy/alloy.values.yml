@@ -14,7 +14,7 @@ alloy:
       protocol: TCP
 
 controller:
-  priorityClassName: system-node-important
+  priorityClassName: node-important
 
 crds:
   create: true
