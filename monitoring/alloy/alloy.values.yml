@@ -13,6 +13,9 @@ alloy:
       targetPort: 4317
       protocol: TCP
 
+controller:
+  priorityClassName: system-node-important
+
 crds:
   create: true
 
