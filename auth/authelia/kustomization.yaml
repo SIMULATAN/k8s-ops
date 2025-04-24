@@ -12,7 +12,7 @@ resources:
 helmCharts:
 - name: valkey
   repo: oci://registry-1.docker.io/bitnamicharts
-  version: 2.4.7
+  version: 3.0.2
   releaseName: authelia-valkey
   valuesFile: valkey.values.yml
   namespace: auth
