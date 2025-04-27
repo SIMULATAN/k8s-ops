@@ -11,15 +11,19 @@ prometheus-node-exporter:
     - --no-collector.bcache
     - --no-collector.bonding
     - --no-collector.sockstat
+    - --no-collector.netclass
+    - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|run/.+|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
+    - --collector.netdev.device-exclude=.*veth.*
+    - --collector.ethtool.device-exclude=.*veth.*
   prometheus:
     monitor:
       enabled: true
       honorLabels: true
       relabelings:
-      - action: replace
-        sourceLabels:
-        - __meta_kubernetes_pod_node_name
-        targetLabel: node
+        - action: replace
+          sourceLabels:
+            - __meta_kubernetes_pod_node_name
+          targetLabel: node
 
 
 # remote write exists
@@ -27,6 +31,8 @@ prometheus-pushgateway:
   enabled: false
 
 server:
+  tsdb:
+    out_of_order_time_window: 30s
   extraArgs:
     # enable the feature
     web.enable-remote-write-receiver: null
