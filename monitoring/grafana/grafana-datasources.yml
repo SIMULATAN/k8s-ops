@@ -12,6 +12,8 @@ datasources:
         type: prometheus
         url: http://prometheus-server.{{- $.Release.Namespace -}}.svc.cluster.local
         editable: false
+        jsonData:
+          timeInterval: 30s
       - name: Tempo
         uid: tempo
         type: tempo
