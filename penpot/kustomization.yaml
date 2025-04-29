@@ -3,7 +3,7 @@ namespace: penpot
 resources:
 - ./secret.yml
 - ./postgres-cluster.yml
-- ./asset-ingress.yml
+# - ./asset-ingress.yml
 
 helmCharts:
 - name: penpot

@@ -12,7 +12,7 @@ config:
     apiSecretKey: apiSecretKey
 
   assets:
-    storageBackend: assets-s3
+    storageBackend: assets-filesystem
     s3:
       endpointURI: https://s3.simulatan.me
       region: us-east-1 # https://github.com/minio/minio/discussions/15063
@@ -43,6 +43,11 @@ config:
     existingSecret: penpot
     secretKeys:
       oidcClientSecretKey: oidcClientSecret
+
+persistence:
+  assets:
+    enabled: true
+    size: 5Gi
 
 ingress:
   enabled: true
