@@ -7,7 +7,7 @@ configs:
   cm:
     application.instanceLabelKey: argocd.argoproj.io/instance
     kustomize.buildOptions: --enable-helm --load-restrictor=LoadRestrictionsNone
-    timeout.reconciliation: 1d # we're using webhooks instead of periodic polling
+    timeout.reconciliation: 24h # we're using webhooks instead of periodic polling
     admin.enabled: "false"
     oidc.config: |
       name: Authelia
