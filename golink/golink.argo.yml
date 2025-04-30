@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: golink
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/SIMULATAN/k8s-ops
+    path: golink
+  destination:
+    name: in-cluster
+    namespace: golink
