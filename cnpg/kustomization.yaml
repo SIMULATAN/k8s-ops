@@ -8,5 +8,5 @@ helmCharts:
   releaseName: cloudnativepg-operator
   repo: https://cloudnative-pg.github.io/charts
   valuesFile: cnpg.values.yml
-  version: 0.23.0
+  version: 0.23.2
 
