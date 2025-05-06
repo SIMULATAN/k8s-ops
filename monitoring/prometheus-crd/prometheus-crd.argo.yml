@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: monitoring-prometheus-crd
+  namespace: argocd
+spec:
+  project: monitoring
+  source:
+    repoURL: https://github.com/SIMULATAN/k8s-ops
+    path: monitoring/prometheus-crd
+  destination:
+    name: in-cluster
+    namespace: monitoring
