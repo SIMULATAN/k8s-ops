@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: monitoring-tempo
+  namespace: argocd
+spec:
+  project: monitoring
+  source:
+    repoURL: https://github.com/SIMULATAN/k8s-ops
+    path: monitoring/tempo
+  destination:
+    name: in-cluster
+    namespace: monitoring
