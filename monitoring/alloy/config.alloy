@@ -78,6 +78,9 @@ alloy:
       }
 
       prometheus.operator.scrapeconfigs "scrapeconfigs" {
+        clustering {
+            enabled = true
+        }
         forward_to = [prometheus.remote_write.prometheus.receiver]
       }
 
