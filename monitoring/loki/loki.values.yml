@@ -19,6 +19,7 @@ loki:
   limits_config:
     allow_structured_metadata: true
     volume_enabled: true
+    max_line_size: 1024KB
   ruler:
     enable_api: true
   tracing:
