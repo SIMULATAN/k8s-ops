@@ -9,8 +9,7 @@ spec:
     repoURL: https://github.com/SIMULATAN/k8s-ops
     path: monitoring/grafana
   ignoreDifferences:
-  - group: v1
-    kind: Secret
+  - kind: Secret
     name: grafana
     jsonPointers:
     - /data/admin-password
