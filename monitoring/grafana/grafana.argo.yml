@@ -13,6 +13,15 @@ spec:
     name: grafana
     jsonPointers:
     - /data/admin-password
+  # should not be ignored but we unfortunately have no choice as the generated admin password
+  # will still change the hash
+  - group: apps
+    kind: Deployment
+    name: grafana
+    jsonPointers:
+      # ~1 is a special character for /
+      # https://argo-cd.readthedocs.io/en/stable/user-guide/diffing/#application-level-configuration
+    - /spec/template/metadata/annotations/checksum~1secret
   destination:
     name: in-cluster
     namespace: monitoring
