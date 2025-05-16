@@ -41,8 +41,8 @@ redis-ha:
   enabled: true
   image:
     repository: valkey/valkey
-    # argocd is currently using the major release 7
-    tag: 7-alpine
+    # sync with https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml
+    tag: 7.2-alpine
   haproxy:
     enabled: false
 
