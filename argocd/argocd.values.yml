@@ -6,6 +6,8 @@ global:
 configs:
   cm:
     application.instanceLabelKey: argocd.argoproj.io/instance
+    # https://github.com/argoproj/notifications-engine/issues/377
+    application.resourceTrackingMethod: annotation+label
     kustomize.buildOptions: --enable-helm --load-restrictor=LoadRestrictionsNone
     timeout.reconciliation: 24h # we're using webhooks instead of periodic polling
     timeout.reconciliation.jitter: 10m
