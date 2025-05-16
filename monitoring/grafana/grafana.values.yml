@@ -55,4 +55,13 @@ extraSecretMounts:
     secretName: grafana-postgres-app
     defaultMode: 0440
     mountPath: /etc/secrets/postgres
-    readOnly: true
+    readOnly: false
+
+extraInitContainers:
+  - name: fix-postgres-uri
+    image: alpine
+    command:
+      - sed
+      - -i
+      - 's/postgresql/postgres/g'
+      - /etc/secrets/postgres/uri
