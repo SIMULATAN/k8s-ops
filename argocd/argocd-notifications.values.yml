@@ -5,7 +5,7 @@ notifications:
       - discord-webhook
       - github
       # only apply to k8s-ops projects, others have different services
-      selector: argocd.argoproj.io/instance=k8s-ops
+      selector: argocd.argoproj.io/instance=none
       triggers:
       - sync-operation-change
 
