@@ -1,6 +1,7 @@
 namespace: monitoring
 
 resources:
+  - ./postgres-cluster.yml
   - ./oidc-secret.yml
 
 helmCharts:

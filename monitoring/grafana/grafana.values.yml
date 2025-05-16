@@ -5,19 +5,28 @@ testFramework:
   # no clue what it is supposed to do but it just like fails before anything happens soooo
   enabled: false
 
+plugins:
+  - grafana-exploretraces-app
+  - grafana-lokiexplore-app
+  - grafana-metricsdrilldown-app
+  - grafana-pyroscope-app
+  - grafana-polystat-panel
+
 ingress:
   enabled: true
   hosts:
     - grafana.simulatan.me
 
 persistence:
-  enabled: true
-  size: 5Gi
+  enabled: false
 
 grafana.ini:
   server:
     domain: grafana.simulatan.me
     root_url: https://grafana.simulatan.me
+  database:
+    type: postgres
+    url: $__file{/etc/secrets/postgres/uri}
   auth.generic_oauth:
     enabled: true
     name: Authelia
@@ -41,4 +50,9 @@ extraSecretMounts:
     secretName: grafana-oidc
     defaultMode: 0440
     mountPath: /etc/secrets/oidc
+    readOnly: true
+  - name: postgres-secret
+    secretName: grafana-postgres-app
+    defaultMode: 0440
+    mountPath: /etc/secrets/postgres
     readOnly: true
