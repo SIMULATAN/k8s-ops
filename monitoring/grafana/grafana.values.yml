@@ -52,6 +52,7 @@ extraVolumes:
 extraVolumeMounts:
   - name: database-secret
     mountPath: /etc/secrets/database
+    readOnly: false
 
 
 extraSecretMounts:
@@ -69,9 +70,9 @@ extraSecretMounts:
 extraInitContainers:
   - name: fix-postgres-uri
     image: alpine
-    command: sh
+    command: [sh]
     args:
-      - '-c'
+      - "-c"
       - "sed 's/postgresql/postgres/g' /etc/secrets/postgres/uri > /etc/secrets/database/uri"
     volumeMounts:
       - name: grafana-postgres-app
