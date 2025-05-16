@@ -26,7 +26,7 @@ grafana.ini:
     root_url: https://grafana.simulatan.me
   database:
     type: postgres
-    url: $__file{/etc/secrets/postgres/uri}
+    url: $__file{/etc/secrets/database/uri}
   auth.generic_oauth:
     enabled: true
     name: Authelia
@@ -45,23 +45,36 @@ grafana.ini:
     client_id: grafana
     client_secret: $__file{/etc/secrets/oidc/_CLIENT_SECRET_GRAFANA}
 
+extraVolumes:
+  - name: database-secret
+    emptyDir: {}
+
+extraVolumeMounts:
+  - name: database-secret
+    mountPath: /etc/secrets/database
+
+
 extraSecretMounts:
   - name: oidc-secret
     secretName: grafana-oidc
     defaultMode: 0440
     mountPath: /etc/secrets/oidc
     readOnly: true
-  - name: postgres-secret
+  - name: grafana-postgres-app
     secretName: grafana-postgres-app
     defaultMode: 0440
     mountPath: /etc/secrets/postgres
-    readOnly: false
+    readOnly: true
 
 extraInitContainers:
   - name: fix-postgres-uri
     image: alpine
-    command:
-      - sed
-      - -i
-      - 's/postgresql/postgres/g'
-      - /etc/secrets/postgres/uri
+    command: sh
+    args:
+      - '-c'
+      - "sed 's/postgresql/postgres/g' /etc/secrets/postgres/uri > /etc/secrets/database/uri"
+    volumeMounts:
+      - name: grafana-postgres-app
+        mountPath: /etc/secrets/postgres
+      - name: database-secret
+        mountPath: /etc/secrets/database
