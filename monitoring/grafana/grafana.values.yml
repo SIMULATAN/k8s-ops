@@ -44,6 +44,8 @@ grafana.ini:
     allow_assign_grafana_admin: true
     client_id: grafana
     client_secret: $__file{/etc/secrets/oidc/_CLIENT_SECRET_GRAFANA}
+  feature_toggles:
+    enable: "provisioning kubernetesDashboards"
 
 extraVolumes:
   - name: database-secret
