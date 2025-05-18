@@ -21,6 +21,11 @@
       "enabled": false
     },
     {
+      "matchCurrentVersion": ">=20",
+      "matchUpdateTypes": ["minor"],
+      "enabled": false
+    },
+    {
       "updateTypes": ["patch"],
       "enabled": false
     },
