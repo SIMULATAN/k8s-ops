@@ -11,6 +11,9 @@ configs:
     kustomize.buildOptions: --enable-helm --load-restrictor=LoadRestrictionsNone
     timeout.reconciliation: 24h # we're using webhooks instead of periodic polling
     timeout.reconciliation.jitter: 10m
+    resource.customizations.ignoreDifferences.apiextensions.k8s.io_CustomResourceDefinition: |
+      jsonPointers:
+      - /spec/preserveUnknownFields
     admin.enabled: "false"
     oidc.config: |
       name: Authelia
