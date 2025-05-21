@@ -14,3 +14,11 @@ helmCharts:
   valuesFile: wakapi.values.yml
   version: 1.1.1
 
+patches:
+  - target:
+      version: v1
+      kind: ConfigMap
+    patch: |-
+      - op: add
+        path: /data/WAKAPI_PUBLIC_URL
+        value: https://wakapi.simulatan.me
