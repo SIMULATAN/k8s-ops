@@ -8,7 +8,7 @@ helmCharts:
 - name: grafana
   releaseName: grafana
   repo: https://grafana.github.io/helm-charts
-  version: 9.0.0
+  version: 9.1.1
   valuesFile: grafana.values.yml
   additionalValuesFiles:
     - grafana-datasources.yml
