@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: vikunja
+
+resources:
+- ./postgres-cluster.yml
+- ./vikunja-oidc.yml
+- ./vikunja-todoist.yml
+
+helmCharts:
+- name: vikunja
+  releaseName: vikunja
+  repo: oci://kolaente.dev/vikunja
+  valuesFile: vikunja.values.yml
+  version: 1.0.0

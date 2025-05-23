@@ -1,0 +1,72 @@
+vikunja:
+  enabled: true
+  image:
+    # TODO: switch to latest stable image once it supports OIDC configuration using environment variables
+    tag: unstable
+  persistence:
+    data:
+      enabled: false
+  configMaps:
+    api-config:
+      data:
+        config.yml: |
+          service:
+            publicurl: https://tasks.simulatan.me
+          typesense:
+            url: "http://{{ printf "%s-typesense" .Release.Name }}:8108"
+            apiKey: "{{ .Values.typesense.env.TYPESENSE_API_KEY }}"
+          auth:
+            openid:
+              enabled: true
+              providers:
+                authelia:
+                  name: Authelia
+                  authurl: https://auth.simulatan.me
+                  clientid: vikunja
+          migration:
+            todoist:
+              enable: true
+  env:
+    VIKUNJA_DATABASE_TYPE: postgres
+    VIKUNJA_DATABASE_HOST: vikunja-postgres-rw
+    VIKUNJA_DATABASE_NAME: vikunja
+    VIKUNJA_DATABASE_USER: vikunja
+    VIKUNJA_DATABASE_PASSWORD:
+      valueFrom:
+        secretKeyRef:
+          name: vikunja-postgres-app
+          key: password
+    VIKUNJA_AUTH_OPENID_PROVIDERS_authelia_CLIENTSECRET:
+      valueFrom:
+        secretKeyRef:
+          name: vikunja-oidc
+          key: _CLIENT_SECRET_VIKUNJA
+    VIKUNJA_MIGRATION_TODOIST_CLIENTID:
+      valueFrom:
+        secretKeyRef:
+          name: vikunja-todoist
+          key: CLIENT_ID
+    VIKUNJA_MIGRATION_TODOIST_CLIENTSECRET:
+      valueFrom:
+        secretKeyRef:
+          name: vikunja-todoist
+          key: CLIENT_SECRET
+  enableServiceLinks: false
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.middlewares: default-redirect-to-https@kubernetescrd
+      hosts:
+        - host: tasks.simulatan.me
+          paths:
+            - path: /
+
+postgresql:
+  enabled: false
+
+typesense:
+  persistence:
+    data:
+      # pvc would be recommended, but would break high availability
+      type: emptyDir
