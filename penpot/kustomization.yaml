@@ -9,7 +9,7 @@ helmCharts:
 - name: penpot
   releaseName: penpot
   repo: https://helm.penpot.app
-  version: 0.17.0
+  version: 0.19.0
   valuesFile: penpot.values.yml
 - name: valkey
   releaseName: penpot-valkey
