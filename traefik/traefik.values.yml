@@ -44,6 +44,7 @@ tracing:
 ingressRoute:
   api:
     enabled: true
+    annotations: {}
     matchRule: Host(`traefik.simulatan.me`) && PathPrefix(`/api`)
     entryPoints:
       - web
