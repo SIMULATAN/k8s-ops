@@ -223,7 +223,7 @@ configMap:
         public: true
         pre_configured_consent_duration: 69y
         authorization_policy: two_factor
-        claims_policy: identify
+        claims_policy: identify_groups
         redirect_uris:
           - https://oc.simulatan.me/
           - https://oc.simulatan.me/oidc-callback.html
