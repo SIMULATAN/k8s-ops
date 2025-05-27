@@ -58,6 +58,13 @@ configMap:
         access_token: '7 days'
         id_token: '10 hours'
         refresh_token: '14 days'
+      cors:
+        endpoints:
+          - 'authorization'
+          - 'token'
+          - 'revocation'
+          - 'introspection'
+          - 'userinfo'
       hmac_secret:
         path: 'oidc.hmac.secret'
       claims_policies:
