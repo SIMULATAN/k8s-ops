@@ -216,3 +216,20 @@ configMap:
           - openid
           - profile
           - email
+      - client_id: opencloud
+        client_name: OpenCloud
+        client_secret:
+          path: /secrets/authelia-oidc-secrets/CLIENT_SECRET_OPENCLOUD
+        public: true
+        pre_configured_consent_duration: 69y
+        authorization_policy: two_factor
+        claims_policy: identify
+        redirect_uris:
+          - https://oc.simulatan.me/
+          - https://oc.simulatan.me/oidc-callback.html
+          - https://oc.simulatan.me/oidc-silent-redirect.html
+        scopes:
+          - openid
+          - profile
+          - groups
+          - email
