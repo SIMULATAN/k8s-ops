@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opencloud-config
+data:
+  OC_LOG_LEVEL: info
+  OC_URL: https://oc.simulatan.me
+  START_ADDITIONAL_SERVICES: notifications
+  PROXY_TLS: "false" # no TLS between OC - Reverse Proxy
+  OC_INSECURE: "true" # external traffic uses TLS
+  PROXY_CSP_CONFIG_FILE_LOCATION: /opencloud/csp.yml
+  OC_EXCLUDE_RUN_SERVICES: idp
+  # OIDC
+  OC_OIDC_ISSUER: https://auth.simulatan.me
+  WEB_OIDC_CLIENT_ID: opencloud
+  WEB_OIDC_SCOPE: "openid profile email groups"
+  PROXY_OIDC_REWRITE_WELLKNOWN: "false"
+  PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD: none
+  PROXY_ROLE_ASSIGNMENT_DRIVER: oidc
+  OC_ADMIN_USER_ID: "false"
+  SETTINGS_SETUP_DEFAULT_ASSIGNMENTS: "false"
+  GRAPH_ASSIGN_DEFAULT_USER_ROLE: "false"
+  GRAPH_USERNAME_MATCH: none # disable username restrictions
+  PROXY_AUTOPROVISION_ACCOUNTS: "true"
+  PROXY_AUTOPROVISION_CLAIM_USERNAME: preferred_username
+  PROXY_AUTOPROVISION_CLAIM_EMAIL: email
+  PROXY_AUTOPROVISION_CLAIM_DISPLAYNAME: name
+  PROXY_AUTOPROVISION_CLAIM_GROUPS: groups
+  PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM: groups
+  PROXY_USER_CS3_CLAIM: username
+

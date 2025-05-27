@@ -1,0 +1,17 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: opencloud
+spec:
+  entryPoints:
+    - websecure
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`oc.simulatan.me`)
+      services:
+        - name: opencloud
+          port: 9200
+      middlewares:
+        - name: redirect-to-https
+          namespace: default

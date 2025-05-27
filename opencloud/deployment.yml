@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opencloud
+spec:
+  strategy:
+    type: Recreate # no shared file access is possible
+  selector:
+    matchLabels:
+      app: opencloud
+  template:
+    metadata:
+      labels:
+        app: opencloud
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: sim-microserv-debian
+      containers:
+        - name: opencloud
+          image: opencloudeu/opencloud-rolling:2.3.0
+          command: [sh]
+          args:
+            - '-c'
+            - 'cp /opencloud/proxy.yml /etc/opencloud/proxy.yaml && (opencloud init || true; opencloud server)'
+          envFrom:
+            - configMapRef:
+                name: opencloud-config
+          volumeMounts:
+            - name: opencloud-data
+              mountPath: /var/lib/opencloud
+            - name: opencloud-config
+              mountPath: /etc/opencloud
+            - name: opencloud-configs
+              mountPath: /opencloud
+      volumes:
+        - name: opencloud-data
+          persistentVolumeClaim:
+            claimName: opencloud-data
+        - name: opencloud-config
+          persistentVolumeClaim:
+            claimName: opencloud-config
+        - name: opencloud-configs
+          configMap:
+            name: opencloud-configs
