@@ -1,4 +1,4 @@
-![wakapi badge](https://wakapi.simulatan.me/api/badge/SIMULATAN/interval:any/label:Kubernetes?label=Time%20Spent)
+![wakapi badge](https://wakapi.simulatan.me/api/badge/SIMULATAN/interval:any/project:k8s-ops?label=Time%20Spent)
 
 # Kubernetes Configs
 This repo contains the kubernetes configurations for my projects. The exact files from this repo are deployed automatically using [ArgoCD](https://argoproj.github.io/cd/).
