@@ -13,8 +13,7 @@ spec:
         app: mazanoke
     spec:
       containers:
-        # TODO: pin to tag once available
-        - image: ghcr.io/civilblur/mazanoke:latest
+        - image: ghcr.io/civilblur/mazanoke:v1.1.5
           name: mazanoke
           ports:
           - containerPort: 80
