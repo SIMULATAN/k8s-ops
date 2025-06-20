@@ -18,7 +18,7 @@ helmCharts:
   namespace: auth
 - name: authelia
   repo: https://charts.authelia.com
-  version: 0.10.4
+  version: 0.10.17
   valuesFile: authelia.values.yml
   additionalValuesFiles:
     - authelia-oidc-clients.yml
