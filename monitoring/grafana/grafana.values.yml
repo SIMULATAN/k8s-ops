@@ -11,6 +11,7 @@ plugins:
   - grafana-metricsdrilldown-app
   - grafana-pyroscope-app
   - grafana-polystat-panel
+  - grafana-advisor-app
 
 ingress:
   enabled: true
@@ -45,7 +46,7 @@ grafana.ini:
     client_id: grafana
     client_secret: $__file{/etc/secrets/oidc/_CLIENT_SECRET_GRAFANA}
   feature_toggles:
-    enable: "provisioning kubernetesDashboards"
+    enable: "provisioning kubernetesDashboards grafanaAdvisor"
 
 extraVolumes:
   - name: database-secret
