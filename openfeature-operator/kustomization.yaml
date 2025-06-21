@@ -2,5 +2,5 @@ helmCharts:
   - releaseName: open-feature-operator
     name: open-feature-operator
     repo: https://open-feature.github.io/open-feature-operator
-    version: 0.8.4
+    version: 0.8.6
     namespace: openfeature-operator
