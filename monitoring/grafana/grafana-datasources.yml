@@ -17,7 +17,7 @@ datasources:
       - name: Tempo
         uid: tempo
         type: tempo
-        url: http://tempo.{{- $.Release.Namespace -}}.svc.cluster.local:3100
+        url: http://tempo.{{- $.Release.Namespace -}}.svc.cluster.local:3200
         editable: true
         jsonData:
           tracesToLogsV2:
