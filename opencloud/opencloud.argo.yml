@@ -9,5 +9,5 @@ spec:
     repoURL: https://github.com/SIMULATAN/k8s-ops
     path: opencloud
   destination:
-    name: in-memory
+    name: in-cluster
     namespace: opencloud
