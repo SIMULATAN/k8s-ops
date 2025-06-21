@@ -5,13 +5,15 @@ namespace: opencloud
 
 resources:
   - ./pvc.yml
-  - ./config.yml
   - ./opencloud-oidc.yml
   - ./deployment.yml
   - ./service.yml
   - ./ingress.yml
 
 configMapGenerator:
+  - name: opencloud-config
+    envs:
+      - ./config.env
   - name: opencloud-configs
     files:
       - ./csp.yml
