@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: opencloud
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/SIMULATAN/k8s-ops
+    path: opencloud
+  destination:
+    name: in-cluster
+    namespace: opencloud
