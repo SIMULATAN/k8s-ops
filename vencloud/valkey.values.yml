@@ -1,0 +1,14 @@
+architecture: replication
+
+primary:
+  replicaCount: 1
+  persistence:
+    size: 256Mi
+replica:
+  replicaCount: 2
+  persistence:
+    size: 128Mi
+
+auth:
+  existingSecret: vencloud-valkey
+  existingSecretPasswordKey: PASSWORD

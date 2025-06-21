@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vencloud
+spec:
+  selector:
+    matchLabels:
+      app: vencloud
+  template:
+    metadata:
+      labels:
+        app: vencloud
+    spec:
+      containers:
+        - name: vencloud
+          image: ghcr.io/simulatan/vencloud:v0.0.2-simulatan.1
+          env:
+            - name: REDIS_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: vencloud-valkey
+                  key: PASSWORD
+          envFrom:
+            - configMapRef:
+                name: vencloud
+            - secretRef:
+                name: vencloud
+          ports:
+            - containerPort: 8080
