@@ -5,9 +5,13 @@ metadata:
 spec:
   entryPoints:
     - websecure
+    - web
   routes:
     - kind: Rule
       match: Host(`img-convert.simulatan.me`)
       services:
         - name: mazanoke
           port: 80
+      middlewares:
+        - name: redirect-to-https
+          namespace: default
