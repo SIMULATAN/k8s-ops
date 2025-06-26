@@ -31,6 +31,14 @@ alloy:
         }
       }
 
+      loki.source.podlogs "kubernetes_pods_logs" {
+        forward_to = [loki.write.grafana_loki.receiver]
+
+        clustering {
+          enabled = true
+        }
+      }
+
       loki.write "grafana_loki" {
         endpoint {
           url = "http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push"

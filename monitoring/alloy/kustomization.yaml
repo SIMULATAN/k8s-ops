@@ -1,5 +1,8 @@
 namespace: monitoring
 
+resources:
+  - https://raw.githubusercontent.com/grafana/alloy/refs/tags/v1.9.2/operations/helm/charts/alloy/charts/crds/crds/monitoring.grafana.com_podlogs.yaml
+
 helmCharts:
 - name: alloy
   releaseName: alloy
