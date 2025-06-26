@@ -7,6 +7,30 @@ alloy:
         write_to = [loki.write.grafana_loki.receiver]
       }
 
+      loki.source.kubernetes_events "cluster_events" {
+        job_name = "cluster-events"
+        log_format = "json"
+        forward_to = [
+          loki.process.cluster_events.receiver,
+        ]
+      }
+
+      loki.process "cluster_events" {
+        forward_to = [loki.write.grafana_loki.receiver]
+
+        stage.static_labels {
+          values = {
+            cluster = "main",
+          }
+        }
+
+        stage.labels {
+          values = {
+            kubernetes_cluster_events = "job",
+          }
+        }
+      }
+
       loki.write "grafana_loki" {
         endpoint {
           url = "http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push"
