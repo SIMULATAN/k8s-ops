@@ -1,0 +1,11 @@
+apiVersion: monitoring.grafana.com/v1alpha2
+kind: PodLogs
+metadata:
+  name: renovate
+spec:
+  selector:
+    matchLabels:
+      app: renovate
+  namespaceSelector:
+    matchLabels:
+      kubernetes.io/metadata.name: renovate
