@@ -11,6 +11,9 @@ helmCharts:
   repo: https://argoproj.github.io/argo-helm
   valuesFile: argocd.values.yml
   version: 8.1.1
+  apiVersions:
+    - monitoring.coreos.com/v1
+  namespace: argocd
   additionalValuesFiles:
     - ./argocd-notifications.values.yml
 
