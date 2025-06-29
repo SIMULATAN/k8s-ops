@@ -1,0 +1,40 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: prometheus
+spec:
+  replicas: 1
+  version: 3.4.2
+  serviceAccountName: prometheus
+  enableRemoteWriteReceiver: true
+  externalUrl: https://prometheus.simulatan.me
+  storage:
+    volumeClaimTemplate:
+      spec:
+        resources:
+          requests:
+            storage: 8Gi
+        storageClassName: local-path
+  tsdb:
+    outOfOrderTimeWindow: 30s
+  alerting:
+    alertmanagers:
+      - namespace: monitoring
+        name: alertmanager
+        port: web
+  # -- match everything --
+  ruleSelector: {}
+  ruleNamespaceSelector: {}
+  # -- disable Alloy scraped targets --
+  serviceMonitorSelector:
+    matchLabels:
+      bypassAlloy: 'true'
+  podMonitorSelector:
+    matchLabels:
+      bypassAlloy: 'true'
+  probeSelector:
+    matchLabels:
+      bypassAlloy: 'true'
+  scrapeConfigSelector:
+    matchLabels:
+      bypassAlloy: 'true'

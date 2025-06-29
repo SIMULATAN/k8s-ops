@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+spec:
+  type: ClusterIP
+  ports:
+  - name: web
+    port: 9090
+    protocol: TCP
+    targetPort: web
+  selector:
+    prometheus: prometheus
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: prometheus
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: default-redirect-to-https@kubernetescrd,auth-forwardauth-authelia@kubernetescrd
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: prometheus.simulatan.me
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: prometheus
+            port:
+              name: web

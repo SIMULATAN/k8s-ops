@@ -1,5 +1,10 @@
 namespace: monitoring
 
+resources:
+  - ./rbac.yml
+  - ./prometheus.yml
+  - ./expose.yml
+
 helmCharts:
 - name: prometheus
   releaseName: prometheus
