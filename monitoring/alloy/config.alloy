@@ -120,6 +120,9 @@ alloy:
         endpoint {
           url = "http://prometheus-server.monitoring.svc.cluster.local/api/v1/write"
         }
+        endpoint {
+          url = "http://prometheus.monitoring.svc.cluster.local/api/v1/write"
+        }
       }
 
       otelcol.receiver.otlp "default" {
