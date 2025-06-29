@@ -3,6 +3,9 @@ kind: Kustomization
 
 namespace: cnpg-system
 
+resources:
+- https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/refs/tags/v1.26.0/docs/src/samples/monitoring/prometheusrule.yaml
+
 helmCharts:
 - name: cloudnative-pg
   releaseName: cloudnativepg-operator
