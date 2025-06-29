@@ -4,6 +4,7 @@ resources:
   - ./rbac.yml
   - ./prometheus.yml
   - ./expose.yml
+  - ./rules
 
 helmCharts:
 - name: prometheus
