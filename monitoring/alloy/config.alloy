@@ -32,10 +32,21 @@ alloy:
       }
 
       loki.source.podlogs "kubernetes_pods_logs" {
-        forward_to = [loki.write.grafana_loki.receiver]
+        forward_to = [loki.relabel.podlogs_relabel.receiver]
 
         clustering {
           enabled = true
+        }
+      }
+
+      loki.relabel "podlogs_relabel" {
+        forward_to = [loki.write.grafana_loki.receiver]
+
+        rule {
+          action = "replace"
+          source_labels = ["job"]
+          regex = "^.+/(.+)$"
+          target_label = "job"
         }
       }
 
