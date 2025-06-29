@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Alertmanager
+metadata:
+  name: alertmanager
+spec:
+  replicas: 3
+  alertmanagerConfiguration:
+    name: main
+  alertmanagerConfigSelector:
+    matchLabels:
+      alertmanagerConfig: main

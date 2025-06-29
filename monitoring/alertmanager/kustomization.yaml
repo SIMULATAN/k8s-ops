@@ -1,0 +1,8 @@
+namespace: monitoring
+
+resources:
+  - ./alertmanager-discord.yml
+  - ./alertmanager-config.yml
+  - ./alertmanager.yml
+  - ./expose.yml
+  - ./podlogs.yml
