@@ -1,0 +1,32 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: prometheus
+spec:
+  groups:
+    - name: prometheus
+      rules:
+        - alert: PrometheusRuleEvaluationFailures
+          expr: increase(prometheus_rule_evaluation_failures_total[3m]) > 0
+          for: 0m
+          labels:
+            severity: critical
+          annotations:
+            summary: Prometheus rule evaluation failures (instance {{ $labels.instance }})
+            description: "Prometheus encountered {{ $value }} rule evaluation failures, leading to potentially ignored alerts."
+        - alert: PrometheusTemplateTextExpansionFailures
+          expr: increase(prometheus_template_text_expansion_failures_total[3m]) > 0
+          for: 0m
+          labels:
+            severity: critical
+          annotations:
+            summary: Prometheus template text expansion failures (instance {{ $labels.instance }})
+            description: "Prometheus encountered {{ $value }} template text expansion failures"
+        - alert: PrometheusRuleEvaluationSlow
+          expr: prometheus_rule_group_last_duration_seconds > prometheus_rule_group_interval_seconds
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Prometheus rule evaluation slow (instance {{ $labels.instance }})
+            description: "Prometheus rule evaluation took more time than the scheduled interval. It indicates a slower storage backend access or too complex query."
