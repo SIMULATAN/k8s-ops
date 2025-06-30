@@ -9,6 +9,7 @@ spec:
         - alert: PrometheusRuleEvaluationFailures
           expr: increase(prometheus_rule_evaluation_failures_total[3m]) > 0
           for: 0m
+          keep_firing_for: 2m
           labels:
             severity: critical
           annotations:
@@ -17,6 +18,7 @@ spec:
         - alert: PrometheusTemplateTextExpansionFailures
           expr: increase(prometheus_template_text_expansion_failures_total[3m]) > 0
           for: 0m
+          keep_firing_for: 2m
           labels:
             severity: critical
           annotations:
@@ -25,6 +27,7 @@ spec:
         - alert: PrometheusRuleEvaluationSlow
           expr: prometheus_rule_group_last_duration_seconds > prometheus_rule_group_interval_seconds
           for: 5m
+          keep_firing_for: 5m
           labels:
             severity: warning
           annotations:

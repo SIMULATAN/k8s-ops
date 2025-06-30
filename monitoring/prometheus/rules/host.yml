@@ -9,6 +9,7 @@ spec:
         - alert: HostSoftwareRaidDiskFailure
           expr: (node_md_disks{state=~"failed|resync|recovering"} > 0)
           for: 2m
+          keep_firing_for: 5m
           labels:
             severity: error
           annotations:
@@ -25,6 +26,7 @@ spec:
         - alert: HostClockSkew
           expr: ((node_timex_offset_seconds > 0.05 and deriv(node_timex_offset_seconds[5m]) >= 0) or (node_timex_offset_seconds < -0.05 and deriv(node_timex_offset_seconds[5m]) <= 0))
           for: 10m
+          keep_firing_for: 5m
           labels:
             severity: warning
           annotations:
@@ -32,7 +34,8 @@ spec:
             description: "Clock skew detected. Clock is out of sync. Ensure NTP is configured correctly on this host.\n  VALUE = {{ $value }}"
         - alert: HostOutOfDiskSpace
           expr: (100 * round(1 - node_filesystem_avail_bytes{fstype!~"^(fuse.*|tmpfs|cifs|nfs)"} / node_filesystem_size_bytes, 0.01) >= 90 and on (instance, device, mountpoint) node_filesystem_readonly == 0)
-          for: 2m
+          for: 10m
+          keep_firing_for: 10m
           labels:
             severity: critical
           annotations:
@@ -41,6 +44,7 @@ spec:
         - alert: HostDiskMayFillIn24Hours
           expr: predict_linear(node_filesystem_avail_bytes{fstype!~"^(fuse.*|tmpfs|cifs|nfs)"}[3h], 86400) <= 0 and node_filesystem_avail_bytes > 0
           for: 2m
+          keep_firing_for: 15m
           labels:
             severity: warning
           annotations:
@@ -49,6 +53,7 @@ spec:
         - alert: HostHighCpuLoad
           expr: 1 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m]))) > .80
           for: 10m
+          keep_firing_for: 5m
           labels:
             severity: warning
           annotations:
@@ -57,6 +62,7 @@ spec:
         - alert: HostSwapIsFillingUp
           expr: ((1 - (node_memory_SwapFree_bytes / node_memory_SwapTotal_bytes)) * 100 > 80)
           for: 2m
+          keep_firing_for: 5m
           labels:
             severity: warning
           annotations:
