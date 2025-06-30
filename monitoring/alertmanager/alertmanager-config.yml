@@ -82,4 +82,6 @@ spec:
           🕐 Duration: {{ .StartsAt | since | humanizeDuration }}
           {{- end }}
 
+          [Link]({{ .GeneratorURL }})
+
           {{- end }}
