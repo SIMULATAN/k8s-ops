@@ -86,6 +86,10 @@ alloy:
       }
 
       prometheus.scrape "kubernetes_nodes_cadvisor" {
+        clustering {
+          enabled = true
+        }
+
         targets = discovery.relabel.kubernetes_nodes_cadvisor.output
         forward_to = [prometheus.relabel.kubernetes_nodes_cadvisor.receiver]
 
