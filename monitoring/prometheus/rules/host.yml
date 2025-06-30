@@ -42,7 +42,7 @@ spec:
             summary: Host out of disk space (instance {{ $labels.instance }})
             description: "Disk is almost full ({{ $value }}% used)"
         - alert: HostDiskMayFillIn24Hours
-          expr: (predict_linear(node_filesystem_avail_bytes{fstype!~"^(fuse.*|tmpfs|cifs|nfs)"}[3h], 86400) <= 0 and node_filesystem_avail_bytes > 0) / -1e9
+          expr: round((predict_linear(node_filesystem_avail_bytes{fstype!~"^(fuse.*|tmpfs|cifs|nfs)"}[3h], 86400) <= 0 and node_filesystem_avail_bytes > 0) / -1e9, 0.01)
           for: 2m
           keep_firing_for: 15m
           labels:
