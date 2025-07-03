@@ -82,6 +82,7 @@ spec:
         - alert: KubernetesJobFailed
           expr: kube_job_status_failed > 0
           for: 0m
+          keep_firing_for: 2m
           labels:
             severity: warning
           annotations:
@@ -90,6 +91,7 @@ spec:
         - alert: KubernetesJobNotStarting
           expr: kube_job_status_active == 0 and kube_job_status_failed == 0 and kube_job_status_succeeded == 0 and (time() - kube_job_status_start_time) > 600
           for: 0m
+          keep_firing_for: 2m
           labels:
             severity: warning
           annotations:
