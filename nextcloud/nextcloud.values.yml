@@ -1,5 +1,5 @@
 image:
-  tag: 31.0.1-apache
+  tag: 31.0.6-apache
 ingress:
   enabled: true
   className: traefik
