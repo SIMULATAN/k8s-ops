@@ -1,0 +1,70 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: host
+spec:
+  groups:
+    - name: host
+      rules:
+        - alert: HostSoftwareRaidDiskFailure
+          expr: (node_md_disks{state=~"failed|resync|recovering"} > 0)
+          for: 2m
+          keep_firing_for: 5m
+          labels:
+            severity: error
+          annotations:
+            summary: Host software RAID disk failure (instance {{ $labels.instance }})
+            description: "MD RAID array {{ $labels.device }} on {{ $labels.instance }} needs attention.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        - alert: HostOomKillDetected
+          expr: (increase(node_vmstat_oom_kill[1m]) > 0)
+          for: 0m
+          labels:
+            severity: warning
+          annotations:
+            summary: Host OOM kill detected (instance {{ $labels.instance }})
+            description: "OOM kill detected\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        - alert: HostClockSkew
+          expr: ((node_timex_offset_seconds > 0.05 and deriv(node_timex_offset_seconds[5m]) >= 0) or (node_timex_offset_seconds < -0.05 and deriv(node_timex_offset_seconds[5m]) <= 0))
+          for: 10m
+          keep_firing_for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Host clock skew (instance {{ $labels.instance }})
+            description: "Clock skew detected. Clock is out of sync. Ensure NTP is configured correctly on this host.\n  VALUE = {{ $value }}"
+        - alert: HostOutOfDiskSpace
+          expr: (100 * round(1 - node_filesystem_avail_bytes{fstype!~"^(fuse.*|tmpfs|cifs|nfs)"} / node_filesystem_size_bytes, 0.01) >= 90 and on (instance, device, mountpoint) node_filesystem_readonly == 0)
+          for: 10m
+          keep_firing_for: 10m
+          labels:
+            severity: critical
+          annotations:
+            summary: Host out of disk space (instance {{ $labels.instance }})
+            description: "Disk is almost full ({{ $value }}% used)"
+        - alert: HostDiskMayFillIn24Hours
+          expr: round((predict_linear(node_filesystem_avail_bytes{fstype!~"^(fuse.*|tmpfs|cifs|nfs)"}[3h], 86400) <= 0 and node_filesystem_avail_bytes > 0) / -1e9, 0.01)
+          for: 2m
+          keep_firing_for: 15m
+          labels:
+            severity: warning
+          annotations:
+            summary: Host disk may fill in 24 hours (instance {{ $labels.instance }})
+            description: "Filesystem may overshoot the capacity by {{ $value }} GB within 24 hours."
+        - alert: HostHighCpuLoad
+          expr: 1 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m]))) > .80
+          for: 10m
+          keep_firing_for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Host high CPU load (instance {{ $labels.instance }})
+            description: "CPU usage of {{ $value }}% is above 80%"
+        - alert: HostSwapIsFillingUp
+          expr: ((1 - (node_memory_SwapFree_bytes / node_memory_SwapTotal_bytes)) * 100 > 80)
+          for: 2m
+          keep_firing_for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Host swap is filling up (instance {{ $labels.instance }})
+            description: "Swap is filling up (>80%)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"

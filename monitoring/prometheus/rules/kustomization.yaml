@@ -1,0 +1,4 @@
+resources:
+  - ./prometheus.yml
+  - ./host.yml
+  - ./kubernetes.yml
