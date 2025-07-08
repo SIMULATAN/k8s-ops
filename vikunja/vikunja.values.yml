@@ -51,7 +51,6 @@ vikunja:
         secretKeyRef:
           name: vikunja-todoist
           key: CLIENT_SECRET
-  enableServiceLinks: false
   ingress:
     main:
       enabled: true
