@@ -6,7 +6,7 @@ namespace: nextcloud
 helmCharts:
 - name: nextcloud
   releaseName: nextcloud
-  repo: https://nextcloud.github.io/helm/
+  repo: oci://ghcr.io/nextcloud/helm
   version: 7.0.0
   valuesFile: nextcloud.values.yml
   namespace: nextcloud
