@@ -91,31 +91,10 @@ externalDatabase:
   type: postgresql
   existingSecret:
     enabled: true
-    secretName: nextcloud-postgres
-    usernameKey: USER_NAME
-    passwordKey: USER_PW
-postgresql:
-  enabled: true
-  global:
-    postgresql:
-      auth:
-        existingSecret: nextcloud-postgres
-        secretKeys:
-          adminPasswordKey: ADMIN_PW
-          userPasswordKey: USER_PW
-  primary:
-    persistence:
-      enabled: true
-      existingClaim: nextcloud-postgresql-data
-    resources:
-      requests:
-        cpu: 300m
-        memory: 512Mi
-        ephemeral-storage: 100Mi
-      limits:
-        cpu: 500m
-        memory: 1.5Gi
-        ephemeral-storage: 1Gi
+    secretName: nextcloud-postgres-app
+    hostKey: host
+    usernameKey: username
+    passwordKey: password
 nodeSelector:
   kubernetes.io/hostname: sim-microserv-debian
 redis:
