@@ -12,6 +12,8 @@ spec:
       labels:
         app: speedtest-tracker
     spec:
+      nodeSelector:
+        topology.kubernetes.io/zone: device
       dnsConfig:
         nameservers:
           - 1.1.1.1
