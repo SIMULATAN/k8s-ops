@@ -81,6 +81,11 @@ controller:
             description: "Service {{ $labels.name }} run by argo is currently not healthy."
 
 server:
+  extraArgs:
+    - --sentinel=argocd-redis-ha-announce-0:26379
+    - --sentinel=argocd-redis-ha-announce-1:26379
+    - --sentinel=argocd-redis-ha-announce-2:26379
+    - --sentinelmaster=argocd
   replicas: 3
 
 repoServer:
