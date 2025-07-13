@@ -3,6 +3,9 @@ kind: Kustomization
 
 namespace: nextcloud
 
+resources:
+- ./postgres-cluster.yml
+
 helmCharts:
 - name: nextcloud
   releaseName: nextcloud
