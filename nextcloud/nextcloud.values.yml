@@ -1,5 +1,7 @@
-image:
-  tag: 31.0.6-apache
+global:
+  security:
+    allowInsecureImages: true # redis was replaced with valkey
+
 ingress:
   enabled: true
   className: traefik
@@ -121,7 +123,7 @@ redis:
   image:
     repository: bitnami/valkey
     # make sure to update with https://github.com/bitnami/charts/tree/main/bitnami/redis
-    tag: 7.2.5-debian-12-r9
+    tag: 8.0.2-debian-12
   architecture: standalone
   master:
     nodeSelector:
