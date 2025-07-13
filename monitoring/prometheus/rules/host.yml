@@ -51,7 +51,7 @@ spec:
             summary: Host disk may fill in 24 hours (instance {{ $labels.instance }})
             description: "Filesystem may overshoot the capacity by {{ $value }} GB within 24 hours."
         - alert: HostHighCpuLoad
-          expr: 1 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m]))) > .80
+          expr: 100 - round((avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m]))) * 100, 0.01) > 80
           for: 10m
           keep_firing_for: 5m
           labels:
