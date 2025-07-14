@@ -3,6 +3,7 @@ namespace: monitoring
 resources:
   - ./rbac.yml
   - ./prometheus.yml
+  - ./podlogs.yml
   - ./expose.yml
   - ./rules
 
