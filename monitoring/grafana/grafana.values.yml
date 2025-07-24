@@ -1,3 +1,6 @@
+image:
+  tag: 12.1.0
+
 imageRenderer:
   enabled: true
 
