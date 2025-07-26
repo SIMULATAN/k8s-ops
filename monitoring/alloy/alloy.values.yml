@@ -1,7 +1,14 @@
 alloy:
+  configMap:
+    create: false
+    name: alloy-config
+    key: .
+
   stabilityLevel: experimental
+
   clustering:
     enabled: true
+
   extraPorts:
     - name: faro
       port: 12347

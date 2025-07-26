@@ -4,12 +4,22 @@ resources:
   - https://raw.githubusercontent.com/grafana/alloy/refs/tags/v1.9.2/operations/helm/charts/alloy/charts/crds/crds/monitoring.grafana.com_podlogs.yaml
   - ./rules.yml
 
+configMapGenerator:
+  - name: alloy-config
+    files:
+      - config/config.alloy
+      - config/prometheus.alloy
+      - config/loki.alloy
+      - config/otel.alloy
+      - config/kubernetes-nodes.alloy
+      - config/kubernetes-podlogs.alloy
+    options:
+      disableNameSuffixHash: true
+
 helmCharts:
 - name: alloy
   releaseName: alloy
   repo: https://grafana.github.io/helm-charts
   version: 1.1.1
   valuesFile: alloy.values.yml
-  additionalValuesFiles:
-    - config.alloy
   namespace: monitoring

@@ -1,0 +1,34 @@
+prometheus.operator.servicemonitors "servicemonitors" {
+  clustering {
+    enabled = true
+  }
+
+  forward_to = [prometheus.remote_write.prometheus.receiver]
+}
+
+prometheus.operator.podmonitors "podmonitors" {
+  clustering {
+    enabled = true
+  }
+
+  forward_to = [prometheus.remote_write.prometheus.receiver]
+}
+
+prometheus.operator.scrapeconfigs "scrapeconfigs" {
+  clustering {
+    enabled = true
+  }
+
+  forward_to = [prometheus.remote_write.prometheus.receiver]
+}
+
+prometheus.remote_write "prometheus" {
+  endpoint {
+    url = "http://prometheus-server.monitoring.svc.cluster.local/api/v1/write"
+  }
+
+  endpoint {
+    url = "http://prometheus.monitoring.svc.cluster.local:9090/api/v1/write"
+  }
+}
+
