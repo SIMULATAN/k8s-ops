@@ -23,6 +23,14 @@ tolerations:
     operator: "Exists"
     effect: "NoSchedule"
 
+ports:
+  web:
+    forwardedHeaders:
+      trustedIps: ["10.42.0.0/16"]
+  websecure:
+    forwardedHeaders:
+      trustedIps: ["10.42.0.0/16"]
+
 metrics:
   prometheus:
     # bugged for some reason
