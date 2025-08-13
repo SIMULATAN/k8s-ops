@@ -26,10 +26,10 @@ tolerations:
 ports:
   web:
     forwardedHeaders:
-      trustedIps: ["10.42.0.0/16"]
+      trustedIPs: ["10.42.0.0/16"]
   websecure:
     forwardedHeaders:
-      trustedIps: ["10.42.0.0/16"]
+      trustedIPs: ["10.42.0.0/16"]
 
 metrics:
   prometheus:
