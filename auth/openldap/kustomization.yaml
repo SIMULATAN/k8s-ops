@@ -10,3 +10,14 @@ helmCharts:
     version: 4.2.1
     valuesFile: openldap.values.yml
     namespace: auth
+
+patches:
+- target:
+    kind: Service
+    name: openldap
+  patch: |
+    $patch: delete
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: openldap
