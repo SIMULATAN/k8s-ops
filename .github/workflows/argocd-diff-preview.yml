@@ -59,7 +59,7 @@ jobs:
             -v $PWD/values.yaml:/argocd-config/values.yaml \
             -e TARGET_BRANCH=${{ github.head_ref }} \
             -e REPO=${{ github.repository }} \
-            dagandersen/argocd-diff-preview:v0.1.11 \
+            dagandersen/argocd-diff-preview:v0.1.13 \
             --debug
 
       - name: Post diff as comment
