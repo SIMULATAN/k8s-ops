@@ -1,0 +1,20 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: lldap-selfsigned
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: lldap-ldaps
+spec:
+  commonName: lldap
+  dnsNames:
+  - lldap.auth.svc
+  - lldap.auth.svc.cluster.local
+  issuerRef:
+    kind: Issuer
+    name: lldap-selfsigned
+  secretName: lldap-ldaps-cert
