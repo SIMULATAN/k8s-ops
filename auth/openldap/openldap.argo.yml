@@ -5,38 +5,10 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  sources:
-    - repoURL: https://github.com/SIMULATAN/k8s-ops
-      path: auth/openldap
-      directory:
-        exclude: '{*.argo.yml}'
-      targetRevision: HEAD
-    - chart: openldap-stack-ha
-      repoURL: https://jp-gouin.github.io/helm-openldap
-      targetRevision: 4.2.1
-      helm:
-        valuesObject:
-          image:
-            tag: 2.6.5
-          global:
-            ldapDomain: simulatan.me
-            existingSecret: ldap-admin-passwords
-          replicaCount: 2
-          persistence:
-            enabled: true
-            size: 2Gi
-          phpldapadmin:
-            enabled: true
-            ingress:
-              enabled: true
-              ingressClassName: traefik
-              annotations:
-                traefik.ingress.kubernetes.io/router.middlewares: default-redirect-to-https@kubernetescrd,auth-forwardauth-authelia@kubernetescrd
-              hosts:
-                - phpldapadmin.simulatan.me
-          ltb-passwd:
-            enabled: false
+  source:
+    repoURL: https://github.com/SIMULATAN/k8s-ops
+    path: auth/openldap
   destination:
-    server: "https://kubernetes.default.svc"
+    name: in-cluster
     namespace: auth
 
