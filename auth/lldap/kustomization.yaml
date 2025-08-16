@@ -1,0 +1,11 @@
+namespace: auth
+
+resources:
+  - ./postgres-cluster.yml
+  - ./secret.yml
+  - ./configmap.yml
+  - ./certificate.yml
+  - ./deployment.yml
+  - ./service.yml
+  - ./ingress.yml
+  - ./podlogs.yml

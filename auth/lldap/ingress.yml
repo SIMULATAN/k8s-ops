@@ -1,0 +1,19 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: lldap
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`lldap.simulatan.me`)
+      services:
+        - name: lldap
+          port: 17170
+      middlewares:
+        - name: redirect-to-https
+          namespace: default
+        - name: forwardauth-authelia
+          namespace: auth

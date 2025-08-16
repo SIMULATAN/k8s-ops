@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: lldap
+  name: lldap
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: lldap
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: lldap
+    spec:
+      enableServiceLinks: false
+      containers:
+        - name: lldap
+          image: lldap/lldap:2025-08-14
+          env:
+            - name: LLDAP_DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: lldap-postgres-app
+                  key: uri
+            - name: LLDAP_JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: lldap
+                  key: jwt-secret
+            - name: LLDAP_KEY_SEED
+              valueFrom:
+                secretKeyRef:
+                  name: lldap
+                  key: key-seed
+            - name: LLDAP_LDAP_USER_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: ldap-admin-passwords
+                  key: LDAP_ADMIN_PASSWORD
+          envFrom:
+            - configMapRef:
+                name: lldap
+          volumeMounts:
+            - mountPath: /secrets
+              name: lldap-ldaps-cert
+              readOnly: true
+          ports:
+            - containerPort: 3890
+              name: ldap
+            - containerPort: 6360
+              name: ldaps
+            - containerPort: 17170
+              name: web
+      volumes:
+        - name: lldap-ldaps-cert
+          secret:
+            secretName: lldap-ldaps-cert
