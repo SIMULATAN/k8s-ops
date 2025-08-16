@@ -36,19 +36,17 @@ configMap:
       enabled: false
     ldap:
       enabled: true
-      address: ldaps://openldap.auth.svc.cluster.local:636
-      additional_users_dn: OU=users
+      implementation: lldap
+      address: ldaps://lldap.auth.svc.cluster.local:636
       base_dn: DC=simulatan,DC=me
-      users_filter: (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
-      groups_filter: (&(member={dn})(objectClass=groupOfNames))
-      user: UID=authelia,OU=service,DC=simulatan,DC=me
+      user: UID=service_authelia,OU=people,DC=simulatan,DC=me
       tls:
         skip_verify: true
       attributes:
         username: uid
-        display_name: displayName
+        display_name: cn
         mail: mail
-        picture: picture
+        picture: avatar
   webauthn:
     enable_passkey_login: true
   identity_providers:
