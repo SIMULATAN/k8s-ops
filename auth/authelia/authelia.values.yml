@@ -30,8 +30,9 @@ configMap:
   theme: dark
   authentication_backend:
     password_reset:
-      # TODO: remove once LDAP is in place
-      disable: true
+      disable: false
+    password_change:
+      disable: false
     file:
       enabled: false
     ldap:
