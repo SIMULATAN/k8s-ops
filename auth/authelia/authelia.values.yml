@@ -47,7 +47,6 @@ configMap:
         username: uid
         display_name: cn
         mail: mail
-        picture: avatar
   webauthn:
     enable_passkey_login: true
   identity_providers:
