@@ -32,5 +32,10 @@ spec:
               value: https://spotify-stats.simulatan.me
             - name: TZ
               value: Europe/Vienna
+            - name: MONGO_NO_ADMIN_RIGHTS
+              value: 'true'
             - name: MONGO_ENDPOINT
-              value: mongodb+srv://spotify-stats-mongodb-headless.spotify-stats.svc.cluster.local/?ssl=false&tls=false
+              valueFrom:
+                secretKeyRef:
+                  name: your-spotify-mongodb-your-spotify-your-spotify
+                  key: connectionString.standardSrv

@@ -4,6 +4,8 @@ kind: Kustomization
 namespace: spotify-stats
 
 resources:
+- ./mongodb-passwords.yml
+- ./mongodb.yml
 - ./secret.yml
 - ./deployment.yml
 - ./service.yml
