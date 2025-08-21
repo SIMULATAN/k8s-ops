@@ -4,11 +4,17 @@ metadata:
   name: nextcloud-postgres
 spec:
   instances: 1
+
   affinity:
     nodeSelector:
       kubernetes.io/hostname: sim-microserv-debian
 
   imageName: ghcr.io/cloudnative-pg/postgresql:17.5
+
+  bootstrap:
+    initdb:
+      database: nextcloud
+      owner: nextcloud
 
   postgresql:
     pg_hba:
