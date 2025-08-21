@@ -6,6 +6,7 @@ namespace: spotify-stats
 resources:
 - ./mongodb-passwords.yml
 - ./mongodb.yml
+- ./mongodump-pvc.yml
 - ./secret.yml
 - ./deployment.yml
 - ./service.yml
