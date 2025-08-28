@@ -1,0 +1,36 @@
+fullnameOverride: nextcloud-valkey
+
+rbac:
+  create: false
+serviceAccount:
+  create: false
+
+haproxy:
+  enabled: false
+
+replicas: 1
+
+image:
+  repository: valkey/valkey
+  tag: 8.1-alpine
+
+auth: true
+existingSecret: redis
+authKey: REDIS_PASSWORD
+
+nodeSelector:
+  kubernetes.io/hostname: sim-microserv-debian
+
+redis:
+  config:
+    min-replicas-to-write: 0
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100Mi
+    limits:
+      cpu: 300m
+      memory: 200Mi
+
+persistentVolume:
+  size: 500Mi

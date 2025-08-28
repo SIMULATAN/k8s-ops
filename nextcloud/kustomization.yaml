@@ -13,3 +13,9 @@ helmCharts:
   version: 7.0.0
   valuesFile: nextcloud.values.yml
   namespace: nextcloud
+- releaseName: valkey
+  name: redis-ha
+  repo: https://dandydeveloper.github.io/charts
+  version: 4.33.8
+  valuesFile: valkey.values.yml
+  namespace: nextcloud
