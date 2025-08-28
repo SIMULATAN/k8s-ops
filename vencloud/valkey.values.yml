@@ -1,14 +1,39 @@
-architecture: replication
+fullnameOverride: valkey
 
-primary:
-  replicaCount: 1
-  persistence:
-    size: 256Mi
-replica:
-  replicaCount: 2
-  persistence:
-    size: 128Mi
+rbac:
+  create: false
+serviceAccount:
+  create: false
 
-auth:
-  existingSecret: vencloud-valkey
-  existingSecretPasswordKey: PASSWORD
+haproxy:
+  enabled: true
+  hardAntiAffinity: false # 3 replicas with hard => no rolling updates lol (bcuz 25% max unavailable)
+  resources:
+    requests:
+      cpu: 10m
+      memory: 100Mi
+    limits:
+      cpu: 100m
+      memory: 200Mi
+
+replicas: 3
+
+image:
+  repository: valkey/valkey
+  tag: 8.1-alpine
+
+auth: true
+existingSecret: vencloud-valkey
+authKey: PASSWORD
+
+redis:
+  resources:
+    requests:
+      cpu: 50m
+      memory: 50Mi
+    limits:
+      cpu: 200m
+      memory: 100Mi
+
+persistentVolume:
+  size: 200Mi

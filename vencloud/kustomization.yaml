@@ -6,15 +6,15 @@ namespace: vencloud
 resources:
   - ./configmap.yml
   - ./secret.yml
-  - ./valkey-secret.yml
+  - ./valkey.secret.yml
   - ./deployment.yml
   - ./service.yml
   - ./ingress.yml
 
 helmCharts:
-- name: valkey
-  repo: oci://registry-1.docker.io/bitnamicharts/
-  version: 3.0.15
+- releaseName: valkey
+  name: redis-ha
+  repo: https://dandydeveloper.github.io/charts
+  version: 4.33.8
   valuesFile: valkey.values.yml
-  releaseName: vencloud-valkey
   namespace: vencloud

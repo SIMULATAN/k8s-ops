@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: vencloud
 data:
-  REDIS_URI: vencloud-valkey-primary:6379
+  REDIS_URI: valkey-haproxy:6379
   PORT: '8080'
   DISCORD_REDIRECT_URI: https://vencloud.simulatan.me/v1/oauth/callback
   ROOT_REDIRECT: https://github.com/Vencord/Vencloud
