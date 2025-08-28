@@ -10,10 +10,10 @@ resources:
 - ./authelia-traefik-middleware.yml
 
 helmCharts:
-- name: valkey
-  repo: oci://registry-1.docker.io/bitnamicharts
-  version: 3.0.2
-  releaseName: authelia-valkey
+- releaseName: valkey
+  name: redis-ha
+  repo: https://dandydeveloper.github.io/charts
+  version: 4.33.8
   valuesFile: valkey.values.yml
   namespace: auth
 - name: authelia

@@ -1,17 +1,32 @@
-architecture: replication
+fullnameOverride: authelia-valkey
 
-auth:
-  existingSecret: authelia
-  existingSecretPasswordKey: redis.password
+rbac:
+  create: false
+serviceAccount:
+  create: false
 
-primary:
-  replicaCount: 1
-  persistence:
-    size: 512Mi
-replica:
-  replicaCount: 3
-  persistence:
-    size: 512Mi
+haproxy:
+  enabled: false
 
-sentinel:
-  enabled: true
+replicas: 3
+
+image:
+  repository: valkey/valkey
+  tag: 8.1-alpine
+
+auth: true
+existingSecret: authelia
+authKey: redis.password
+
+redis:
+  masterGroupName: myprimary
+  resources:
+    requests:
+      cpu: 50m
+      memory: 75Mi
+    limits:
+      cpu: 200m
+      memory: 200Mi
+
+persistentVolume:
+  size: 100Mi
