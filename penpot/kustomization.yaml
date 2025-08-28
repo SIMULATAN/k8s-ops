@@ -11,9 +11,3 @@ helmCharts:
   repo: https://helm.penpot.app
   version: 0.17.0
   valuesFile: penpot.values.yml
-- name: valkey
-  releaseName: penpot-valkey
-  repo: oci://registry-1.docker.io/bitnamicharts
-  version: 3.0.0
-  valuesFile: valkey.values.yml
-
