@@ -7,17 +7,17 @@ gitea:
         secretKeyRef:
           name: forgejo-postgres-app
           key: password
-    - name: FORGEJO__QUEUE_CONN_STR
+    - name: FORGEJO__QUEUE__CONN_STR
       valueFrom:
         secretKeyRef:
           name: valkey
           key: url
-    - name: FORGEJO__SESSION_PROVIDER_CONFIG
+    - name: FORGEJO__SESSION__PROVIDER_CONFIG
       valueFrom:
         secretKeyRef:
           name: valkey
           key: url
-    - name: FORGEJO__CACHE_HOST
+    - name: FORGEJO__CACHE__HOST
       valueFrom:
         secretKeyRef:
           name: valkey
