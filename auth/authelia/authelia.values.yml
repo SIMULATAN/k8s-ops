@@ -134,9 +134,9 @@ configMap:
           path: redis.password
         sentinel_name: myprimary # redis uses "mymaster"
         nodes:
-          - host: authelia-valkey-node-0.authelia-valkey-headless.auth.svc.cluster.local # default node names with my namespace
+          - host: authelia-valkey-server-0.auth.svc.cluster.local # default node names with my namespace
             port: 26379
-          - host: authelia-valkey-node-1.authelia-valkey-headless.auth.svc.cluster.local
+          - host: authelia-valkey-server-1.auth.svc.cluster.local
             port: 26379
-          - host: authelia-valkey-node-2.authelia-valkey-headless.auth.svc.cluster.local
+          - host: authelia-valkey-server-2.auth.svc.cluster.local
             port: 26379
