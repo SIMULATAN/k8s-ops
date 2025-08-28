@@ -7,6 +7,21 @@ gitea:
         secretKeyRef:
           name: forgejo-postgres-app
           key: password
+    - name: FORGEJO__QUEUE_CONN_STR
+      valueFrom:
+        secretKeyRef:
+          name: valkey
+          key: url
+    - name: FORGEJO__SESSION_PROVIDER_CONFIG
+      valueFrom:
+        secretKeyRef:
+          name: valkey
+          key: url
+    - name: FORGEJO__CACHE_HOST
+      valueFrom:
+        secretKeyRef:
+          name: valkey
+          key: url
   admin:
     existingSecret:
     username:
@@ -22,13 +37,10 @@ gitea:
       SSL_MODE: require
     queue:
       TYPE: redis
-      CONN_STR: redis://valkey-headless:6379/0?pool_size=100&idle_timeout=180s
     session:
       PROVIDER: redis
-      PROVIDER_CONFIG: redis://valkey-headless:6379/0?pool_size=100&idle_timeout=180s
     cache:
       ADAPTER: redis
-      HOST: redis://valkey-headless:6379/0?pool_size=100&idle_timeout=180s
     openid:
       ENABLE_OPENID_SIGNUP: true
       ENABLE_OPENID_SIGNIN: false

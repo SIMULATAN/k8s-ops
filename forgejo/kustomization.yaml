@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: forgejo
 
 resources:
+- ./valkey.secret.yml
 - ./postgres-cluster.yml
 - ./forgejo-sso-secret.yml
 
@@ -14,9 +15,9 @@ helmCharts:
   valuesFile: forgejo.values.yml
   releaseName: forgejo
   namespace: forgejo
-- name: valkey
-  repo: oci://registry-1.docker.io/bitnamicharts/
-  version: 3.0.1
+- releaseName: valkey
+  name: redis-ha
+  repo: https://dandydeveloper.github.io/charts
+  version: 4.33.8
   valuesFile: valkey.values.yml
-  releaseName: valkey
   namespace: forgejo
