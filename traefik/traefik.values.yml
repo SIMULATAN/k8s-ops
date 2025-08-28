@@ -49,6 +49,12 @@ tracing:
       endpoint: alloy.monitoring.svc.cluster.local:4317
       insecure: true
 
+experimental:
+  plugins:
+    traefikoidc:
+      moduleName: github.com/lukaszraczylo/traefikoidc
+      version: v0.7.0-beta6
+
 ingressRoute:
   api:
     enabled: true
