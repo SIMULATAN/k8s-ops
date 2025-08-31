@@ -7,7 +7,7 @@ helmCharts:
   - releaseName: openldap
     name: openldap-stack-ha
     repo: https://jp-gouin.github.io/helm-openldap
-    version: 4.2.1
+    version: 4.3.3
     valuesFile: openldap.values.yml
     namespace: auth
 
