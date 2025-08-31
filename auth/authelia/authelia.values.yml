@@ -1,3 +1,5 @@
+image:
+  tag: 4.39.7 # manually overriden until the chart updates to 4.39.7
 pod:
   probes:
     startup:
@@ -11,9 +13,6 @@ ingress:
     sticky: true
     entryPoints:
       - websecure
-    middleware:
-      name:
-        chainIngress: headers-authelia
 secret:
   additionalSecrets:
     authelia-postgres-app:
@@ -82,9 +81,7 @@ configMap:
   notifier:
     smtp:
       enabled: true
-      enabledSecret: true
       address: live.smtp.mailtrap.io:587
-      port: 587
       timeout: 10s
       sender: SIMs Authelia <authelia@smtp.simulatan.me>
       username: api
