@@ -10,15 +10,26 @@ resources:
 helmCharts:
 - name: wakapi
   releaseName: wakapi
-  repo: https://charts.simulatan.me
+  repo: https://ricristian.github.io/wakapi-helm-chart/
   valuesFile: wakapi.values.yml
-  version: 1.1.1
+  version: 1.0.22
+  skipTests: true
 
 patches:
   - target:
       version: v1
-      kind: ConfigMap
+      kind: Deployment
     patch: |-
       - op: add
-        path: /data/WAKAPI_PUBLIC_URL
-        value: https://wakapi.simulatan.me
+        path: /spec/template/spec/containers/0/env
+        value:
+          - name: WAKAPI_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: password
+                name: wakapi-postgres-app
+          - name: WAKAPI_MAIL_SMTP_PASS
+            valueFrom:
+              secretKeyRef:
+                key: password
+                name: wakapi-smtp
