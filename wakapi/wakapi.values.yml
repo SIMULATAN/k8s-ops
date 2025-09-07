@@ -3,6 +3,9 @@ persistence:
 
 wakapi_config:
   env: production
+  server:
+    public_url: https://wakapi.simulatan.me
+  sentry: {}
   db:
     dialect: postgres
     host: wakapi-postgres-rw.wakapi.svc.cluster.local
