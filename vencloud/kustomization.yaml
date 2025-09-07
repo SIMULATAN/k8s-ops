@@ -18,3 +18,4 @@ helmCharts:
   version: 4.33.8
   valuesFile: valkey.values.yml
   namespace: vencloud
+  skipTests: true
