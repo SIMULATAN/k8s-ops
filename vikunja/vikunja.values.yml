@@ -1,8 +1,7 @@
 vikunja:
   enabled: true
   image:
-    # TODO: switch to latest stable image once it supports OIDC configuration using environment variables
-    tag: unstable@sha256:f5e0ed9a02ac63053ffd4138f9d12f79ed13b754617068c0e33b3528cf7e83c5 # 683e23b
+    tag: 1.0.0-rc2
   persistence:
     data:
       enabled: false
