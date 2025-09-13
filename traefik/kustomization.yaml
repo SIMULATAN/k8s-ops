@@ -5,7 +5,7 @@ helmCharts:
   - name: traefik-crds
     releaseName: traefik-crds
     repo: oci://ghcr.io/traefik/helm
-    version: 1.8.1
+    version: 1.11.0
   - name: traefik
     releaseName: traefik
     repo: oci://ghcr.io/traefik/helm
