@@ -5,6 +5,7 @@ namespace: vikunja
 
 resources:
 - ./postgres-cluster.yml
+- ./vikunja.secret.yml
 - ./vikunja-oidc.yml
 - ./vikunja-todoist.yml
 

@@ -36,6 +36,11 @@ vikunja:
         secretKeyRef:
           name: vikunja-postgres-app
           key: password
+    VIKUNJA_SERVICE_JWTSECRET:
+      valueFrom:
+        secretKeyRef:
+          name: vikunja
+          key: JWT_SECRET
     VIKUNJA_AUTH_OPENID_PROVIDERS_authelia_CLIENTSECRET:
       valueFrom:
         secretKeyRef:
