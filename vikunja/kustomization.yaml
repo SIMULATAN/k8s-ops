@@ -8,6 +8,7 @@ resources:
 - ./vikunja.secret.yml
 - ./vikunja-oidc.yml
 - ./vikunja-todoist.yml
+- ./vikunja-mail.yml
 
 helmCharts:
 - name: vikunja

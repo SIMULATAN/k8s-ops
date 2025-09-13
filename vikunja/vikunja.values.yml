@@ -55,6 +55,20 @@ vikunja:
         secretKeyRef:
           name: vikunja-todoist
           key: CLIENT_SECRET
+    VIKUNJA_MAILER_ENABLED: true
+    VIKUNJA_MAILER_HOST: live.smtp.mailtrap.io
+    VIKUNJA_MAILER_PORT: 587
+    VIKUNJA_MAILER_USERNAME:
+      valueFrom:
+        secretKeyRef:
+          name: vikunja-mail
+          key: user
+    VIKUNJA_MAILER_PASSWORD:
+      valueFrom:
+        secretKeyRef:
+          name: vikunja-mail
+          key: password
+    VIKUNJA_MAILER_FROMEMAIL: tasks@smtp.simulatan.me
   ingress:
     main:
       enabled: true
