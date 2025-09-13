@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vikunja
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/SIMULATAN/k8s-ops
+    path: vikunja
+  destination:
+    name: in-cluster
+    namespace: vikunja
+
