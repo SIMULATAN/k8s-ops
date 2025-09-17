@@ -21,7 +21,7 @@
       "enabled": false
     },
     {
-      "matchCurrentVersion": ">=20",
+      "matchCurrentVersion": "/^[^0](?:\\d*\\.?)\\d{2}.*/",
       "matchUpdateTypes": ["minor"],
       "enabled": false
     },
