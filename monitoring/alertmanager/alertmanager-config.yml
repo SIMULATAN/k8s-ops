@@ -10,6 +10,15 @@ spec:
     repeatInterval: 12h
     receiver: discord
     matchers: []
+
+    routes:
+      - matchers:
+          oneshot="true"
+        repeatInterval: 1337h
+        groupBy: ["..."]
+        continue: false
+        receiver: discord
+
   receivers:
   - name: discord
     discordConfigs:

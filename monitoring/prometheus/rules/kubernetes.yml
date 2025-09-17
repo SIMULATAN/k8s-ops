@@ -85,6 +85,7 @@ spec:
           keep_firing_for: 2m
           labels:
             severity: warning
+            oneshot: 'true'
           annotations:
             summary: Kubernetes Job failed (instance {{ $labels.instance }})
             description: "Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete"
