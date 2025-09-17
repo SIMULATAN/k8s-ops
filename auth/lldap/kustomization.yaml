@@ -2,6 +2,7 @@ namespace: auth
 
 resources:
   - ./postgres-cluster.yml
+  - ./ldap-admin-passwords.yml
   - ./secret.yml
   - ./configmap.yml
   - ./certificate.yml
