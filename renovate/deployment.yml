@@ -21,4 +21,11 @@ spec:
                     name: renovate-auth
                 - configMapRef:
                     name: renovate
+              resources:
+                requests:
+                  cpu: 1
+                  memory: 1Gi
+                limits:
+                  cpu: 2
+                  memory: 2Gi
           restartPolicy: Never
