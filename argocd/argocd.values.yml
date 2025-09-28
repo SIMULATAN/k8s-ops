@@ -93,4 +93,4 @@ repoServer:
   replicas: 2
 
 applicationSet:
-  replicas: 0
+  replicas: 1
