@@ -8,7 +8,6 @@ configs:
     application.instanceLabelKey: argocd.argoproj.io/instance
     # https://github.com/argoproj/notifications-engine/issues/377
     application.resourceTrackingMethod: annotation+label
-    application.namespaces: argocd, cluster-*
     kustomize.buildOptions: --enable-helm --load-restrictor=LoadRestrictionsNone
     timeout.reconciliation: 24h # we're using webhooks instead of periodic polling
     timeout.reconciliation.jitter: 10m
@@ -32,6 +31,7 @@ configs:
       userInfoCacheExpiration: "5m"
   params:
     server.insecure: true
+    application.namespaces: argocd, cluster-*
     # not set correctly when not using haproxy
     redis.server: argocd-redis-ha:6379
   rbac:
