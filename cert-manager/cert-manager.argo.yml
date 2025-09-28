@@ -10,12 +10,14 @@ spec:
   - list:
       elements:
       - cluster: hetzner1
+        name: hetzner1
         namespace: cluster-hetzner1
       - cluster: in-cluster
+        name: main
         namespace: argocd
   template:
     metadata:
-      name: '{{.cluster}}-cert-manager' # TODO: remove prefix once namespace feature is implemented
+      name: '{{.name}}-cert-manager' # TODO: remove prefix once namespace feature is implemented
       namespace: '{{.namespace}}' # TODO: PR feature (configuration is noop rn)
     spec:
       project: default
