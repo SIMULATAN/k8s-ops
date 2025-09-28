@@ -1,14 +1,30 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
   name: cert-manager
-  namespace: argocd
+  namespace: argocd # TODO: set to `shared` or something
 spec:
-  project: default
-  source:
-    repoURL: 'https://github.com/SIMULATAN/k8s-ops'
-    path: cert-manager
-    targetRevision: HEAD
-  destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: cert-manager
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - list:
+      elements:
+      - cluster: hetzner1
+        namespace: cluster-hetzner1
+      - cluster: in-cluster
+        namespace: argocd
+  template:
+    metadata:
+      name: '{{.cluster}}-cert-manager' # TODO: remove prefix once namespace feature is implemented
+      namespace: '{{.namespace}}' # TODO: PR feature (configuration is noop rn)
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/SIMULATAN/k8s-ops
+        path: cert-manager
+      destination:
+        name: '{{.cluster}}'
+        namespace: cert-manager
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
