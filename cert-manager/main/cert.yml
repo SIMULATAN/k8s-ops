@@ -11,4 +11,4 @@ spec:
   dnsNames:
     - "simulatan.me"
     - "*.simulatan.me"
-    - "*.main.cluster.simulatan.me"
+    - "*.main.cloud.simulatan.me"
