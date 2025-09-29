@@ -25,7 +25,7 @@ spec:
         - repoURL: https://github.com/SIMULATAN/k8s-ops
           path: cert-manager
         - repoURL: https://github.com/SIMULATAN/k8s-ops
-          path: cert-manager/{{.cluster}}
+          path: cert-manager/{{.name}}
           directory:
       destination:
         name: '{{.cluster}}'
