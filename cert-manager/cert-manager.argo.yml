@@ -21,9 +21,12 @@ spec:
       namespace: '{{.namespace}}' # TODO: PR feature (configuration is noop rn)
     spec:
       project: default
-      source:
-        repoURL: https://github.com/SIMULATAN/k8s-ops
-        path: cert-manager
+      sources:
+        - repoURL: https://github.com/SIMULATAN/k8s-ops
+          path: cert-manager
+        - repoURL: https://github.com/SIMULATAN/k8s-ops
+          path: cert-manager/{{.cluster}}
+          directory:
       destination:
         name: '{{.cluster}}'
         namespace: cert-manager

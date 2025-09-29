@@ -11,3 +11,4 @@ spec:
   dnsNames:
     - "simulatan.me"
     - "*.simulatan.me"
+    - "*.hetzner1.cluster.simulatan.me"
