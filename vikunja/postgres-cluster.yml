@@ -3,8 +3,7 @@ kind: Cluster
 metadata:
   name: vikunja-postgres
 spec:
-  # TODO: bump to 3
-  instances: 2
+  instances: 3
 
   imageName: ghcr.io/cloudnative-pg/postgresql:17
 
