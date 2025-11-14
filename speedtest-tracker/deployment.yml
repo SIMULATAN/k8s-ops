@@ -25,7 +25,7 @@ spec:
             value: "5"
       containers:
         - name: speedtest-tracker
-          image: lscr.io/linuxserver/speedtest-tracker:1.6.0
+          image: lscr.io/linuxserver/speedtest-tracker:1.7.4
           env:
             - name: PUID
               value: "1000"
