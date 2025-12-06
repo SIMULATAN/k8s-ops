@@ -49,7 +49,7 @@ monitoring:
 
 lokiCanary:
   extraArgs:
-    - -streamvalue="loki-canary"
+    - -streamvalue=loki-canary
 
 chunksCache:
   enabled: false
