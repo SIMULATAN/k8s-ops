@@ -10,7 +10,7 @@ datasources:
       - name: Prometheus
         uid: prometheus
         type: prometheus
-        url: http://prometheus-server.{{- $.Release.Namespace -}}.svc.cluster.local
+        url: http://prometheus.{{- $.Release.Namespace -}}.svc.cluster.local:9090
         editable: false
         jsonData:
           timeInterval: 30s
