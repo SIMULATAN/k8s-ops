@@ -2,6 +2,8 @@ namespace: monitoring
 
 resources:
   - https://raw.githubusercontent.com/grafana/alloy/refs/tags/v1.9.2/operations/helm/charts/alloy/charts/crds/crds/monitoring.grafana.com_podlogs.yaml
+  - ./skupper-site.yml
+  - ./skupper-connector.yml
   - ./rules.yml
 
 configMapGenerator:
@@ -23,3 +25,26 @@ helmCharts:
   version: 1.2.0
   valuesFile: alloy.values.yml
   namespace: monitoring
+- releaseName: monitoring-skupper
+  name: skupper
+  namespace: monitoring
+  repo: oci://quay.io/skupper/helm
+  version: 2.1.1
+  valuesInline:
+    scope: namespace
+
+patches:
+  - target:
+      kind: Deployment
+      name: skupper-controller
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: SKUPPER_ENABLED_ACCESS_TYPES
+          value: nodeport
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: SKUPPER_CLUSTER_HOST
+          value: "tailscale.main.cloud.simulatan.me"

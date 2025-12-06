@@ -1,0 +1,26 @@
+apiVersion: skupper.io/v2alpha1
+kind: Connector
+metadata:
+  name: loki-gateway
+spec:
+  routingKey: loki-gateway
+  host: loki-gateway
+  port: 80
+---
+apiVersion: skupper.io/v2alpha1
+kind: Connector
+metadata:
+  name: tempo
+spec:
+  routingKey: tempo
+  host: tempo
+  port: 4317
+---
+apiVersion: skupper.io/v2alpha1
+kind: Connector
+metadata:
+  name: prometheus
+spec:
+  routingKey: prometheus
+  host: prometheus
+  port: 9090
