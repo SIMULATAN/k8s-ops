@@ -12,6 +12,7 @@ plugins:
   - grafana-pyroscope-app
   - grafana-polystat-panel
   - grafana-advisor-app
+  - apricote-hcloud-datasource
 
 ingress:
   enabled: true
