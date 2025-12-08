@@ -18,6 +18,7 @@ spec:
         storageClassName: local-path
   tsdb:
     outOfOrderTimeWindow: 30s
+  retention: 30d
   alerting:
     alertmanagers:
       - namespace: monitoring
