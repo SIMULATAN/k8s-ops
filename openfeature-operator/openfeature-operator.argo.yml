@@ -1,38 +1,39 @@
 apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
+kind: Application
 metadata:
   name: openfeature-operator
-  namespace: argocd # TODO: set to `shared` or something
+  namespace: argocd
 spec:
-  goTemplate: true
-  goTemplateOptions: ["missingkey=error"]
-  generators:
-  - list:
-      elements:
-      - cluster: hetzner1
-        name: hetzner1
-        namespace: cluster-hetzner1
-      - cluster: in-cluster
-        name: main
-        namespace: argocd
-  template:
-    metadata:
-      name: '{{.name}}-openfeature-operator' # TODO: remove prefix once namespace feature is implemented
-      namespace: '{{.namespace}}' # TODO: PR feature (configuration is noop rn)
-    spec:
-      project: default
-      source:
-        repoURL: https://github.com/SIMULATAN/k8s-ops
-        path: openfeature-operator
-      ignoreDifferences:
-        - group: rbac.authorization.k8s.io
-          kind: ClusterRoleBinding
-          name: open-feature-operator-flagd-kubernetes-sync
-          jsonPointers:
-          - /subjects
-      destination:
-        name: '{{.cluster}}'
-        namespace: openfeature-operator
-      syncPolicy:
-        syncOptions:
-          - CreateNamespace=true
+  project: default
+  source:
+    repoURL: https://github.com/SIMULATAN/k8s-ops
+    path: openfeature-operator
+  ignoreDifferences:
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
+    name: open-feature-operator-flagd-kubernetes-sync
+    jsonPointers:
+    - /subjects
+  destination:
+    name: in-cluster
+    namespace: openfeature-operator
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openfeature-operator
+  namespace: argocd
+spec:
+  project: hetzner1
+  source:
+    repoURL: https://github.com/SIMULATAN/k8s-ops
+    path: openfeature-operator
+  ignoreDifferences:
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
+    name: open-feature-operator-flagd-kubernetes-sync
+    jsonPointers:
+    - /subjects
+  destination:
+    name: hetzner1
+    namespace: openfeature-operator
