@@ -22,7 +22,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: openfeature-operator
-  namespace: argocd
+  namespace: cluster-hetzner1
 spec:
   project: hetzner1
   source:
