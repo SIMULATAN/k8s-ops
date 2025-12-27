@@ -42,9 +42,48 @@ jobs:
       - name: Set ArgoCD Custom Values
         run: |
           cat > values.yaml << "EOF"
+          repoServer:
+            extraContainers:
+              - name: isolated-kustomize
+                command: [/var/run/argocd/argocd-cmp-server]
+                image: alpine/k8s:1.34.1 # 1.35.0 is broken: https://github.com/kubernetes-sigs/kustomize/issues/6013
+                securityContext:
+                  runAsNonRoot: true
+                  runAsUser: 999
+                volumeMounts:
+                  - mountPath: /var/run/argocd
+                    name: var-files
+                  - mountPath: /home/argocd/cmp-server/plugins
+                    name: plugins
+                  - mountPath: /home/argocd/cmp-server/config/plugin.yaml
+                    subPath: isolated-kustomize.yaml
+                    name: argocd-cmp-cm
+                  - mountPath: /tmp
+                    name: cmp-tmp
+            volumes:
+              - name: argocd-cmp-cm
+                configMap:
+                  name: argocd-cmp-cm
+              - name: cmp-tmp
+                emptyDir: {}
+
           configs:
             cm:
               kustomize.buildOptions: --load-restrictor LoadRestrictionsNone --enable-helm
+            cmp:
+              create: true
+              plugins:
+                isolated-kustomize:
+                  discover:
+                    fileName: "kustomization.y*ml"
+                  generate:
+                    command:
+                      - kustomize
+                    args:
+                      - build
+                      - --enable-helm
+                      - --load-restrictor=LoadRestrictionsNone
+
           EOF
 
       - name: Generate Diff
