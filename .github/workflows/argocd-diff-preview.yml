@@ -45,6 +45,19 @@ jobs:
           configs:
             cm:
               kustomize.buildOptions: --load-restrictor LoadRestrictionsNone --enable-helm
+            cmp:
+              create: true
+              plugins:
+                kustomize:
+                  discover:
+                    fileName: "kustomization.y*ml"
+                  generate:
+                    command:
+                      - sh
+                    args:
+                      - -c
+                      - |
+                        kustomize build --enable-helm --load-restrictor=LoadRestrictionsNone
           EOF
 
       - name: Generate Diff
