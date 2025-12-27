@@ -37,6 +37,19 @@ configs:
   rbac:
     policy.csv: |
       g, argocd-admin, role:admin
+  cmp:
+    create: true
+    plugins:
+      kustomize:
+        discover:
+          fileName: "kustomization.y*ml"
+        generate:
+          command:
+            - sh
+          args:
+            - -c
+            - |
+              kustomize build --enable-helm --load-restrictor=LoadRestrictionsNone
 
 notifications:
   # the secret is managed using SealedSecrets
