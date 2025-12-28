@@ -8,6 +8,8 @@ spec:
   source:
     repoURL: https://github.com/SIMULATAN/k8s-ops
     path: openfeature-operator
+    plugin:
+      name: isolated-kustomize
   ignoreDifferences:
   - group: rbac.authorization.k8s.io
     kind: ClusterRoleBinding
@@ -28,6 +30,8 @@ spec:
   source:
     repoURL: https://github.com/SIMULATAN/k8s-ops
     path: openfeature-operator
+    plugin:
+      name: isolated-kustomize
   ignoreDifferences:
   - group: rbac.authorization.k8s.io
     kind: ClusterRoleBinding
