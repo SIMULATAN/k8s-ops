@@ -7,3 +7,5 @@ helmCharts:
   version: 6.40.0
   valuesFile: loki.values.yml
   namespace: monitoring
+  apiVersions:
+    - monitoring.coreos.com/v1/PrometheusRule
