@@ -40,16 +40,42 @@ configs:
   cmp:
     create: true
     plugins:
-      kustomize:
+      isolated-kustomize:
         discover:
-          fileName: "kustomization.y*ml"
+          fileName: "kustomization.yml"
         generate:
           command:
             - sh
           args:
             - -c
             - |
-              kustomize build --enable-helm --load-restrictor=LoadRestrictionsNone
+              kustomize build # --enable-helm --load-restrictor=LoadRestrictionsNone
+
+repoServer:
+  replicas: 2
+  extraContainers:
+    - name: isolated-kustomize
+      command: [/var/run/argocd/argocd-cmp-server]
+      image: alpine/k8s:1.35.0
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+      volumeMounts:
+        - mountPath: /var/run/argocd
+          name: var-files
+        - mountPath: /home/argocd/cmp-server/plugins
+          name: plugins
+        - mountPath: /home/argocd/cmp-server/config/plugin.yaml
+          subPath: isolated-kustomize.yaml
+          name: argocd-cmp-cm
+        - mountPath: /tmp
+          name: cmp-tmp
+  volumes:
+    - name: argocd-cmp-cm
+      configMap:
+        name: argocd-cmp-cm
+    - name: cmp-tmp
+      emptyDir: {}
 
 notifications:
   # the secret is managed using SealedSecrets
@@ -108,9 +134,6 @@ server:
     - --sentinel=argocd-redis-ha-announce-2:26379
     - --sentinelmaster=argocd
   replicas: 3
-
-repoServer:
-  replicas: 2
 
 applicationSet:
   replicas: 1
