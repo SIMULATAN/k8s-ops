@@ -1,35 +1,38 @@
 apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
+kind: Application
 metadata:
   name: cert-manager
-  namespace: argocd # TODO: set to `shared` or something
+  namespace: argocd
 spec:
-  goTemplate: true
-  goTemplateOptions: ["missingkey=error"]
-  generators:
-  - list:
-      elements:
-      - cluster: hetzner1
-        name: hetzner1
-        namespace: cluster-hetzner1
-      - cluster: in-cluster
-        name: main
-        namespace: argocd
-  template:
-    metadata:
-      name: '{{.name}}-cert-manager' # TODO: remove prefix once namespace feature is implemented
-      namespace: '{{.namespace}}' # TODO: PR feature (configuration is noop rn)
-    spec:
-      project: default
-      sources:
-        - repoURL: https://github.com/SIMULATAN/k8s-ops
-          path: cert-manager
-        - repoURL: https://github.com/SIMULATAN/k8s-ops
-          path: cert-manager/{{.name}}
-          directory:
-      destination:
-        name: '{{.cluster}}'
-        namespace: cert-manager
-      syncPolicy:
-        syncOptions:
-          - CreateNamespace=true
+  project: default
+  sources:
+    - repoURL: https://github.com/SIMULATAN/k8s-ops
+      path: cert-manager
+    - repoURL: https://github.com/SIMULATAN/k8s-ops
+      path: cert-manager/main
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+  destination:
+    name: in-cluster
+    namespace: cert-manager
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: cluster-hetzner1
+spec:
+  project: hetzner1
+  sources:
+    - repoURL: https://github.com/SIMULATAN/k8s-ops
+      path: cert-manager
+    - repoURL: https://github.com/SIMULATAN/k8s-ops
+      path: cert-manager/hetzner1
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+  destination:
+    name: hetzner1
+    namespace: cert-manager
+
