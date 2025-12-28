@@ -42,21 +42,22 @@ configs:
     plugins:
       isolated-kustomize:
         discover:
-          fileName: "kustomization.yml"
+          fileName: "kustomization.y*ml"
         generate:
           command:
-            - sh
+            - kustomize
           args:
-            - -c
-            - |
-              kustomize build # --enable-helm --load-restrictor=LoadRestrictionsNone
+            - build
+            - --enable-helm
+            - --load-restrictor=LoadRestrictionsNone
+
 
 repoServer:
   replicas: 2
   extraContainers:
     - name: isolated-kustomize
       command: [/var/run/argocd/argocd-cmp-server]
-      image: alpine/k8s:1.35.0
+      image: alpine/k8s:1.34.1 # 1.35.0 is broken: https://github.com/kubernetes-sigs/kustomize/issues/6013
       securityContext:
         runAsNonRoot: true
         runAsUser: 999
