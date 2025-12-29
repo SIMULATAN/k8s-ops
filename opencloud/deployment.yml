@@ -17,7 +17,7 @@ spec:
         kubernetes.io/hostname: sim-microserv-debian
       containers:
         - name: opencloud
-          image: opencloudeu/opencloud-rolling:4.0.0
+          image: opencloudeu/opencloud-rolling:4.1.0
           command: [sh]
           args:
             - '-c'
