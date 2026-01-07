@@ -7,7 +7,7 @@ testFramework:
 
 # Workaround for https://github.com/grafana/helm-charts/issues/3831
 env:
-  GF_PLUGINS_PREINSTALL_SYNC: grafana-exploretraces-app,grafana-lokiexplore-app,grafana-metricsdrilldown-app,grafana-pyroscope-app,grafana-polystat-panel,grafana-advisor-app,apricote-hcloud-datasource
+  GF_PLUGINS_PREINSTALL: grafana-exploretraces-app,grafana-lokiexplore-app,grafana-metricsdrilldown-app,grafana-pyroscope-app,grafana-polystat-panel,grafana-advisor-app,apricote-hcloud-datasource
 plugins: []
 
 ingress:
