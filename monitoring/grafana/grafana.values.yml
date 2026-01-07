@@ -5,14 +5,10 @@ testFramework:
   # no clue what it is supposed to do but it just like fails before anything happens soooo
   enabled: false
 
-plugins:
-  - grafana-exploretraces-app
-  - grafana-lokiexplore-app
-  - grafana-metricsdrilldown-app
-  - grafana-pyroscope-app
-  - grafana-polystat-panel
-  - grafana-advisor-app
-  - apricote-hcloud-datasource
+# Workaround for https://github.com/grafana/helm-charts/issues/3831
+env:
+  GF_PLUGINS_PREINSTALL_SYNC: grafana-exploretraces-app,grafana-lokiexplore-app,grafana-metricsdrilldown-app,grafana-pyroscope-app,grafana-polystat-panel,grafana-advisor-app,apricote-hcloud-datasource
+plugins: []
 
 ingress:
   enabled: true
