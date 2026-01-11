@@ -1,0 +1,38 @@
+loki.relabel "target" {
+  forward_to = [loki.write.loki.receiver]
+  rule {
+    target_label = "cluster"
+    replacement = "home"
+  }
+}
+
+loki.write "loki" {
+  endpoint {
+    url = "http://loki-gateway.monitoring.svc/loki/api/v1/push"
+  }
+}
+
+// TODO: add `cluster` label
+otelcol.exporter.otlp "tempo" {
+  client {
+    endpoint = "http://tempo.monitoring.svc:4317"
+    tls {
+      insecure = true
+    }
+  }
+}
+
+prometheus.relabel "target" {
+  forward_to = [prometheus.remote_write.prometheus.receiver]
+  rule {
+    target_label = "cluster"
+    replacement = "home"
+  }
+}
+
+prometheus.remote_write "prometheus" {
+  endpoint {
+    url = "http://prometheus.monitoring.svc:9090/api/v1/write"
+  }
+}
+

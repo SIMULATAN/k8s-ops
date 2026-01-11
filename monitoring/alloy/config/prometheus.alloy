@@ -3,7 +3,7 @@ prometheus.operator.servicemonitors "servicemonitors" {
     enabled = true
   }
 
-  forward_to = [prometheus.remote_write.prometheus.receiver]
+  forward_to = [prometheus.relabel.target.receiver]
 }
 
 prometheus.operator.podmonitors "podmonitors" {
@@ -11,7 +11,7 @@ prometheus.operator.podmonitors "podmonitors" {
     enabled = true
   }
 
-  forward_to = [prometheus.remote_write.prometheus.receiver]
+  forward_to = [prometheus.relabel.target.receiver]
 }
 
 prometheus.operator.scrapeconfigs "scrapeconfigs" {
@@ -19,16 +19,5 @@ prometheus.operator.scrapeconfigs "scrapeconfigs" {
     enabled = true
   }
 
-  forward_to = [prometheus.remote_write.prometheus.receiver]
+  forward_to = [prometheus.relabel.target.receiver]
 }
-
-prometheus.remote_write "prometheus" {
-  endpoint {
-    url = "http://prometheus-server.monitoring.svc.cluster.local/api/v1/write"
-  }
-
-  endpoint {
-    url = "http://prometheus.monitoring.svc.cluster.local:9090/api/v1/write"
-  }
-}
-

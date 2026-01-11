@@ -28,14 +28,5 @@ otelcol.processor.k8sattributes "default" {
 }
 
 otelcol.exporter.loki "loki" {
-  forward_to = [loki.write.grafana_loki.receiver]
-}
-
-otelcol.exporter.otlp "tempo" {
-  client {
-    endpoint = "http://tempo.monitoring.svc.cluster.local:4317"
-    tls {
-      insecure = true
-    }
-  }
+  forward_to = [loki.relabel.target.receiver]
 }

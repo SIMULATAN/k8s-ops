@@ -51,7 +51,7 @@ prometheus.relabel "kubernetes_nodes" {
     regex = "kubelet_volume_stats.*"
   }
 
-  forward_to = [prometheus.remote_write.prometheus.receiver]
+  forward_to = [prometheus.relabel.target.receiver]
 }
 
 discovery.relabel "kubernetes_nodes_cadvisor" {
@@ -97,5 +97,5 @@ prometheus.relabel "kubernetes_nodes_cadvisor" {
     regex  = "__name__|instance|kubernetes_io_hostname|namespace|pod|container"
   }
 
-  forward_to = [prometheus.remote_write.prometheus.receiver]
+  forward_to = [prometheus.relabel.target.receiver]
 }

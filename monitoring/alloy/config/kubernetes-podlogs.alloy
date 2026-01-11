@@ -7,7 +7,7 @@ loki.source.podlogs "kubernetes_pods_logs" {
 }
 
 loki.relabel "podlogs_relabel" {
-  forward_to = [loki.write.grafana_loki.receiver]
+  forward_to = [loki.relabel.target.receiver]
 
   rule {
     action = "replace"

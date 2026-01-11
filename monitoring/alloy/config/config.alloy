@@ -1,6 +1,6 @@
 logging {
   level = "info"
   format = "json"
-  write_to = [loki.write.grafana_loki.receiver]
+  write_to = [loki.relabel.target.receiver]
 }
 
