@@ -7,6 +7,15 @@ datasources:
         type: loki
         url: http://loki-gateway.{{- $.Release.Namespace -}}.svc.cluster.local
         editable: false
+        jsonData:
+          # https://grafana.com/docs/grafana/latest/datasources/loki/#provision-the-data-source
+          derivedFields:
+            - datasourceUid: tempo
+              # https://github.com/grafana/tracing-workshop-breakout/blob/main/breakout-1-working-with-traces.md
+              matcherRegex: '[tT]race_?[il][dD]"?[:=]"?(\w+)'
+              name: TraceID
+              url: '$${__value.raw}'
+              urlDisplayLabel: 'View Trace'
       - name: Prometheus
         uid: prometheus
         type: prometheus
