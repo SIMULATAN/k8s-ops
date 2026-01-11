@@ -1,0 +1,63 @@
+discovery.kubernetes "cnpg_pods" {
+  role = "pod"
+
+  selectors {
+    role = "pod"
+    label = "cnpg.io/podRole=instance"
+  }
+}
+
+discovery.relabel "cnpg_pods" {
+  targets = discovery.kubernetes.cnpg_pods.targets
+
+  // Only keep the metrics port
+  rule {
+    action = "keep"
+    source_labels = ["__meta_kubernetes_pod_container_port_name"]
+    regex = "metrics"
+  }
+
+  // attach standard k8s metadata
+  rule {
+    source_labels = ["__meta_kubernetes_namespace"]
+    target_label  = "namespace"
+  }
+
+  rule {
+    source_labels = ["__meta_kubernetes_pod_name"]
+    target_label  = "pod"
+  }
+
+  rule {
+    source_labels = ["__meta_kubernetes_pod_container_name"]
+    target_label  = "container"
+  }
+
+  rule {
+    source_labels = ["__meta_kubernetes_pod_node_name"]
+    target_label  = "node"
+  }
+}
+
+prometheus.scrape "cnpg" {
+  targets    = discovery.relabel.cnpg_pods.output
+  forward_to = [prometheus.relabel.cnpg_pods.receiver]
+
+  honor_labels = true
+}
+
+prometheus.relabel "cnpg_pods" {
+  forward_to = [prometheus.relabel.target.receiver]
+
+  rule {
+    action = "replace"
+    source_labels = ["cluster"]
+    target_label = "cnpg_cluster"
+  }
+
+  rule {
+    action = "labeldrop"
+    regex = "cluster"
+  }
+}
+

@@ -13,6 +13,7 @@ configMapGenerator:
       - config/prometheus.alloy
       - config/loki.alloy
       - config/otel.alloy
+      - config/cnpg.alloy
       - config/kubernetes-nodes.alloy
       - config/kubernetes-podlogs.alloy
     options:
