@@ -22,8 +22,19 @@ otelcol.processor.k8sattributes "default" {
   }
 
   output {
-    logs = [otelcol.exporter.loki.loki.input]
+    logs = [otelcol.processor.attributes.k8s.input]
     traces = [otelcol.exporter.otlp.tempo.input]
+  }
+}
+
+otelcol.processor.attributes "k8s" {
+  action {
+    key = "loki.resource.labels"
+    action = "insert"
+    value = "k8s.namespace.name"
+  }
+  output {
+    logs = [otelcol.exporter.loki.loki.input]
   }
 }
 
