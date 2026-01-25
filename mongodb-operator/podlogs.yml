@@ -1,0 +1,11 @@
+apiVersion: monitoring.grafana.com/v1alpha2
+kind: PodLogs
+metadata:
+  name: mongodb-operator
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mongodb-kubernetes-operator
+  namespaceSelector:
+    matchLabels:
+      kubernetes.io/metadata.name: mongodb-operator
