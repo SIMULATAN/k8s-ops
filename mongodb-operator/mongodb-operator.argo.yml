@@ -14,20 +14,3 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: mongodb-operator
-  namespace: cluster-hetzner1
-spec:
-  project: hetzner1
-  source:
-    repoURL: https://github.com/SIMULATAN/k8s-ops
-    path: mongodb-operator
-  destination:
-    name: hetzner1
-    namespace: mongodb-operator
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
