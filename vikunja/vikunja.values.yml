@@ -4,7 +4,9 @@ vikunja:
     tag: 1.0.0-rc4
   persistence:
     data:
-      enabled: false
+      # required despite task attachments being disabled
+      enabled: true
+      type: emptyDir
   configMaps:
     api-config:
       data:
