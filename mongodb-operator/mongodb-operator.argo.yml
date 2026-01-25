@@ -11,6 +11,9 @@ spec:
   destination:
     name: in-cluster
     namespace: mongodb-operator
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -25,3 +28,6 @@ spec:
   destination:
     name: hetzner1
     namespace: mongodb-operator
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
