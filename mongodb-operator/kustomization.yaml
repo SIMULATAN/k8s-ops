@@ -10,6 +10,7 @@ helmCharts:
     repo: https://mongodb.github.io/helm-charts
     version: 1.6.1
     valuesFile: mongodb-operator.values.yml
+    namespace: mongodb-operator
 
 patches:
   - patch: |-
