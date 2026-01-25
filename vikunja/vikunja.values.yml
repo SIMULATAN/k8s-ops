@@ -26,6 +26,9 @@ vikunja:
             todoist:
               enable: true
   env:
+    # TODO: setup s3-based attachments
+    # until then, no attachments for me
+    VIKUNJA_SERVICE_ENABLETASKATTACHMENTS: false
     VIKUNJA_DATABASE_TYPE: postgres
     VIKUNJA_DATABASE_HOST: vikunja-postgres-rw
     VIKUNJA_DATABASE_NAME: vikunja
