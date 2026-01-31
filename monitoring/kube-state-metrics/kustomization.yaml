@@ -1,0 +1,9 @@
+namespace: monitoring
+
+helmCharts:
+- name: kube-state-metrics
+  releaseName: kube-state-metrics
+  repo: https://prometheus-community.github.io/helm-charts
+  version: 7.1.0
+  valuesFile: kube-state-metrics.values.yml
+  namespace: monitoring
