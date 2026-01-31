@@ -1,0 +1,24 @@
+extraArgs:
+  - --no-collector.arp
+  - --no-collector.bcache
+  - --no-collector.bonding
+  - --no-collector.sockstat
+  - --no-collector.netclass
+  - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|run/.+|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
+  - --collector.netdev.device-exclude=.*veth.*
+  - --collector.ethtool.device-exclude=.*veth.*
+prometheus:
+  monitor:
+    enabled: true
+    honorLabels: true
+    relabelings:
+      - action: replace
+        sourceLabels:
+          - __meta_kubernetes_pod_node_name
+        targetLabel: node
+
+rbac:
+  pspEnabled: false
+
+containerSecurityContext:
+  allowPriviledgeEscalation: false

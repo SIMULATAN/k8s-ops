@@ -1,0 +1,9 @@
+namespace: monitoring
+
+helmCharts:
+  - name: prometheus-node-exporter
+    releaseName: node-exporter
+    repo: https://prometheus-community.github.io/helm-charts
+    version: 4.51.0
+    valuesFile: node-exporter.values.yml
+    namespace: monitoring

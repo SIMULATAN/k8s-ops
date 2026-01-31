@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: node-exporter
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/SIMULATAN/k8s-ops
+    path: monitoring/node-exporter
+  destination:
+    name: in-cluster
+    namespace: monitoring
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: node-exporter
+  namespace: cluster-hetzner1
+spec:
+  project: hetzner1
+  source:
+    repoURL: https://github.com/SIMULATAN/k8s-ops
+    path: monitoring/node-exporter
+  destination:
+    name: hetzner1
+    namespace: monitoring
+
