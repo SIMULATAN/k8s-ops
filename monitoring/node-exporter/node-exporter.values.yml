@@ -23,4 +23,4 @@ rbac:
   pspEnabled: false
 
 containerSecurityContext:
-  allowPriviledgeEscalation: false
+  allowPrivilegeEscalation: false
