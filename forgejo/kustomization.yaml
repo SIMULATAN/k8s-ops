@@ -11,7 +11,7 @@ resources:
 helmCharts:
 - name: forgejo
   repo: oci://code.forgejo.org/forgejo-helm
-  version: 12.5.2
+  version: 15.1.0
   valuesFile: forgejo.values.yml
   releaseName: forgejo
   namespace: forgejo
