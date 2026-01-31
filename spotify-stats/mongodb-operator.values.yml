@@ -1,0 +1,21 @@
+namespace: spotify-stats
+
+operator:
+  watchedResources:
+    - mongodbcommunity
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 100Mi
+    limits:
+      cpu: 300m
+      memory: 300Mi
+
+  enableClusterMongoDBRoles: false
+
+  telemetry:
+    installClusterRole: false
+
+  webhook:
+    installClusterRole: false

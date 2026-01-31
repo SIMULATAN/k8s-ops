@@ -11,3 +11,11 @@ resources:
 - ./deployment.yml
 - ./service.yml
 - ./ingress.yml
+
+helmCharts:
+  - releaseName: mongodb-operator
+    name: mongodb-kubernetes
+    repo: https://mongodb.github.io/helm-charts
+    version: 1.6.1
+    valuesFile: mongodb-operator.values.yml
+    namespace: spotify-stats

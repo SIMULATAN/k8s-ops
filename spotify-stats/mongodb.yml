@@ -1,33 +1,3 @@
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: mongodb-kubernetes-operator
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: mongodb-kubernetes-operator
-subjects:
-  - kind: ServiceAccount
-    name: mongodb-kubernetes-operator
-    namespace: mongodb-operator
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: mongodb-kubernetes-appdb
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: mongodb-kubernetes-appdb
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: mongodb-kubernetes-appdb
-subjects:
-  - kind: ServiceAccount
-    name: mongodb-kubernetes-appdb
----
 apiVersion: mongodbcommunity.mongodb.com/v1
 kind: MongoDBCommunity
 metadata:
@@ -78,6 +48,78 @@ spec:
                   labelSelector:
                     matchLabels:
                       app: your-spotify-mongodb-svc
+                  topologyKey: kubernetes.io/hostname
+                  weight: 100
+          containers:
+            - name: mongod
+              resources:
+                requests:
+                  cpu: 300m
+                  memory: 500Mi
+                limits:
+                  cpu: 1
+                  memory: 768Mi
+            - name: mongodb-agent
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 100Mi
+                limits:
+                  cpu: 500m
+                  memory: 250Mi
+---
+apiVersion: mongodbcommunity.mongodb.com/v1
+kind: MongoDBCommunity
+metadata:
+  name: spotify-stats-mongodb
+spec:
+  members: 3
+  type: ReplicaSet
+  version: "8.2.3"
+  featureCompatibilityVersion: "8.0"
+
+  security:
+    authentication:
+      modes: ["SCRAM"]
+
+  users:
+    - name: root
+      db: admin
+      roles:
+        - name: clusterAdmin
+          db: admin
+        - name: userAdminAnyDatabase
+          db: admin
+      passwordSecretRef:
+        name: mongodb-passwords
+        key: root
+      scramCredentialsSecretName: root
+      connectionStringSecretName: mongodb-root
+    - name: spotify-stats
+      db: spotify-stats
+      passwordSecretRef:
+        name: mongodb-passwords
+        key: your-spotify
+      roles:
+        - name: readWrite
+          db: spotify-stats
+      scramCredentialsSecretName: spotify-stats
+      connectionStringSecretName: mongodb-spotify-stats
+
+  additionalMongodConfig:
+    storage.wiredTiger.engineConfig.journalCompressor: zlib
+
+  statefulSet:
+    spec:
+      template:
+        spec:
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - podAffinityTerm:
+                  labelSelector:
+                    matchLabels:
+                      app: spotify-stats-mongodb-svc
                   topologyKey: kubernetes.io/hostname
                   weight: 100
           containers:
