@@ -50,6 +50,11 @@ prometheus.relabel "cnpg_pods" {
   forward_to = [prometheus.relabel.target.receiver]
 
   rule {
+    action = "drop"
+    regex = "cnpg_pg_settings_.*"
+  }
+
+  rule {
     action = "replace"
     source_labels = ["cluster"]
     target_label = "cnpg_cluster"
