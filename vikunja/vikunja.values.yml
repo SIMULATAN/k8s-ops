@@ -1,7 +1,7 @@
 vikunja:
   enabled: true
   image:
-    tag: 1.0.0-rc4
+    tag: 1.0.0
   persistence:
     data:
       # required despite task attachments being disabled
