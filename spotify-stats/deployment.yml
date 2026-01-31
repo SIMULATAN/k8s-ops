@@ -37,5 +37,5 @@ spec:
             - name: MONGO_ENDPOINT
               valueFrom:
                 secretKeyRef:
-                  name: your-spotify-mongodb-your-spotify-your-spotify
+                  name: mongodb-spotify-stats
                   key: connectionString.standardSrv
