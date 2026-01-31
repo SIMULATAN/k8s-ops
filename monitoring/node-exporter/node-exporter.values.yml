@@ -1,3 +1,5 @@
+fullnameOverride: node-exporter
+
 extraArgs:
   - --no-collector.arp
   - --no-collector.bcache
