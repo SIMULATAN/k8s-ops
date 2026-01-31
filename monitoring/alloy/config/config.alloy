@@ -4,6 +4,3 @@ logging {
   write_to = [loki.relabel.target.receiver]
 }
 
-livedebugging {
-  enabled = true
-}
