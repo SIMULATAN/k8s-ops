@@ -50,8 +50,9 @@ prometheus.relabel "cnpg_pods" {
   forward_to = [prometheus.relabel.target.receiver]
 
   rule {
-    action = "drop"
-    regex = "cnpg_pg_settings_.*"
+    source_labels = ["__name__"]
+    regex         = "cnpg_pg_settings_setting"
+    action        = "drop"
   }
 
   rule {
