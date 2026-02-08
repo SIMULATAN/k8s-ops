@@ -99,7 +99,8 @@ jobs:
             -e TARGET_BRANCH=${{ github.head_ref }} \
             -e REPO=${{ github.repository }} \
             dagandersen/argocd-diff-preview:v0.1.16 \
-            --debug
+            --debug \
+            --ignore-resources="*:CustomResourceDefinition:*"
 
       - name: Post diff as comment
         run: |
