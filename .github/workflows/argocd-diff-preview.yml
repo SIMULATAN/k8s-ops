@@ -98,7 +98,7 @@ jobs:
             -v $PWD/values.yaml:/argocd-config/values.yaml \
             -e TARGET_BRANCH=${{ github.head_ref }} \
             -e REPO=${{ github.repository }} \
-            dagandersen/argocd-diff-preview:v0.1.16 \
+            dagandersen/argocd-diff-preview:v0.1.25 \
             --debug \
             --ignore-resources="*:CustomResourceDefinition:*"
 
