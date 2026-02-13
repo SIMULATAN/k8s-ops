@@ -12,7 +12,11 @@ resources:
 
 helmCharts:
 - name: vikunja
+  namespace: vikunja
   releaseName: vikunja
   repo: oci://ghcr.io/go-vikunja/helm-chart
   valuesFile: vikunja.values.yml
   version: 2.0.0
+
+patches:
+  - path: ./vikunja-configmap-patch.yml

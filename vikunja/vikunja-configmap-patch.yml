@@ -1,0 +1,13 @@
+# https://github.com/go-vikunja/helm-chart/issues/19
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vikunja
+spec:
+  template:
+    spec:
+      volumes:
+        - name: config
+          configMap:
+            name: vikunja-config
+
