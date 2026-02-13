@@ -15,4 +15,4 @@ helmCharts:
   releaseName: vikunja
   repo: oci://ghcr.io/go-vikunja/helm-chart
   valuesFile: vikunja.values.yml
-  version: 1.1.0
+  version: 2.0.0
