@@ -7,15 +7,15 @@ vikunja:
       # required despite task attachments being disabled
       enabled: true
       type: emptyDir
-    database:
-      # we use Postgres
-      enabled: false
   configMaps:
-    config:
+    api-config:
       data:
         config.yml: |
           service:
             publicurl: https://tasks.simulatan.me
+          typesense:
+            url: "http://{{ printf "%s-typesense" .Release.Name }}:8108"
+            apiKey: "{{ .Values.typesense.env.TYPESENSE_API_KEY }}"
           auth:
             openid:
               enabled: true
@@ -86,3 +86,9 @@ vikunja:
 
 postgresql:
   enabled: false
+
+typesense:
+  persistence:
+    data:
+      # pvc would be recommended, but would break high availability
+      type: emptyDir
