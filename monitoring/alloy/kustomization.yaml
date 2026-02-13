@@ -24,7 +24,7 @@ helmCharts:
 - name: alloy
   releaseName: alloy
   repo: https://grafana.github.io/helm-charts
-  version: 1.5.1
+  version: 1.6.0
   valuesFile: alloy.values.yml
   namespace: monitoring
 - releaseName: monitoring-skupper
