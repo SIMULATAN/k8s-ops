@@ -9,6 +9,6 @@ helmCharts:
   - name: traefik
     releaseName: traefik
     repo: oci://ghcr.io/traefik/helm
-    version: 38.0.1
+    version: 39.0.2
     valuesFile: traefik.values.yml
     namespace: traefik
