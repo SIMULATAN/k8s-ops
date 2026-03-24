@@ -40,6 +40,7 @@ vikunja:
         secretKeyRef:
           name: vikunja-postgres-app
           key: password
+    VIKUNJA_SERVICE_JWTTTLSHORT: 604800 # 7 days - workaround for https://github.com/go-vikunja/app/issues/245
     VIKUNJA_SERVICE_JWTSECRET:
       valueFrom:
         secretKeyRef:
