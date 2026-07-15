@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: cnpg-system
 
 resources:
-- https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/refs/tags/v1.29.1/docs/src/samples/monitoring/prometheusrule.yaml
+- https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/refs/tags/v1.30.0/docs/src/samples/monitoring/prometheusrule.yaml
 - ./podlogs.yml
 
 helmCharts:
@@ -12,5 +12,5 @@ helmCharts:
   releaseName: cloudnativepg-operator
   repo: https://cloudnative-pg.github.io/charts
   valuesFile: cnpg.values.yml
-  version: 0.28.3
+  version: 0.29.0
 
