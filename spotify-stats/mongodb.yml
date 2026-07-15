@@ -3,7 +3,7 @@ kind: MongoDBCommunity
 metadata:
   name: spotify-stats-mongodb
 spec:
-  members: 3
+  members: 0
   type: ReplicaSet
   version: "8.2.3"
   featureCompatibilityVersion: "8.0"

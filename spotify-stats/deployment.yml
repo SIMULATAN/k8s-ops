@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: spotify-stats
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: spotify-stats
