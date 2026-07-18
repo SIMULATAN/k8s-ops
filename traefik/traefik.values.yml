@@ -30,6 +30,10 @@ ports:
   websecure:
     forwardedHeaders:
       trustedIPs: ["10.42.0.0/16"]
+    transport:
+      respondingTimeouts:
+        readTimeout: 600s
+        idleTimeout: 600s
 
 metrics:
   prometheus:
