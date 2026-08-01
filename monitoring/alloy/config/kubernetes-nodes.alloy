@@ -28,6 +28,8 @@ prometheus.scrape "kubernetes_nodes" {
     enabled = true
   }
 
+  job_name = "kubernetes-nodes"
+
   targets = discovery.relabel.kubernetes_nodes.output
   forward_to = [prometheus.relabel.kubernetes_nodes.receiver]
 
@@ -41,14 +43,14 @@ prometheus.scrape "kubernetes_nodes" {
 
 prometheus.relabel "kubernetes_nodes" {
   rule {
-    action = "labelkeep"
-    regex  = "__name__|instance|kubernetes_io_hostname|namespace|pod|container|persistentvolumeclaim"
-  }
-
-  rule {
     action = "keep"
     source_labels = ["__name__"]
     regex = "kubelet_volume_stats.*"
+  }
+
+  rule {
+    action = "labelkeep"
+    regex  = "__name__|job|instance|kubernetes_io_hostname|namespace|pod|container|persistentvolumeclaim"
   }
 
   forward_to = [prometheus.relabel.target.receiver]
@@ -83,6 +85,8 @@ prometheus.scrape "kubernetes_nodes_cadvisor" {
   targets = discovery.relabel.kubernetes_nodes_cadvisor.output
   forward_to = [prometheus.relabel.kubernetes_nodes_cadvisor.receiver]
 
+  job_name = "kubernetes-nodes-cadvisor"
+
   scheme = "https"
   bearer_token_file = "/var/run/secrets/kubernetes.io/serviceaccount/token"
 
@@ -93,8 +97,14 @@ prometheus.scrape "kubernetes_nodes_cadvisor" {
 
 prometheus.relabel "kubernetes_nodes_cadvisor" {
   rule {
+    action = "keep"
+    source_labels = ["__name__"]
+    regex = "container_cpu_usage_seconds_total|container_memory_usage_bytes"
+  }
+
+  rule {
     action = "labelkeep"
-    regex  = "__name__|instance|kubernetes_io_hostname|namespace|pod|container"
+    regex  = "__name__|job|instance|kubernetes_io_hostname|namespace|pod|container"
   }
 
   forward_to = [prometheus.relabel.target.receiver]
