@@ -1,4 +1,8 @@
 loki.source.kubernetes_events "cluster_events" {
+  clustering {
+    enabled = true
+  }
+
   job_name = "cluster-events"
   log_format = "json"
 
