@@ -31,7 +31,7 @@ helmCharts:
   name: skupper
   namespace: monitoring
   repo: oci://quay.io/skupper/helm
-  version: 2.1.2
+  version: 2.2.1
   valuesInline:
     scope: namespace
 
