@@ -28,5 +28,10 @@ redis:
       cpu: 200m
       memory: 200Mi
 
+tolerations:
+- key: "node.kubernetes.io/disk-pressure"
+  operator: "Exists"
+  effect: "NoSchedule"
+
 persistentVolume:
   size: 100Mi
