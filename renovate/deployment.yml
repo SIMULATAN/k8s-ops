@@ -3,8 +3,8 @@ kind: CronJob
 metadata:
   name: renovate
 spec:
-  # at 23:00, 00:00 and 01:00 - to reduce CI load (2 PRs / hour by default)
-  schedule: '0 23,0,1 * * *'
+  # on Mondays at 00:00, 01:00 and 02:00 - to reduce CI load (2 PRs / hour by default)
+  schedule: '0 0,1,2 * * 1'
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
