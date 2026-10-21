@@ -10,7 +10,7 @@ helmCharts:
 - name: nextcloud
   releaseName: nextcloud
   repo: oci://ghcr.io/nextcloud/helm
-  version: 9.1.4
+  version: 9.3.0
   valuesFile: nextcloud.values.yml
   namespace: nextcloud
 - releaseName: valkey
