@@ -1,5 +1,5 @@
 image:
-  tag: 32.0.15-apache
+  tag: 33.0.10-apache
 
 ingress:
   enabled: true
@@ -66,6 +66,8 @@ nextcloud:
       php_admin_value[opcache.max_accelerated_files] = 30000
       php_admin_value[opcache.revalidate_freq] = 60
   extraEnv:
+    - name: NC_serverid
+      value: '0'
     - name: OVERWRITECLIURL
       value: https://nc.simulatan.me
     - name: REDIS_HOST
