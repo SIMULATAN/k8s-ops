@@ -1,5 +1,5 @@
 image:
-  tag: 34.0.5-apache
+  tag: 35.0.2-apache
 
 ingress:
   enabled: true
