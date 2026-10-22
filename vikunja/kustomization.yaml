@@ -16,4 +16,12 @@ helmCharts:
   releaseName: vikunja
   repo: oci://ghcr.io/go-vikunja/helm-chart
   valuesFile: vikunja.values.yml
-  version: v2.0.2
+  version: 2.5.0
+
+patches:
+  - target:
+      kind: (ConfigMap|ServiceAccount|Service|Ingress|PersistentVolumeClaim|Deployment)
+    patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: vikunja
