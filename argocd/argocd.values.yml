@@ -88,7 +88,7 @@ redis-ha:
   image:
     repository: valkey/valkey
     # sync with https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml
-    tag: 7.2-alpine
+    tag: 8-alpine
   haproxy:
     enabled: false
 
