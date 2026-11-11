@@ -10,7 +10,7 @@ helmCharts:
   releaseName: argocd
   repo: https://argoproj.github.io/argo-helm
   valuesFile: argocd.values.yml
-  version: 9.5.0
+  version: 9.7.1
   apiVersions:
     - monitoring.coreos.com/v1
   namespace: argocd
